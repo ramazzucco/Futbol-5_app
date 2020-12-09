@@ -38,7 +38,7 @@
     }
 }
 @media(max-width: 576px){
-    .images i{
+    .imagesHome i{
         display: none;
     }
     .main-title {

@@ -21,7 +21,8 @@ export default function Footer() {
                 </div>
             </div>
             <div className="map col-12 col-md-8 col-lg-8 my-3">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d1674.072023025537!2d-60.636307608001246!3d-32.94720614091602!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m1!1m0!5e0!3m2!1ses!2sar!4v1604933086880!5m2!1ses!2sar" frameborder={0} style={{border:0, width: "100%", height: "300px"}} allowfullscreen="" aria-hidden={false} tabindex={0} />
+                <iframe title="our location on the map"
+                    src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d1674.072023025537!2d-60.636307608001246!3d-32.94720614091602!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m1!1m0!5e0!3m2!1ses!2sar!4v1604933086880!5m2!1ses!2sar" frameBorder={0} style={{border:0, width: "100%", height: "300px"}} allowFullScreen="" aria-hidden={false} tabIndex={0} />
             </div>
         </div>
     )

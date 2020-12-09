@@ -4,9 +4,11 @@ import fondoCancha from "../assets/fondocancha.jpg";
 import "../css/Home.css";
 
 // Components.
-import FormReservar from './FormReservar';
+import Modal from './Modal';
 
 export default function Home() {
+
+
     return (
         <div className="home">
             <div className="banner">
@@ -47,7 +49,7 @@ export default function Home() {
                             </p>
                         </div>
                     </div>
-                    <div className="images col-lg-8 d-flex flex-wrap justify-content-between">
+                    <div className="imagesHome col-lg-8 d-flex flex-wrap justify-content-between">
                         <i className="fa fa-images fa-10x"></i>
                         <i className="fa fa-images fa-10x"></i>
                         <i className="fa fa-images fa-10x"></i>
@@ -64,7 +66,7 @@ export default function Home() {
                     <Link to="/cumpleaños">Festeja tu cumpleaños con nosotros</Link>
                 </h1>
                 <div className="row content">
-                    <div className="images col-lg-8 d-flex flex-wrap justify-content-between">
+                    <div className="imagesHome col-lg-8 d-flex flex-wrap justify-content-between">
                         <i className="fa fa-images fa-10x"></i>
                         <i className="fa fa-images fa-10x"></i>
                         <i className="fa fa-images fa-10x"></i>
@@ -95,7 +97,7 @@ export default function Home() {
                         La escuela de fútbol es un proyecto formativo desarrollado bajo el paraguas del complejo (MARCA). Nació para ofrecer a niños y niñas su primer contacto con el fútbol de una manera lúdica, utilizando el fútbol como medio de formación, en un clima que garantice un entorno favorable para potenciar valores como la amistad, el respeto, la unidad, la solidaridad, la superación, la disciplina y todos los méritos necesarios para el desarrollo de este deporte.
                     </p>
                     </div>
-                    <div className="images col-lg-8 d-flex flex-wrap justify-content-between">
+                    <div className="imagesHome col-lg-8 d-flex flex-wrap justify-content-between">
                         <i className="fa fa-images fa-10x"></i>
                         <i className="fa fa-images fa-10x"></i>
                         <i className="fa fa-images fa-10x"></i>
@@ -107,7 +109,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            < FormReservar />
+            < Modal />
     </div>
     )
 }

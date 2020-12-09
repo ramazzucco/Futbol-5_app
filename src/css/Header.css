@@ -18,6 +18,17 @@
     background-color: #212121;
     border-radius: 5px;
 }
+.dashboard-nav-link {
+    color: black;
+}
+.dashboard-main-nav-active {
+    background-color: black;
+    color: white;
+}
+.clock_header {
+    min-width: 105px;
+}
+
 
 @media(min-width: 768px){
     #navbarToggleExternalContent {

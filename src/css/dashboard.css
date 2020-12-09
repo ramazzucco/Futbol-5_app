@@ -1,0 +1,44 @@
+.Container {
+    height: 100vh;
+}
+.font_clock {
+    font-family: "Saira Stencil One";
+}
+.contador_cancha {
+    min-width: 180px;
+    max-width: 180px;
+    max-height: 97px;
+}
+.contador_cancha .content {
+    font-family: 'Saira Stencil One', cursive;
+    min-width: 180px;
+}
+.timer {
+    font-family: 'Saira Stencil One', cursive;
+    display: flex;
+    flex-direction: row;
+    float: left;
+    min-width: 60px;
+    flex-wrap: nowrap;
+}
+.addMinutes {
+    display: flex;
+    flex-direction: row;
+    max-width: 180px;
+}
+.addMinutes input {
+    width: auto;
+}
+.reserve {
+    cursor: pointer;
+    transition: all .7s linear;
+}
+
+.reserve_info {
+    background-color: rgba(217, 83, 79);
+    box-shadow: inset -2px -2px 8px 2px black;
+}
+
+.reserve_info h6 {
+    cursor: pointer;
+}
