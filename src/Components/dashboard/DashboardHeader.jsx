@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import mainFunctions from "../../mainFunctions";
+import Modal from "../Modal";
 
 export default function DashboardHeader(props) {
     const [onLine, setOnLine] = useState("text-success");
@@ -12,6 +14,7 @@ export default function DashboardHeader(props) {
     };
 
     return (
+        <React.Fragment>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="/" target="_blanck">
                 <i className={`fas fa-futbol fa-2x`}></i>
@@ -55,21 +58,25 @@ export default function DashboardHeader(props) {
                     </li>
                 </ul>
                     <button
-                        className="border-0 bg-transparent"
+                        className="text-capitalize mb-0 mx-2 align-self-center font-weight-bold"
                         data-toggle="tooltips"
                         title="Click para resfrescar las reservas"
+                        onClick={() => {
+                            props.getCanchaYhorario(
+                                ...props.paramGetCanchaYhorario
+                            );
+                        }}
                     >
-                        <button
-                            className="text-capitalize mb-0 font-weight-bold"
-                            onClick={() => {
-                                props.getCanchaYhorario(
-                                    ...props.paramGetCanchaYhorario
-                                );
-                            }}
-                        >
-                            Refresh
-                            <i class="fas fa-sync-alt text-success ml-1"></i>
-                        </button>
+                        Refresh
+                        <i class="fas fa-sync-alt text-success ml-1"></i>
+                    </button>
+                    <button
+                        className="text-capitalize mb-0 mx-2 font-weight-bold"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                    >
+                        New Reserve
+                        <i class="fas fa-plus text-success ml-1"></i>
                     </button>
                     <h6 className="h4 clock_header font_clock mb-0 mx-2">{props.time}</h6>
                     <i
@@ -83,5 +90,7 @@ export default function DashboardHeader(props) {
                     ></i>
             </div>
         </nav>
+        <Modal />
+        </React.Fragment>
     );
 }

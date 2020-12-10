@@ -1,6 +1,8 @@
+const urlProd = "https://api-futbol5.herokuapp.com/api";
+const urlDev = "http://localhost:3000/api";
 module.exports = {
 
-    urlBase: "https://api-futbol5.herokuapp.com/api",
+    urlBase: urlProd,
 
     responseSuccess: (response) => {
         return (
@@ -26,10 +28,6 @@ module.exports = {
                     <h5 class="text-center text-uppercase text-primary">Cancha N° ${response.data.cancha}  -  Horario ${response.data.horario}</h5>
                     <p class="text-center font-weight-bold my-5">
                         Tus Datos: <span class="text-muted font-weight-normal">${response.data.nombre + " " + response.data.apellido} - ${response.data.email} - ${response.data.telefono} - Hora y Fecha de la reserva : ${response.data.createdAt}</span>
-                    </p>
-                    <p class="mt-3 p-3 bg-warning text-center rounded">
-                        <span class="text-danger text-center"> IMPORTANTE! </span>
-                        A partir de este momento tiene 1 hora para señar la cancha, de lo contrario la reserva será cancelada automaticamente por el sistema.
                     </p>
                 </div>
                 <div class="col-12 text-right">

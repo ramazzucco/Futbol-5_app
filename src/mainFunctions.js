@@ -143,6 +143,7 @@ module.exports = {
         });
     },
 
+
     // addMinutes: (e) => {
     //     const idCancha = e.target.attributes[1].nodeValue;
     //     const addMinutes = document.querySelector(`.addMinutes${idCancha}`);

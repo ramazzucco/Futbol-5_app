@@ -4,7 +4,7 @@ export default function Select(props) {
     return (
         <div className="col-sm-12 col-md-6 form-group">
             <label htmlFor={props.htmlFor} className="col-form-label">
-                {props.label}
+                {props.htmlFor}
             </label>
             <select
                 className="form-control"
