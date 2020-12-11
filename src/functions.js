@@ -27,8 +27,9 @@ module.exports = {
                 <div class="col-12">
                     <h5 class="text-center text-uppercase text-primary">Cancha N° ${response.data.cancha}  -  Horario ${response.data.horario}</h5>
                     <p class="text-center font-weight-bold my-5">
-                        Tus Datos: <span class="text-muted font-weight-normal">${response.data.nombre + " " + response.data.apellido} - ${response.data.email} - ${response.data.telefono} - Hora y Fecha de la reserva : ${response.data.createdAt}</span>
+                        Tus Datos: \n\n<span class="text-muted font-weight-normal">${response.data.nombre + " " + response.data.apellido} - ${response.data.email} - ${response.data.telefono} - Hora y Fecha de la reserva : ${response.data.createdAt}</span>
                     </p>
+                    <p>Le hemos enviado un mail a "${response.data.email} con los datos de la reserva."</p>
                 </div>
                 <div class="col-12 text-right">
                         <button
@@ -56,7 +57,7 @@ module.exports = {
             showSegundos.innerHTML = segundos < 10 ? `0${segundos}` : segundos;
             if(hora > 0){
                 hora = 0
-                minutos = 0
+                minutos = 59
             } else {
                 if(minutos !== 0 && segundos === 0){
                     minutos--
@@ -64,7 +65,7 @@ module.exports = {
             }
 
             if(segundos === 0){
-                segundos = 20
+                segundos = 59
             }
 
             if(showHora.innerText === "00" && showMinutos.innerText === "00" && showSegundos.innerText === "00"){
@@ -72,6 +73,10 @@ module.exports = {
                 document.querySelector(`.contador_cancha.id${id} .content`).classList.toggle("d-none")
                 document.querySelector(`.contador_cancha.id${id}`).classList.remove("bg-primary");
                 document.querySelector(`.contador_cancha.id${id}`).classList.add("bg-success");
+                const clock = document.querySelectorAll(`.contador_cancha.id${id} .timer`);
+                clock.forEach((t) => {
+                    t.classList.toggle("d-none");
+                });
             }
             segundos--
         }, 1000)

@@ -12,7 +12,7 @@ export default function Cancha(props) {
             <div className="container-fluid">
 
                 <Loading loading={props.loading} />
-                <div className="d-flex justify-content-around mt-5 p-3 contador">
+                <div className="col-8 col-md-12 d-flex flex-wrap justify-content-around mx-auto mt-5 p-3 contador">
                     {props.reserves.map((cancha, i) => {
                         return (
                             <Clock

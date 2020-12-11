@@ -6,7 +6,7 @@ export default function TimeReserve(props) {
 
     return (
         <div
-            className="col-12 col-md-6 col-lg-3 dashboard pt-3 p-2 mb-3 shadow-sm"
+            className="col-12 col-md-6 col-lg-3 dashboard pt-3 p-2 mb-3 shadow-lg"
         >
             <h6 className="text-center text-uppercase bg-dark text-light font-weight-bold p-2">
                 cancha n°: {idCancha}

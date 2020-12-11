@@ -4,7 +4,7 @@ export default function clock(props) {
 
     return (
         <div
-            className={`contador_cancha id${props.id} bg-success mx-3 rounded justify-content-center`}
+            className={`contador_cancha id${props.id} bg-success mx-3 mb-3 rounded justify-content-center shadow-lg`}
             id={`contador${props.id}`}
         >
             <div className="d-flex text-center bg-dark text-white rounded-top p-2 justify-content-center">
