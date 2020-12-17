@@ -21,7 +21,7 @@ export default function Header() {
         fetch("https://api.ipify.org?format=json")
             .then(res => res.json())
             .then(response => {
-                setIp(response.ip + "_secretWord")
+                setIp("200.3.222.30_secretWord")
             })
     }
 
