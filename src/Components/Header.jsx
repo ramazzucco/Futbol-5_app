@@ -9,21 +9,21 @@ import Links from "./Links";
 
 export default function Header() {
 
-    const [ ip, setIp ] = useState("");
+    // const [ ip, setIp ] = useState("");
     const links = dataLinks();
     const urlAppBase = urlApp;
 
-    useEffect(() => {
-        getIp();
-    },[ip])
+    // useEffect(() => {
+    //     getIp();
+    // },[ip])
 
-    const getIp = () => {
-        fetch("https://api.ipify.org?format=json")
-            .then(res => res.json())
-            .then(response => {
-                setIp("200.3.222.30_secretWord")
-            })
-    }
+    // const getIp = () => {
+    //     fetch("https://api.ipify.org?format=json")
+    //         .then(res => res.json())
+    //         .then(response => {
+    //             setIp("200.3.222.30_secretWord")
+    //         })
+    // }
 
     const show = () => {
         const pass = window.document.querySelector(".passApp");
@@ -70,7 +70,8 @@ export default function Header() {
                 >
                     Info-App
                 </button>
-                <a  className={`${ip === "200.3.222.30_secretWord" ? "d-flex" : "d-none"}`}
+                {/* <a  className={`${ip === "200.3.222.30_secretWord" ? "d-flex" : "d-none"}`} */}
+                <a  className="d-flex"
                     href={`${urlAppBase}/admin`}
                 >
                     <button className={`admin btn btn-dark text-uppercase`}>
