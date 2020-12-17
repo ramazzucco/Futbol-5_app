@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import validacion from "../validations";
 import functions from "../functions";
+import mainFunctions from "../mainFunctions";
 
 //Components.
 import FormReserve from "./FormReserve";
-import ModalResponse from "./ModalResponse";
 
 export default function Modal() {
 
@@ -17,6 +17,7 @@ export default function Modal() {
 
     const { register, handleSubmit, errors } = useForm();
 
+    const urlApi = functions.urlApiBase;
 
     const selectCancha = (e) => {
         setOpcionCancha(Number(e.target.value));
@@ -26,7 +27,7 @@ export default function Modal() {
 
     const getCanchaYhorario = () => {
 
-        fetch(`${functions.urlBase}/reserves/canchaYhorario`)
+        fetch(`${urlApi}/api/reserves/canchaYhorario`)
         .then( res => res.json())
         .then(response => {
             setCanchaYhorario(response.data);
@@ -36,7 +37,7 @@ export default function Modal() {
 
     const selectCanchaYhorario = (cancha) => {
         console.log("el numero que va al FETCH es: ", cancha)
-        fetch(`${functions.urlBase}/reserves/canchaYhorario/${cancha}`)
+        fetch(`${urlApi}/api/reserves/canchaYhorario/${cancha}`)
         .then( res => res.json())
         .then(response => {
             setHorario(response.data)
@@ -47,58 +48,15 @@ export default function Modal() {
 
     useEffect(() => {
 
-        window.onload = () => {
-            getCanchaYhorario()
-        }
+        getCanchaYhorario();
 
-    })
-
-    const onSubmit = (data, e) => {
-        e.preventDefault()
-
-        console.log(data.cancha)
-
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        }
-        fetch(`${functions.urlBase}/reserves/send`, options)
-        .then(res => res.json())
-        .then(response => {
-            console.log(response.meta.msg)
-            if(response.meta.msg === "La Reserva Fue Exitosa!"){
-                document.querySelector(".modal-dialog").innerHTML = functions.responseSuccess(response)
-            }
-            const data = {
-                reserveId: response.data.id,
-                cancha: response.data.cancha,
-                horario: response.data.horario,
-                reservado: true
-            }
-            const options = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data)
-            }
-            fetch(`${functions.urlBase}/reserves/modify`, options)
-            .then(res => res.json())
-            .then(response => {
-                console.log(response)
-            })
-        })
-        e.target.reset()
-    }
+    },[])
 
     return (
         <div
             className="modal fade"
             id="exampleModal"
-            tabindex="-1"
+            tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
         >
@@ -121,18 +79,18 @@ export default function Modal() {
                         </button>
                     </div>
                     <div className="modal-body">
-                    <FormReserve
-                        handleSubmit={handleSubmit}
-                        onSubmit={onSubmit}
-                        register={register}
-                        validacion={validacion}
-                        selectCancha={selectCancha}
-                        canchaYhorario={canchaYhorario}
-                        horario={horario}
-                        opcionCancha={opcionCancha}
-                        setOpcionCancha={setOpcionCancha}
-                        errors={errors}
-                    />
+                        <FormReserve
+                            handleSubmit={handleSubmit}
+                            onSubmit={mainFunctions.onSubmit}
+                            register={register}
+                            validacion={validacion}
+                            selectCancha={selectCancha}
+                            canchaYhorario={canchaYhorario}
+                            horario={horario}
+                            opcionCancha={opcionCancha}
+                            setOpcionCancha={setOpcionCancha}
+                            errors={errors}
+                        />
                     </div>
                 </div>
             </div>

@@ -13,10 +13,10 @@ export default function Main() {
     return (
         <React.Fragment>
             <Route exact path="/" component={ Home } />
-            <Route exact path="/instalaciones" component={ Instalaciones } />
-            <Route exact path="/cumpleaños" component={ Cumpleaños } />
-            <Route exact path="/escuelita" component={ Escuelita } />
-            <Route exact path="/promociones" component={ Promociones } />
+            <Route path="/instalaciones" component={ Instalaciones } />
+            <Route path="/cumpleaños" component={ Cumpleaños } />
+            <Route path="/escuelita" component={ Escuelita } />
+            <Route path="/promociones" component={ Promociones } />
         </React.Fragment>
     )
 }

@@ -3,7 +3,6 @@ import "../../css/dashboard.css";
 import Loading from "../Loading";
 
 //Components.
-import Clock from "./Clock";
 import TimeReserve from "./TimeReserve";
 
 export default function Cancha(props) {
@@ -12,21 +11,11 @@ export default function Cancha(props) {
             <div className="container-fluid">
 
                 <Loading loading={props.loading} />
-                <div className="col-8 col-md-12 d-flex flex-wrap justify-content-around mx-auto mt-5 p-3 contador">
-                    {props.reserves.map((cancha, i) => {
-                        return (
-                            <Clock
-                                id={cancha[i].id}
-                                addMinutes={props.addMinutes}
-                                setAddMinutes={props.setAddMinutes}
-                            />
-                        );
-                    })}
-                </div>
                 <div className="d-flex flex-wrap p-3 py-5 justify-content-around">
                     {props.reserves.map((cancha, i) => {
                         return (
                             <TimeReserve
+                                key={i}
                                 horarios={cancha}
                                 reserves={props.reservesOfTheDay}
                                 cancha={i + 1}

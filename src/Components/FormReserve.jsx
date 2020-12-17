@@ -10,19 +10,19 @@ export default function FormReserve(props) {
 
     return (
         <form
-        className="row form-reservar px-5"
-        onSubmit={props.handleSubmit(props.onSubmit)}
+            className="row form-reservar px-5"
+            onSubmit={props.handleSubmit(props.onSubmit)}
         >
             {
-                dataSelect.map( select => {
+                dataSelect.map( (select, i) => {
                     return (
-                        <Select {...select} />
+                        <Select {...select} key={i} />
                     )
                 })
             }
             {
-                dataInputs.map(input => {
-                    return <Input {...input}/>
+                dataInputs.map( (input, i) => {
+                    return <Input {...input} key={i}/>
                 })
             }
             <div className="col-12 text-right">

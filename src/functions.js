@@ -1,8 +1,16 @@
-const urlProd = "https://api-futbol5.herokuapp.com/api";
-const urlDev = "http://localhost:3000/api";
+const urlApiProd = "https://api-futbol5.herokuapp.com";
+const urlApiDev = "http://localhost:3000";
+const urlAppProd = "https://futbol5-app.herokuapp.com";
+const urlAppDev ="http://localhost:5000";
+const protocol = window.location.protocol;
+const urlApiBase = protocol === "http:" ? urlApiDev : urlApiProd;
+const urlAppBase = protocol === "http:" ? urlAppDev : urlAppProd;
+
 module.exports = {
 
-    urlBase: urlProd,
+    urlApiBase: urlApiBase,
+
+    urlAppBase: urlAppBase,
 
     responseSuccess: (response) => {
         return (
@@ -193,6 +201,6 @@ module.exports = {
     dataLinks: () => {
         const links = ["Home", "Instalaciones", "Cumpleaños", "Escuelita", "Promociones"]
         return links;
-    }
+    },
 
 }

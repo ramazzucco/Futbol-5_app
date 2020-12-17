@@ -1,5 +1,5 @@
 const functions = require("./functions");
-
+const urlApi = functions.urlApiBase;
 const initClock = (id) => {
     console.log("Corriendo funcion startClock...");
     const contador = document.querySelector(`.contador_cancha.id${id}`);
@@ -29,7 +29,7 @@ const reSet = () => {
         },
         body: JSON.stringify(data),
     };
-    fetch(`${functions.urlBase}/reserves/modify`, options)
+    fetch(`${urlApi}/api/reserves/modify`, options)
         .then((res) => res.json())
         .then((response) => {
             console.log("modifyReserve-response: ", response);
@@ -38,8 +38,47 @@ const reSet = () => {
 
 module.exports = {
 
+    onSubmit: (data, e) => {
+        e.preventDefault()
+
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        }
+        fetch(`${urlApi}/api/reserves/send`, options)
+        .then(res => res.json())
+        .then(response => {
+            console.log(response.meta.msg)
+            if(response.meta.msg === "La Reserva Fue Exitosa!"){
+                document.querySelector(".modal-dialog").innerHTML = functions.responseSuccess(response)
+            }
+            const data = {
+                reserveId: response.data.id,
+                cancha: response.data.cancha,
+                horario: response.data.horario,
+                reservado: true
+            }
+            const options = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+            }
+            fetch(`${urlApi}/api/reserves/modify`, options)
+            .then(res => res.json())
+            .then(response => {
+                console.log(response)
+            })
+        })
+        e.target.reset()
+    },
+
     getCanchaYhorario: (loading,setLoading,setReserves,setReservesOfTheDay) => {
-        fetch(`${functions.urlBase}/reserves/canchaYhorario`)
+        fetch(`${urlApi}/api/reserves/canchaYhorario`)
             .then((res) => res.json())
             .then((response) => {
                 if (response) {
@@ -55,7 +94,7 @@ module.exports = {
                     });
                     console.log(response);
                 }
-                fetch(`${functions.urlBase}/reserves/reservesoftheday`)
+                fetch(`${urlApi}/api/reserves/reservesoftheday`)
                     .then((res) => res.json())
                     .then((response) => {
                         if (response) {
@@ -112,7 +151,7 @@ module.exports = {
                 },
                 body: JSON.stringify(data),
             };
-            fetch(`${functions.urlBase}/reserves/modify`, options)
+            fetch(`${urlApi}/api/reserves/modify`, options)
                 .then((res) => res.json())
                 .then((response) => {
                     console.log("modifyReserve-response: ", response);
@@ -132,7 +171,7 @@ module.exports = {
         console.log("Corriendo funcion searchReserve...");
         console.log("Hora actual ==>>>", functions.getDate().time.slice(0, 5));
         reservesOfTheDay.forEach((reserve, i) => {
-            console.log(`Buscando Reservas...`, reserve)
+            console.log(`Buscando Reservas...`)
             const timeNow = functions.getDate().time.slice(0,5);
             const remainTimeToReserve = functions.setClockStart(reserve.horario);
             if(remainTimeToReserve < 0 && reserve.horario.slice(0,5) === timeNow ){
@@ -143,17 +182,10 @@ module.exports = {
         });
     },
 
+    sednHistoryReserve: () => {
+        fetch(`${urlApi}/api/reserves/history`)
+            .then(res => res.json())
+            .then(response => console.log(response))
+    },
 
-    // addMinutes: (e) => {
-    //     const idCancha = e.target.attributes[1].nodeValue;
-    //     const addMinutes = document.querySelector(`.addMinutes${idCancha}`);
-    //     addMinutes.classList.toggle("d-none");
-    //     console.log(e.target.attributes)
-    // },
-
-    // setAddMinutes: (e) => {
-    //     const idCancha = e.target.attributes[2].nodValue;
-    //     const addMinutes = document.querySelector(`.addMinutes${idCancha}`);
-    //     console.log(addMinutes)
-    // }
 };

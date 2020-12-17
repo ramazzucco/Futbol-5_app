@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import mainFunctions from "../../mainFunctions";
+import { dataButtons as data} from "../../javascript/constantes";
+import { navLinks } from "../../javascript/constantes";
+
+//Components.
 import Modal from "../Modal";
+import Clock from "./Clock";
+import Button from "../Button";
 
 export default function DashboardHeader(props) {
     const [onLine, setOnLine] = useState("text-success");
@@ -13,11 +18,14 @@ export default function DashboardHeader(props) {
         setOnLine("text-danger");
     };
 
+    const dataButtons = data(props);
+    const navlinks = navLinks();
+
     return (
         <React.Fragment>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light py-0">
             <a className="navbar-brand" href="/" target="_blanck">
-                <i className={`fas fa-futbol fa-2x`}></i>
+                <i className={`fas fa-futbol fa-2x `}></i>
             </a>
             <button
                 className="navbar-toggler"
@@ -35,49 +43,26 @@ export default function DashboardHeader(props) {
                 className="collapse navbar-collapse"
                 id="navbarSupportedContent"
             >
-                <ul className="nav nav-pills flex-inline mr-auto">
-                    <li className="nav-item text-uppercase">
-                        <NavLink
-                            exact
-                            to="/admin"
-                            className="nav-link dashboard-nav-link font-weight-bold"
-                            activeClassName="dashboard-main-nav-active"
-                        >
-                            Home
-                        </NavLink>
-                    </li>
-                    <li className="nav-item text-uppercase">
-                        <NavLink
-                            exact
-                            to="/admin/history"
-                            className="nav-link dashboard-nav-link font-weight-bold text-nowrap"
-                            activeClassName="dashboard-main-nav-active"
-                        >
-                            History
-                        </NavLink>
+                <ul className="nav nav-pills mr-auto">
+                    <li className="nav-item flex-inline text-uppercase">
+                        {
+                            navlinks.map((link, i) => {
+                                return (
+                                    <NavLink exact {...link} key={i}>
+                                        {link.content}
+                                    </NavLink>
+                                )
+                            })
+                        }
                     </li>
                 </ul>
-                    <button
-                        className="text-capitalize mb-0 mx-2 align-self-center font-weight-bold"
-                        data-toggle="tooltips"
-                        title="Click para resfrescar las reservas"
-                        onClick={() => {
-                            props.getCanchaYhorario(
-                                ...props.paramGetCanchaYhorario
-                            );
-                        }}
-                    >
-                        Refresh
-                        <i class="fas fa-sync-alt text-success ml-1"></i>
-                    </button>
-                    <button
-                        className="text-capitalize mb-0 mx-2 font-weight-bold"
-                        data-toggle="modal"
-                        data-target="#exampleModal"
-                    >
-                        New Reserve
-                        <i class="fas fa-plus text-success ml-1"></i>
-                    </button>
+                {
+                    dataButtons.map((btton,i) => {
+                        return (
+                            <Button {...btton} key={i} />
+                        )
+                    })
+                }
                     <h6 className="h4 clock_header font_clock mb-0 mx-2">{props.time}</h6>
                     <i
                         className={`fas fa-power-off fa-2x p-2 ${onLine}`}
@@ -91,6 +76,18 @@ export default function DashboardHeader(props) {
             </div>
         </nav>
         <Modal />
+        <div className="col-8 col-md-12 d-flex flex-wrap justify-content-around mx-auto mt-3 p-3 contador">
+            {props.reserves.map((cancha, i) => {
+                return (
+                    <Clock
+                        key={i}
+                        id={cancha[i].id}
+                        addMinutes={props.addMinutes}
+                        setAddMinutes={props.setAddMinutes}
+                    />
+                );
+            })}
+        </div>
         </React.Fragment>
     );
 }

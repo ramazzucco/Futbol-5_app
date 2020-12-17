@@ -8,7 +8,6 @@ import Modal from './Modal';
 
 export default function Home() {
 
-
     return (
         <div className="home">
             <div className="banner">
@@ -21,8 +20,9 @@ export default function Home() {
                 </h1>
                 <button className="btn btn-dark main-button"
                     data-toggle="modal"
-                    data-target="#exampleModal">
-                        Reservar
+                    data-target="#exampleModal"
+                >
+                    reservar
                 </button>
             </div>
             <div className="p-5 pt-0 instalaciones">

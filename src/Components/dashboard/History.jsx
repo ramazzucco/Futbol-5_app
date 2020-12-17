@@ -6,9 +6,10 @@ import Loading from "../Loading";
 export default function History() {
     const [history, setHisory] = useState([]);
     const [loading, setLoading] = useState({reservesOfTheDay: true});
+    const urlApi = functions.urlApiBase;
 
     const getHistory = () => {
-        fetch(`${functions.urlBase}/reserves`)
+        fetch(`${urlApi}/api/reserves`)
             .then((res) => res.json())
             .then((response) => {
                 setHisory(response.data);
@@ -27,7 +28,7 @@ export default function History() {
                     "Content-Type": "text/plain",
                 }
             }
-            fetch(`${functions.urlBase}/reserves/delete/${id}`, options)
+            fetch(`${urlApi}/api/reserves/delete/${id}`, options)
                 .then(res => res.json())
                 .then(response => {
                     setHisory(response.data);
@@ -42,8 +43,8 @@ export default function History() {
 
     return (
         <React.Fragment>
-            <div className="container-fluid p-3">
-                <table className="table table-striped border shadow-lg">
+            <div className="container-fluid table-responsive p-3">
+                <table className="table table-hover border shadow-lg">
                     <thead className="bg-dark text-white">
                         <tr>
                             <th scope="col">#</th>
@@ -54,7 +55,14 @@ export default function History() {
                             <th scope="col">Cancha</th>
                             <th scope="col">Horario</th>
                             <th scope="col">Hora Y Fecha</th>
-                            <th scope="col"></th>
+                            <th scope="col">
+                                <button
+                                    className="btn btn-sm btn-outline-dark-green m-0"
+                                    onClick={mainFunctions.sednHistoryReserve}
+                                >
+                                    Send email <i className="fas fa-envelope ml-2"></i>
+                                </button>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
