@@ -1,66 +1,118 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import {urlApiBase} from "./functions";
+import { useForm } from "react-hook-form";
+import validations from "./validations";
 import "./App.css";
 
 //Components
-import Header from "./Components/Header";
-import Main from "./Components/Main";
-import Footer from "./Components/Footer";
 import Dashboard from "./Components/dashboard/Dashboard";
-import Loading from "./Components/Loading";
+import Login from "./Components/dashboard/Login";
 
 function App() {
-    const path = window.location.pathname;
 
-    const [ admin, setAdmin ] = useState("");
-    const [loading, setLoading] = useState({reservesOfTheDay: true});
+    const [ admin, setAdmin ] = useState({session: false});
+    const [ password, setPassword ] = useState("");
+    const [ signup, setSignup ] = useState({
+        name: "",
+        lastname: "",
+        password: "",
+        status: "admin",
+        key: ""
+    });
+    const [ validationError, setValidationError ] = useState(false);
+    const { register, handleSubmit, errors } = useForm();
 
     useEffect(() => {
         getAdmin()
-    },[])
+        if(validationError){
+            submitSignup()
+        }
+    },[errors])
 
-    const redirect = () => {
-        window.location.assign(urlApiBase + "/admin");
+    const handleSignup = (e) => {
+        setSignup({
+            ...signup,
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    const submitSignup = () => {
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(signup),
+        };
+        fetch(`${urlApiBase}/api/admin/create`, options)
+            .then(res => res.json())
+            .then(response => {
+
+                if(response && response.data[0].error){
+                    console.log(response.data[0].error)
+                    errors.errors = response.data
+                    setValidationError(true)
+                    setAdmin({session: false});
+                }
+            })
+            .catch(error => console.log(error))
+    }
+
+    const handlePassword = (e) => {
+        setPassword(e.target.value);
     }
 
     const getAdmin = () => {
-        fetch(`${urlApiBase}/api/reserves/admin`)
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({password: password}),
+        };
+        fetch(`${urlApiBase}/api/admin/login`,options)
             .then(res => res.json())
             .then(response => {
-                console.log("Desde el FETCH: ",response.meta.admin)
-                setAdmin(response.meta.admin)
-                response.meta.admin
-                    ? setLoading({reservesOfTheDay: false})
-                    : setLoading({reservesOfTheDay: true})
+
+                if(response && response.data[0].error){
+
+                    setAdmin({session: false});
+                    errors.errors = [{
+                        error: true,
+                        field: "password",
+                        message: "Wrong Password"
+                    }]
+
+                }
+
+                if(response && response.data[0].name){
+                    setAdmin({session: true,...response.data[0]});
+                }
             })
+            .catch(error => console.log(error))
     }
 
-    if(path === "/"){
         return (
             <Router>
-                <Route path="/">
-                    <Header />
-                    <Main />
-                    <Footer />
-                </Route>
-            </Router>
-        )
-    } else {
-        return (
-            <Router>
-                <Loading loading={loading} />
                 {
-                    admin !== "" ?
-                        admin ? <Route path="/admin">
-                                <Dashboard />
-                            </Route>
-                            : redirect()
-                        : console.log("cargando session")
+                    admin.session === false
+                        ? <Login
+                            getAdmin={getAdmin}
+                            handlePassword={handlePassword}
+                            register={register}
+                            handleSubmit={handleSubmit}
+                            errors={errors}
+                            validations={validations}
+                            handleSignup={handleSignup}
+                            submitSignup={submitSignup}
+                        />
+                        : <Route path="/">
+                            <Dashboard admin={admin} />
+                        </Route>
                 }
             </Router>
         );
-    }
 }
 
 export default App;

@@ -1,39 +1,23 @@
 const functions = require("./functions");
 const urlApi = functions.urlApiBase;
-const initClock = (id) => {
-    console.log("Corriendo funcion startClock...");
-    const contador = document.querySelector(`.contador_cancha.id${id}`);
-    const contentClock = document.querySelector(
-        `.contador_cancha.id${id} .content`
-    );
-    const clock = document.querySelectorAll(`.contador_cancha.id${id} .timer`);
-    contentClock.classList.toggle("d-none");
-    clock.forEach((t) => {
-        t.classList.toggle("d-none");
-    });
-    functions.colorStart(contador);
-    functions.countDown(id, 0);
-};
 
-const reSet = () => {
-    const data = {
-        cancha: "",
-        horario: "",
-        reservado: "reset",
-        reserveId: "",
-    };
+const reSet = (admin, setReserves) => {
+
     const options = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
-    };
-    fetch(`${urlApi}/api/reserves/modify`, options)
+        body: JSON.stringify(admin),
+    }
+
+    fetch(`${urlApi}/api/reserves/reset`, options)
         .then((res) => res.json())
         .then((response) => {
-            console.log("modifyReserve-response: ", response);
-        });
+            setReserves(response.data);
+        })
+        .catch(error => console.log(error))
+
 };
 
 module.exports = {
@@ -48,144 +32,244 @@ module.exports = {
             },
             body: JSON.stringify(data),
         }
-        fetch(`${urlApi}/api/reserves/send`, options)
+
+        fetch(`${urlApi}/api/reserves/create`, options)
         .then(res => res.json())
         .then(response => {
-            console.log(response.meta.msg)
+
             if(response.meta.msg === "La Reserva Fue Exitosa!"){
                 document.querySelector(".modal-dialog").innerHTML = functions.responseSuccess(response)
             }
+
             const data = {
                 reserveId: response.data.id,
                 cancha: response.data.cancha,
                 horario: response.data.horario,
                 reservado: true
             }
+
             const options = {
-                method: "POST",
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data)
             }
+
             fetch(`${urlApi}/api/reserves/modify`, options)
             .then(res => res.json())
-            .then(response => {
-                console.log(response)
-            })
+            .then(response => response)
+            .catch(error => console.log(error))
         })
+        .catch(error => console.log(error));
+
         e.target.reset()
+
     },
 
-    getCanchaYhorario: (loading,setLoading,setReserves,setReservesOfTheDay) => {
-        fetch(`${urlApi}/api/reserves/canchaYhorario`)
+    getCanchaYhorario: (loading,setLoading,setReserves,setReservesOfTheDay,admin) => {
+
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(admin),
+        }
+
+        fetch(`${urlApi}/api/reserves/canchaYhorario`,options)
             .then((res) => res.json())
             .then((response) => {
+
                 if (response) {
+
                     setLoading({
                         reserves: false,
                         reservesOfTheDay: loading.reservesOfTheDay,
                     });
                     setReserves(response.data);
+
                 } else {
+
                     setLoading({
                         reserves: true,
                         reservesOfTheDay: loading.reservesOfTheDay,
                     });
-                    console.log(response);
+
                 }
-                fetch(`${urlApi}/api/reserves/reservesoftheday`)
+
+                fetch(`${urlApi}/api/reserves/reservesoftheday`,options)
                     .then((res) => res.json())
                     .then((response) => {
+
                         if (response) {
+
                             setReservesOfTheDay(response.data);
                             setLoading({
                                 reserves: loading.reserves,
                                 reservesOfTheDay: false,
                             });
-                            response.meta.reserves === 0
-                                ? reSet()
-                                : console.log(
-                                      `Reservas del dia: ${response.meta.reserves}`
-                                  );
+
+                            if(response.meta.reserves === 0){
+                                reSet(admin,setReserves)
+                            }
+
                         } else {
+
                             setLoading({
                                 reserves: loading.reserves,
                                 reservesOfTheDay: true,
                             });
-                            console.log("No hay datos de las reservas.");
+
                         }
-                    });
-            });
+                    })
+                    .catch(error => console.log(error));
+            })
+            .catch(error => console.log(error));
     },
 
     showInfoReserve: (e) => {
+
         const idInfo = e.target.attributes[1].nodeValue;
         const info = document.querySelector(`.reserve_info.id${idInfo}`);
+
         info
             ? info.classList.toggle("d-none")
             : console.log("No hay info de reserva");
     },
 
-    cancelarReserva: (e) => {
-        console.log(e.target);
-        const data = JSON.parse(e.target.attributes[3].nodeValue);
-        const cancelar = window.confirm(
-            `Esta seguro que desea cancelar la reserva Cancha N° ${data.cancha} - Horario ${data.horario}`
-        );
-        console.log(cancelar);
-        if (cancelar) {
-            const info = document.querySelector(`.reserve_info.id${data.reserveId}`);
-            const domElementReserve = document.querySelector(
-                `.reserve.id${data.reserveId}`
-            );
-            domElementReserve.innerHTML = `${data.horario}: Libre`;
-            domElementReserve.classList.remove("bg-danger");
-            domElementReserve.classList.add("bg-success");
-            info.innerHTML = "";
-            info.classList.toggle("d-none")
+    deleteReserve: (reserve, admin, setData, request) => {
+        const params = Array.isArray(reserve) ? 0 : reserve.id;
+
+        const modal = document.querySelector(".card.modal-info");
+        const header = document.querySelector(".card.modal-info .card-header");
+        const body = document.querySelector(".card.modal-info .card-body");
+        const footer = document.querySelector(".card.modal-info .card-footer");
+        const buttonCancel = document.querySelector(".card.modal-info .btn-danger");
+        const buttonConfirm = document.querySelector(".card.modal-info .card-button");
+
+        if(modal.className.includes("d-none")){
+            modal.classList.toggle("d-none");
+            buttonConfirm.classList.add("btn-primary");
+        }
+
+        header.classList.add("bg-danger");
+        header.innerHTML = "eliminar";
+        body.classList.add("text-dark");
+        footer.classList.remove("bg-primary");
+        footer.classList.add("bg-white");
+        buttonConfirm.innerHTML = "Si";
+        buttonCancel.innerHTML = "No";
+
+        if(Array.isArray(reserve)){
+            console.log(reserve)
+            admin.ids = reserve
+            body.innerHTML = `<p>Reservas seleccionadas: "${reserve.map(r=>{return r})}"</p><br><p>Esta seguro que las desea eliminar ?`
+        } else {
+            body.innerHTML = `<p>Esta seguro que desea eliminar la reserva de ${reserve.name} ${reserve.lastname} ID ${reserve.id}</p><br><p>cancha ${reserve.cancha}, hora ${reserve.horario}Hs. ?`
+        }
+
+        buttonConfirm.onclick = () => {
+
             const options = {
-                method: "POST",
+                method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(admin),
             };
-            fetch(`${urlApi}/api/reserves/modify`, options)
+
+            fetch(`${urlApi}/api/reserves/delete/${params}`, options)
                 .then((res) => res.json())
                 .then((response) => {
-                    console.log("modifyReserve-response: ", response);
-                });
+
+                    if(request === "reserves"){
+                        setData(response.data)
+                    } else {
+                        const reserveDeleted = document.querySelector(`.horarios .id${reserve.id}`);
+
+                        reserveDeleted.innerHTML = `<p class="text-center m-0">15:00 Hs<span class="pl-3 text-uppercase">Libre</span></p>`
+                        reserveDeleted.classList.remove("bg-danger");
+                        reserveDeleted.classList.add("bg-success");
+                    }
+                    modal.classList.toggle("d-none");
+
+                })
+                .catch(error => console.log(error));
         }
+
     },
 
-    reset: () => {
-        reSet();
+    reset: (admin) => {
+        reSet(admin);
     },
 
-    startClock: (id) => {
-        initClock(id);
-    },
 
-    searchReserve: (reservesOfTheDay) => {
-        console.log("Corriendo funcion searchReserve...");
-        console.log("Hora actual ==>>>", functions.getDate().time.slice(0, 5));
-        reservesOfTheDay.forEach((reserve, i) => {
-            console.log(`Buscando Reservas...`)
-            const timeNow = functions.getDate().time.slice(0,5);
-            const remainTimeToReserve = functions.setClockStart(reserve.horario);
-            if(remainTimeToReserve < 0 && reserve.horario.slice(0,5) === timeNow ){
-                setTimeout(() => {
-                    initClock(reserve.cancha);
-                }, remainTimeToReserve)
-            }
-        });
-    },
+    sendHistoryReserve: (admin) => {
 
-    sednHistoryReserve: () => {
-        fetch(`${urlApi}/api/reserves/history`)
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(admin),
+        };
+
+        const card = document.querySelector(".modal-info");
+        const header = document.querySelector(".modal-info .card-header");
+        const body = document.querySelector(".modal-info .card-body");
+        const footer = document.querySelector(".modal-info .card-footer");
+        const buttons = document.querySelectorAll(".modal-info .card-button");
+
+        card.classList.toggle("d-none");
+        card.classList.add("w-75");
+        header.classList.add("bg-primary");
+        header. innerHTML = "Send email";
+        body.innerHTML = `<div class="d-flex justify-content-center w-100">
+            <div class="loading text-center">
+                <div class="spinner-border text-success mx-auto" role="status"></div>
+                <h4 class="mt-3 text-dark mx-auto">
+                    Sending...
+                </h4>
+            </div>
+        </div>`;
+        footer.classList.add("bg-primary");
+        buttons.forEach( button => {
+            button.classList.toggle("d-none");
+        })
+
+        fetch(`${urlApi}/api/reserves/sendhistorybyemail`, options)
             .then(res => res.json())
-            .then(response => console.log(response))
+            .then(response => {
+                header.classList.remove("bg-primary");
+                footer.classList.remove("bg-primary");
+                header.classList.add("bg-success");
+                body.classList.add("text-dark","text-center")
+                body.innerHTML = `<h4>Email sended successfully</h4><p>To</p><h6>${response.data.accepted[0]}</h6>`
+                footer.classList.add("bg-success");
+                buttons.forEach( button => {
+                    button.className.includes("btn-danger")
+                        ? button.classList.toggle("d-none")
+                        : button.classList.add("d-none")
+                })
+            })
+            .catch(error => console.log(error));
+    },
+
+    handlerLogout: (admin) => {
+
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(admin),
+        }
+
+        fetch(`${urlApi}/api/admin/logout`, options)
+            .then(res => res.json())
+            .then(response => window.location.href = response.meta.url)
+            .catch(error => console.log(error));
     },
 
 };

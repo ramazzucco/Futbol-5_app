@@ -1,9 +1,12 @@
-.Container {
-    height: 100vh;
-}
 .font_clock {
     font-family: "Saira Stencil One";
 }
+
+.clock_header {
+    min-width: 101px;
+    max-width: 101px;
+}
+
 .contador_cancha {
     min-width: 180px;
     max-width: 180px;

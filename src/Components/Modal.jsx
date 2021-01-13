@@ -1,98 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from "react-hook-form";
-import validacion from "../validations";
-import functions from "../functions";
-import mainFunctions from "../mainFunctions";
-
-//Components.
-import FormReserve from "./FormReserve";
+import React from 'react';
 
 export default function Modal() {
 
-    const [ canchaYhorario, setCanchaYhorario ] = useState([]);
-
-    const [ horario, setHorario ] = useState([]);
-
-    const [ opcionCancha, setOpcionCancha ] = useState(0);
-
-    const { register, handleSubmit, errors } = useForm();
-
-    const urlApi = functions.urlApiBase;
-
-    const selectCancha = (e) => {
-        setOpcionCancha(Number(e.target.value));
-        console.log(e.target.value)
-        selectCanchaYhorario(e.target.value);
+    const modalStyle = {
+        minWidth: "230px",
+        position: "absolute",
+        top: "50%",
+        left:"50%",
+        transform: "translate(-50%,-50%)",
+        zIndex: "10"
     }
 
-    const getCanchaYhorario = () => {
-
-        fetch(`${urlApi}/api/reserves/canchaYhorario`)
-        .then( res => res.json())
-        .then(response => {
-            setCanchaYhorario(response.data);
-            console.log(response.data)
-        })
-    }
-
-    const selectCanchaYhorario = (cancha) => {
-        console.log("el numero que va al FETCH es: ", cancha)
-        fetch(`${urlApi}/api/reserves/canchaYhorario/${cancha}`)
-        .then( res => res.json())
-        .then(response => {
-            setHorario(response.data)
-            console.log(response.data)
-        })
+    const handlerOnClick = () => {
 
     }
 
-    useEffect(() => {
+    const close = () => {
+        const card = document.querySelector(".modal-info");
+        const header = document.querySelector(".modal-info .card-header");
+        const body = document.querySelector(".modal-info .card-body");
+        const footer = document.querySelector(".modal-info .card-footer");
+        const button = document.querySelector(".modal-info .card-button");
 
-        getCanchaYhorario();
+        card.classList.value = "card modal-info d-none text-white mb-3";
+        header.classList.value = "card-header text-uppercase text-center";
+        body.classList.value = "card-body p-5";
+        footer.classList.value = "card-footer text-center";
 
-    },[])
+
+        if(button.className.includes("d-none")){
+            button.classList.toggle("d-none");
+        }
+    }
 
     return (
-        <div
-            className="modal fade"
-            id="exampleModal"
-            tabIndex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-        >
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5
-                            className="modal-title text-primary font-weight-bold"
-                            id="exampleModalLabel"
-                        >
-                            Reserva tu Cancha
-                        </h5>
-                        <button
-                            type="button"
-                            className="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div className="modal-body">
-                        <FormReserve
-                            handleSubmit={handleSubmit}
-                            onSubmit={mainFunctions.onSubmit}
-                            register={register}
-                            validacion={validacion}
-                            selectCancha={selectCancha}
-                            canchaYhorario={canchaYhorario}
-                            horario={horario}
-                            opcionCancha={opcionCancha}
-                            setOpcionCancha={setOpcionCancha}
-                            errors={errors}
-                        />
-                    </div>
-                </div>
+        <div className="card modal-info d-none text-white mb-3" style={modalStyle} id="modal">
+            <div className="card-header text-uppercase text-center"></div>
+            <div className="card-body p-5"></div>
+            <div className="card-footer text-center justify-content-around">
+                <button
+                    className="btn btn-sm card-button text-uppercase px-5 mr-5"
+                    onClick={handlerOnClick}
+                ></button>
+                 <button
+                    className="card-button text-uppercase btn btn-sm btn-danger px-5 ml-5"
+                    onClick={close}
+                >
+                    Cerrar
+                </button>
             </div>
         </div>
     )

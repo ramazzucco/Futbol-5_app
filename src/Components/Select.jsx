@@ -1,47 +1,64 @@
 import React from "react";
 
 export default function Select(props) {
+
+    const select = props.field.select;
+    const options = props.field.options[0];
+
     return (
-        <div className="col-sm-12 col-md-6 form-group">
-            <label htmlFor={props.htmlFor} className="col-form-label">
-                {props.htmlFor}
-            </label>
+        <div className={`${select.classNameDiv} form-group m-0`}>
+            {
+                props.field.label
+                    ? (
+                        <label
+                            htmlFor={props.field.label.htmlFor}
+                            className={props.field.label.classNameLabel}
+                        >
+                            {props.field.label.content}
+                        </label>
+                    )
+                    : ""
+            }
             <select
-                className="form-control"
-                id={props.id}
-                name={props.name}
-                ref={props.register(props.validacion)}
-                onChange={props.selectCancha}
+                className={select.classNameSelect}
+                name={select.name}
+                id={select.id}
+                ref={select.ref}
+                onChange={props.field.onChange}
             >
-                <option value="">Seleccionar</option>
+                <option selected disabled>
+                    Seleccione una opcion
+                </option>
                 {
-                   props.data.map((d,i) => {
-                       if(props.name === "cancha"){
-                           return(
-                            <option value={d[i].canchaN === true ? 1 : d[i].canchaN} key={i}>
-                                {`Cancha N°  ${d[i].canchaN === true ? 1 : d[i].canchaN}`}
-                            </option>
-                           )
-                       } else {
-                           return (
-                            d.reservado === true
-                                ? <option className="text-danger"
-                                        value=""
-                                        disabled key={i}
-                                >
-                                        Reservado
+                    props.dataForm && props.dataForm.title === "new reserve"
+                        ? props.field.options.map((option,i) => {
+                            return (
+                                typeof option[0] === "object"
+                                    ? option.map( (object,i) => {
+                                        return (
+                                            object.reservado === true
+                                                ? <option value={""} key={i}>Reservado</option>
+                                                : <option value={object.horario} key={i}>{object.horario}</option>
+                                        )
+                                    })
+                                    : option.map( (string, i) => {
+                                        return (
+                                            <option value={string} key={i}>
+                                                Cancha N° {string}
+                                            </option>
+                                        )
+                                    })
+                            )
+                        })
+                        : props.field.options.map( (option, i) => {
+                            return (
+                                <option value={option} key={i}>
+                                    {option}
                                 </option>
-                                : <option value={d.hora} key={i}>{d.hora}</option>
-                           )
-                       }
-                   })
+                            )
+                        })
                 }
             </select>
-            <span className="text-danger text-small d-block mb-2">
-                {
-                    props.errors ? props.errors.message : ""
-                }
-            </span>
         </div>
     );
 }
