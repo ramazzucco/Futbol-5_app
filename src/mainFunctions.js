@@ -162,7 +162,6 @@ module.exports = {
         buttonCancel.innerHTML = "No";
 
         if(Array.isArray(reserve)){
-            console.log(reserve)
             admin.ids = reserve
             body.innerHTML = `<p>Reservas seleccionadas: "${reserve.map(r=>{return r})}"</p><br><p>Esta seguro que las desea eliminar ?`
         } else {
@@ -183,15 +182,17 @@ module.exports = {
                 .then((res) => res.json())
                 .then((response) => {
 
-                    if(request === "reserves"){
-                        setData(response.data)
-                    } else {
+                    console.log(response)
+                    if(request === "reservesoftheday"){
                         const reserveDeleted = document.querySelector(`.horarios .id${reserve.id}`);
 
                         reserveDeleted.innerHTML = `<p class="text-center m-0">15:00 Hs<span class="pl-3 text-uppercase">Libre</span></p>`
                         reserveDeleted.classList.remove("bg-danger");
                         reserveDeleted.classList.add("bg-success");
                     }
+
+                    setData(response.data)
+
                     modal.classList.toggle("d-none");
 
                 })

@@ -25,7 +25,7 @@ const dataButtons = (props) => {
                         exact
                         to={`/history`}
                     >
-                        History Reserve
+                        Reserve History
                     </Link>
                 ),
                 onClick: () => { props.setShowClock("hide") },
@@ -56,7 +56,7 @@ const dataButtons = (props) => {
                         exact
                         to={`/configpage`}
                     >
-                        Config Page
+                        Page Config
                     </Link>
                 ),
                 onClick: () => { props.setShowClock("hide") },
