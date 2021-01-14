@@ -51,42 +51,49 @@ module.exports = {
         </div>`
         )
     },
-    countDown: (id, min) => {
-        console.log(id)
-        let hora = 1;
-        let minutos = min;
-        let segundos = 0;
-        const showHora = document.querySelector(`.contador_cancha.id${id} .hora`);
-        const showMinutos = document.querySelector(`.contador_cancha.id${id} .minutos`);
-        const showSegundos = document.querySelector(`.contador_cancha.id${id} .segundos`);
+    countDown: (cancha, paramHora, paramMinutos, paramSegundos) => {
+
+        let hora = paramHora;
+        let minutos = paramMinutos;
+        let segundos = paramSegundos;
+
+        const showHora = document.querySelector(`.clock${cancha} .hora`);
+        const showMinutos = document.querySelector(`.clock${cancha} .minutos`);
+        const showSegundos = document.querySelector(`.clock${cancha} .segundos`);
+
         const conteo = setInterval(() => {
-            showHora.innerHTML = hora === 1 ? `0${hora}` : `${hora}${hora}`;
-            showMinutos.innerHTML = minutos < 10 ? `0${minutos}` : minutos;
-            showSegundos.innerHTML = segundos < 10 ? `0${segundos}` : segundos;
-            if(hora > 0){
-                hora = 0
-                minutos = 59
-            } else {
-                if(minutos !== 0 && segundos === 0){
-                    minutos--
+
+            if(showHora !== null && showMinutos !== null && showSegundos !== null){
+
+                showHora.innerHTML = hora === 1 ? `0${hora}` : `${hora}${hora}`;
+                showMinutos.innerHTML = minutos < 10 ? `0${minutos}` : minutos;
+                showSegundos.innerHTML = segundos < 10 ? `0${segundos}` : segundos;
+
+                if(hora > 0){
+                    hora = 0
+                    minutos = 59
+                } else {
+                    if(minutos !== 0 && segundos === 0){
+                        minutos--
+                    }
                 }
+
+                if(segundos === 0){
+                    segundos = 59
+                }
+
+                if(showHora.innerText === "00" && showMinutos.innerText === "00" && showSegundos.innerText === "00"){
+                    clearInterval(conteo);
+                    document.querySelector(`.clock${cancha}`).classList.remove("cube-front-before");
+                    document.querySelector(`.clock${cancha}`).classList.remove("cube-back-before");
+                    document.querySelector(`.clock${cancha}`).classList.remove("bg-success");
+                    document.querySelector(`.clock${cancha}`).classList.add("bg-danger");
+                }
+
+                segundos--
+
             }
 
-            if(segundos === 0){
-                segundos = 59
-            }
-
-            if(showHora.innerText === "00" && showMinutos.innerText === "00" && showSegundos.innerText === "00"){
-                clearInterval(conteo);
-                document.querySelector(`.contador_cancha.id${id} .content`).classList.toggle("d-none")
-                document.querySelector(`.contador_cancha.id${id}`).classList.remove("bg-primary");
-                document.querySelector(`.contador_cancha.id${id}`).classList.add("bg-success");
-                const clock = document.querySelectorAll(`.contador_cancha.id${id} .timer`);
-                clock.forEach((t) => {
-                    t.classList.toggle("d-none");
-                });
-            }
-            segundos--
         }, 1000)
     },
 
@@ -119,20 +126,20 @@ module.exports = {
         }
     },
 
-    colorStart: (color) => {
-        color.classList.remove("bg-success");
-        color.classList.add("bg-primary");
-    },
-
-    colorFinish: (color) => {
-        color.classList.remove("bg-primary");
-        color.classList.add("bg-danger");
-    },
-
-    setClockStart: (time) => {
-        const now = new Date();
-        const remainTimeToReserve = (new Date(`Dec 4 2020 ${time.slice(0,5)}`) - now + 1000) / 1000;
-        return remainTimeToReserve;
+    getRemainTime: (time) => {
+        const date = new Date();
+        const monthName = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        const day = date.getDate()
+        const month = date.getMonth()
+        const year = date.getFullYear()
+        const remainTime = (new Date(`${monthName[month]} ${day} ${year} ${time.slice(0,5)}`) - date + 1000) / 1000;
+        const remainSeconds = ("0" + Math.floor(remainTime % 60)).slice(-2);
+        const remainMinutes = ("0" + Math.floor(remainTime / 60 % 60)).slice(-2);
+        return {
+            remainTime,
+            remainSeconds,
+            remainMinutes
+        }
     },
 
     dataInputs: (props) => {

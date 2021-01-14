@@ -19,6 +19,18 @@ const validacion = {
     },
     telefono: {
         required: {value: true, message: "El campo es obligatorio."}
+    },
+    password: {
+        required: {value: true, message: "Debe ingresar una clave."}
+    },
+    chanchaamount: {
+        required:{value: true, message: "Ingrese una cantidad."}
+    },
+    horarios: {
+        required:{value: true, message: "Ingrese un horario."}
+    },
+    accion: {
+        required:{value: true, message: "seleccione una opcion"}
     }
 }
 

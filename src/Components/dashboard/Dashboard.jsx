@@ -1,75 +1,102 @@
 import React, { useEffect, useState } from 'react';
 import functions from "../../functions";
 import mainFunctions from "../../mainFunctions";
+import { initClock, rememberClocks, getRememberClocks } from "../../javascript/clock";
 import {getInfo} from "../../javascript/constantes";
 
 //Components
-import DashboardHeader from './DashboardHeader';
-import DashboardMain from './DashboardMain';
+import Main from './Main';
+import Header from './Header';
+import Clock from "../Clock";
 
-export default function Dashboard() {
+export default function Dashboard(props) {
 
     const [reserves, setReserves] = useState([]);
     const [reservesOfTheDay, setReservesOfTheDay] = useState([]);
     const [loading, setLoading] = useState({reserves: true, reservesOfTheDay: true});
+    const [showClock,setShowClock] = useState("");
     const [time, setTime] = useState("");
 
-    
-    useEffect(() => {
-        loading.reserves && loading.reservesOfTheDay
-        ? mainFunctions.getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay)
-        : console.log("Cargando reservas y reservas del dia...");
-
-        loading.reserves && loading.reservesOfTheDay
-        ? alert(getInfo())
-        : console.log("")
-
-        loading.reserves && loading.reservesOfTheDay
-        ? console.log("loading: true")
-        : mainFunctions.searchReserve(reservesOfTheDay);
-    }, [loading]);
+    const path = window.location.pathname;
 
     useEffect(() => {
+
+        if(path !== "/"){
+            setShowClock("hide");
+        } else {
+            setShowClock("show");
+        }
+
+        if(loading.reserves && loading.reservesOfTheDay){
+            mainFunctions.getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay, props.admin)
+        } else {
+            setLoading({reserves: false, reservesOfTheDay: false})
+        }
+
+        // const clocksSaved = getRememberClocks();
+
+        // if(clocksSaved !== null){
+        //     console.log(clocksSaved);
+        // }
+
+    }, [reservesOfTheDay]);
+
+    useEffect(() => {
+
         const refreshTime = setInterval(() => {
             clearInterval(refreshTime)
             const newTime = functions.getDate().time;
             setTime(newTime);
         }, 1000);
- 
-        if(time === "14:45"){
-            const refreshData = setInterval(() => {
-                clearInterval(refreshData)
-                mainFunctions.getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay);
-                loading.reserves && loading.reservesOfTheDay
-                    ? console.log("loading: true")
-                    : mainFunctions.searchReserve(reservesOfTheDay);
-            }, 1000 * 60 * 5);
+
+        if(!loading.reserves && !loading.reservesOfTheDay){
+
+            reservesOfTheDay.forEach( reserve => {
+
+                const reserveTime = reserve.horario.slice(0,5) + ":00";
+
+                if(reserveTime === time){
+                    initClock(reserve.cancha);
+                }
+
+            })
         }
 
         if(time === "21:15"){
-            mainFunctions.reset();
+            mainFunctions.reset(props.admin);
         }
 
     }, [time]);
 
-
     return (
-            <div className="Container">
-                <DashboardHeader
+        <div className="row hidemenu">
+            <Header
+                time={time}
+                admin={props.admin}
+            />
+            <div className={`clock-conatiner ${showClock} justify-content-around row w-100 my-5`}>
+                <div className="wrapper rounded ml-4">
+                    {reserves.map((cancha,i) => {
+                        return (
+                            <Clock  cancha={i + 1} key={i} />
+                        )
+                    })}
+                </div>
+            </div>
+                <Main
                     time={time}
+                    loading={loading}
                     reserves={reserves}
+                    admin={props.admin}
+                    setShowClock={setShowClock}
+                    reservesOfTheDay={reservesOfTheDay}
+                    setReservesOfTheDay={setReservesOfTheDay}
+                    handlerLogout={mainFunctions.handlerLogout}
+                    cancelarReserva={mainFunctions.cancelarReserva}
+                    showInfoReserve={mainFunctions.showInfoReserve}
                     getCanchaYhorario={mainFunctions.getCanchaYhorario}
                     paramGetCanchaYhorario={[loading, setLoading, setReserves, setReservesOfTheDay]}
                 />
-                <DashboardMain
-                    loading={loading}
-                    reserves={reserves}
-                    reservesOfTheDay={reservesOfTheDay}
-                    cancelarReserva={mainFunctions.cancelarReserva}
-                    showInfoReserve={mainFunctions.showInfoReserve}
-                    // addMinutes={mainFunctions.addMinutes}
-                    // setAddMinutes={mainFunctions.setAddMinutes}
-                />
-            </div>
+        </div>
     )
 }
