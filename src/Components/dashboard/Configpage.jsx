@@ -43,19 +43,18 @@ export default function Configpage(props) {
         setDataPost({user: props.admin,...dataPost,[e.target.name]: e.target.value})
     }
 
-    const onSubmit = {
 
+    const optionsPageFetch = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataPost),
+    }
+
+    const onSubmit = {
         modifyCanchaYhorario: (e) => {
             e.preventDefault();
-
-            const optionsPageFetch = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(dataPost),
-            }
-
             fetch(`${urlApi}/api/page/modifycanchayhorario`, optionsPageFetch)
                 .then(res => res.json())
                 .then(response => {
