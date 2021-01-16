@@ -86,6 +86,7 @@ function App() {
                         field: "password",
                         message: "Wrong Password"
                     }]
+                    setValidationError(true);
 
                 }
                 console.log(response)
