@@ -80,13 +80,9 @@ function App() {
 
                 if(response && response.data[0].error){
 
-                    setAdmin({session: false});
-                    errors.errors = [{
-                        error: true,
-                        field: "password",
-                        message: "Wrong Password"
-                    }]
+                    errors.errors = response.data
                     setValidationError(true);
+                    setAdmin({session: false});
 
                 }
                 console.log(response)
