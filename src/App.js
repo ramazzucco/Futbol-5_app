@@ -28,7 +28,11 @@ function App() {
         // if(validationError){
         //     submitSignup()
         // }
-    },[errors])
+    },[]);
+
+    useEffect(() => {
+        setValidationError(false)
+    }, [validationError])
 
     const handleSignup = (e) => {
         setSignup({
