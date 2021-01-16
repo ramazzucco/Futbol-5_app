@@ -24,15 +24,12 @@ function App() {
     const { register, handleSubmit, errors } = useForm();
 
     useEffect(() => {
-        getAdmin()
-        // if(validationError){
-        //     submitSignup()
-        // }
+        getAdmin();
     },[]);
 
     useEffect(() => {
-        setValidationError(false)
-    }, [validationError])
+        submitSignup();
+    }, [errors])
 
     const handleSignup = (e) => {
         setSignup({
@@ -55,8 +52,8 @@ function App() {
 
                 if(response && response.data[0].error){
                     console.log(response.data[0])
-                    setValidationError(true)
                     errors.errors = response.data
+                    setValidationError(true)
                     setAdmin({session: false});
                 }
             })
