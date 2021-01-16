@@ -3,6 +3,7 @@ import {urlApiBase} from "../../functions";
 import { useForm } from "react-hook-form";
 import validations from "../../validations";
 import {cardPages} from "../../javascript/constantes";
+import {getDataPage, submitCanchaYhorario} from "../../mainFunctions";
 
 //Components.
 import Loading from '../Loading';
@@ -17,27 +18,10 @@ export default function Configpage(props) {
 
     useEffect(() => {
 
-        getDataPage();
+        getDataPage(props.admin, setDataPage, setLoading);
 
     },[])
 
-    const getDataPage = () => {
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(props.admin),
-        }
-        fetch(`${urlApi}/api/page`, options)
-            .then(res => res.json())
-            .then(response => {
-                setDataPage(response.data);
-                setLoading({reservesOfTheDay: false})
-                console.log(response.data);
-            })
-            .catch(error => console.log(error))
-    }
 
     const handlerChange = (e) => {
         setDataPost({user: props.admin,...dataPost,[e.target.name]: e.target.value})
@@ -46,26 +30,9 @@ export default function Configpage(props) {
     const onSubmit = {
 
         modifyCanchaYhorario: (e) => {
-            e.preventDefault();
+            submitCanchaYhorario(e, dataPost, setDataPage);
+        },
 
-            const optionsPageFetch = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(dataPost),
-            }
-
-            fetch(`${urlApi}/api/page/modifycanchayhorario`, optionsPageFetch)
-                .then(res => res.json())
-                .then(response => {
-                    setDataPage(response.data)
-                    dataPost.cancha_amount
-                        ? document.getElementById("cancha_amount").value = ""
-                        : document.getElementById("horarios").value = ""
-                })
-                .catch(error => console.log(error))
-        }
     }
 
     const fieldsCardsPages = loading.reservesOfTheDay

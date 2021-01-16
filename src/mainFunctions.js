@@ -16,7 +16,7 @@ const reSet = (admin, setReserves) => {
         .then((response) => {
             setReserves(response.data);
         })
-        .catch(error => console.log(error))
+        .catch(error => console.log(error));
 
 };
 
@@ -102,26 +102,15 @@ module.exports = {
                     .then((res) => res.json())
                     .then((response) => {
 
-                        if (response) {
-
-                            setReservesOfTheDay(response.data);
-                            setLoading({
-                                reserves: loading.reserves,
-                                reservesOfTheDay: false,
-                            });
-
-                            if(response.meta.reserves === 0){
-                                reSet(admin,setReserves)
-                            }
-
-                        } else {
-
-                            setLoading({
-                                reserves: loading.reserves,
-                                reservesOfTheDay: true,
-                            });
-
+                        if(response.data.length && response.data[0].error){
+                            reSet(admin,setReserves);
                         }
+
+                        setReservesOfTheDay(response.data);
+                        setLoading({
+                            reserves: loading.reserves,
+                            reservesOfTheDay: false,
+                        });
                     })
                     .catch(error => console.log(error));
             })
@@ -201,8 +190,8 @@ module.exports = {
 
     },
 
-    reset: (admin) => {
-        reSet(admin);
+    reset: (admin, setReserves) => {
+        reSet(admin, setReserves);
     },
 
 
@@ -242,6 +231,7 @@ module.exports = {
         fetch(`${urlApi}/api/reserves/sendhistorybyemail`, options)
             .then(res => res.json())
             .then(response => {
+
                 header.classList.remove("bg-primary");
                 footer.classList.remove("bg-primary");
                 header.classList.add("bg-success");
@@ -249,15 +239,59 @@ module.exports = {
                 body.innerHTML = `<h4>Email sended successfully</h4><p>To</p><h6>${response.data.accepted[0]}</h6>`
                 footer.classList.add("bg-success");
                 buttons.forEach( button => {
-                    button.className.includes("btn-danger")
-                        ? button.classList.toggle("d-none")
-                        : button.classList.add("d-none")
+                    if(button.className.includes("btn-danger")){
+                        button.classList.toggle("d-none")
+                        button.classList.add("ml-0");
+                    } else {
+                        button.classList.add("d-none")
+                    }
                 })
             })
             .catch(error => console.log(error));
     },
 
-    handlerLogout: (admin) => {
+    getDataPage: (admin,setDataPage,setLoading) => {
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(admin),
+        }
+        fetch(`${urlApi}/api/page`, options)
+            .then(res => res.json())
+            .then(response => {
+                setDataPage(response.data);
+                setLoading({reservesOfTheDay: false})
+                console.log(response.data);
+            })
+            .catch(error => console.log(error))
+    },
+
+    submitCanchaYhorario: (e, dataPost, setDataPage) => {
+        e.preventDefault();
+
+        const optionsPageFetch = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataPost),
+        }
+
+        fetch(`${urlApi}/api/page/modifycanchayhorario`, optionsPageFetch)
+            .then(res => res.json())
+            .then(response => {
+                console.log(response)
+                setDataPage(response.data)
+                dataPost.cancha_amount
+                    ? document.getElementById("cancha_amount").value = ""
+                    : document.getElementById("horarios").value = ""
+            })
+            .catch(error => console.log(error))
+    },
+
+    handlerLogout: (admin, setAdmin) => {
 
         const options = {
             method: "POST",
@@ -269,7 +303,7 @@ module.exports = {
 
         fetch(`${urlApi}/api/admin/logout`, options)
             .then(res => res.json())
-            .then(response => window.location.href = response.meta.url)
+            .then(response => setAdmin({session: false}))
             .catch(error => console.log(error));
     },
 

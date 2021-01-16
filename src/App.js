@@ -85,8 +85,8 @@ function App() {
                     }]
 
                 }
-
-                if(response && response.data[0].name){
+                console.log(response)
+                if(response && response.data[0].session){
                     setAdmin({session: true,...response.data[0]});
                 }
             })
@@ -108,7 +108,7 @@ function App() {
                             submitSignup={submitSignup}
                         />
                         : <Route path="/">
-                            <Dashboard admin={admin} />
+                            <Dashboard admin={admin} setAdmin={setAdmin} />
                         </Route>
                 }
             </Router>

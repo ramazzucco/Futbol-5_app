@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import functions from "../../functions";
 import mainFunctions from "../../mainFunctions";
-import { initClock, rememberClocks, getRememberClocks } from "../../javascript/clock";
-import {getInfo} from "../../javascript/constantes";
+import { initClock } from "../../javascript/clock";
 
 //Components
 import Main from './Main';
@@ -33,12 +32,6 @@ export default function Dashboard(props) {
             setLoading({reserves: false, reservesOfTheDay: false})
         }
 
-        // const clocksSaved = getRememberClocks();
-
-        // if(clocksSaved !== null){
-        //     console.log(clocksSaved);
-        // }
-
     }, [reservesOfTheDay]);
 
     useEffect(() => {
@@ -62,8 +55,8 @@ export default function Dashboard(props) {
             })
         }
 
-        if(time === "21:15"){
-            mainFunctions.reset(props.admin);
+        if(time === "21:15:00"){
+            mainFunctions.reset(props.admin, setReserves);
         }
 
     }, [time]);
@@ -88,6 +81,7 @@ export default function Dashboard(props) {
                     loading={loading}
                     reserves={reserves}
                     admin={props.admin}
+                    setAdmin={props.setAdmin}
                     setShowClock={setShowClock}
                     reservesOfTheDay={reservesOfTheDay}
                     setReservesOfTheDay={setReservesOfTheDay}

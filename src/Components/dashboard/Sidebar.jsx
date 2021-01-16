@@ -1,6 +1,5 @@
 import React from "react";
 import { dataButtons as data } from "../../javascript/constantes";
-import { urlApiBase } from "../../functions";
 import "../../css/Sidebar.css";
 
 //Components.
