@@ -28,7 +28,9 @@ function App() {
     },[]);
 
     useEffect(() => {
-        submitSignup();
+        if(validationError){
+            submitSignup();
+        }
     }, [errors])
 
     const handleSignup = (e) => {
