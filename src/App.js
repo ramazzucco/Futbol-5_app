@@ -51,7 +51,7 @@ function App() {
 
                 if(response && response.data[0].error){
                     console.log(response.data[0])
-                    errors.errors = response.data[0]
+                    errors.errors = response.data
                     setValidationError(true)
                     setAdmin({session: false});
                 }
