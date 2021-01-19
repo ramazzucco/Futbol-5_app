@@ -120,7 +120,7 @@ const fieldsLogin = (props) => {
                 id: "password",
                 ref: props.register(props.validations.password),
                 classNameDiv: classNameDiv,
-                classNameInput: classNameInput,
+                classNameInput: classNameInput + " password",
                 classNameInputError: classNameInputError
             }
         }
@@ -187,7 +187,7 @@ const fieldsSignup = (props) => {
                 id: "password",
                 ref: props.register(props.validations.password),
                 classNameDiv: classNameDiv,
-                classNameInput: classNameInput,
+                classNameInput: classNameInput + " password",
                 classNameInputError: classNameInputError
             }
         },
@@ -203,7 +203,7 @@ const fieldsSignup = (props) => {
                 id: "key",
                 ref: props.register(props.validations.password),
                 classNameDiv: classNameDiv,
-                classNameInput: classNameInput,
+                classNameInput: classNameInput + " password",
                 classNameInputError: classNameInputError
             }
         }
@@ -483,7 +483,7 @@ const fieldsChangepassword = (register,validations) => {
                 id: "oldpassword",
                 ref: register(validations.password),
                 classNameDiv: classNameDiv,
-                classNameInput: classNameInput,
+                classNameInput: classNameInput + " password",
                 classNameInputError: classNameInputError
             }
         },
@@ -499,7 +499,7 @@ const fieldsChangepassword = (register,validations) => {
                 id: "newpassword",
                 ref: register(validations.password),
                 classNameDiv: classNameDiv,
-                classNameInput: classNameInput,
+                classNameInput: classNameInput + " password",
                 classNameInputError: classNameInputError
             }
         },
@@ -515,7 +515,7 @@ const fieldsChangepassword = (register,validations) => {
                 id: "repeatnewpassword",
                 ref: register(validations.password),
                 classNameDiv: classNameDiv,
-                classNameInput: classNameInput,
+                classNameInput: classNameInput + " password",
                 classNameInputError: classNameInputError
             }
         }

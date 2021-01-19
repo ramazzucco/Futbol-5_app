@@ -49,6 +49,7 @@ export default function DashboardMain(props){
             <Route path="/changepassword">
                 <Changepassword
                     admin={props.admin}
+                    showPass={props.showPass}
                 />
             </Route>
             <Route  path="/configpage">

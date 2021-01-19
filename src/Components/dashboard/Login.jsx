@@ -75,7 +75,7 @@ export default function Login(props) {
                 {
                     show === "login"
                     ? <Form dataForm={dataLogin} />
-                    : <Form dataForm={dataSignup} />
+                    : <Form dataForm={dataSignup} showPass={props.showPass} />
                 }
             </div>
         </div>

@@ -14,20 +14,31 @@ export default function Input(props) {
             </label>
             <input
                 className={`${props.field.input.classNameInput} form-control`}
-                type={props.field.input.type}
+                type={props.field.input.type === "password"
+                    ? props.showPass
+                        ? "text" : "password"
+                    : props.field.input.type
+                }
                 name={props.field.input.name}
                 id={props.field.input.id}
                 placeholder={props.field.input.placeholder ? props.field.input.placeholder : ""}
                 ref={props.field.input.ref}
                 onChange={props.dataForm.onChange}
             />
+            {props.field.input.type === "password"
+                ? <div>
+                    <i className="far fa-eye text-dark"></i>
+                    <i className="far fa-eye-slash d-none text-dark"></i>
+                </div>
+                : ""
+            }
             <p className={props.field.input.classNameInputError}>
                 {
                     errors && errors.length
-                        ? errors.map( error => {
+                        ? errors.map( (error, i) => {
                             return (
                                 error.field === props.field.label.htmlFor
-                                ? <i className="fas fa-exclamation-circle ml-3">{"  "}{error.message}</i>
+                                ? <i className={`fas fa-exclamation-circle ml-3`} key={i}>{"  "}{error.message}</i>
                                 : ""
                             )
                             })

@@ -19,6 +19,7 @@ export default function Form(props) {
                                             key={i}
                                             field={field}
                                             dataForm={props.dataForm}
+                                            showPass={props.showPass}
                                         />
                                 );
                             })

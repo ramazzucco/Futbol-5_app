@@ -13,6 +13,7 @@ function App() {
 
     const [ admin, setAdmin ] = useState({session: false});
     const [ password, setPassword ] = useState("");
+    const [ showPass, setShowPass ] = useState(false);
     const [ signup, setSignup ] = useState({
         name: "",
         lastname: "",
@@ -20,18 +21,37 @@ function App() {
         status: "admin",
         key: ""
     });
-    const [ validationError, setValidationError ] = useState(false);
+    const [ validationError, setValidationError ] = useState({signin: false, signup: false});
     const { register, handleSubmit, errors } = useForm();
 
     useEffect(() => {
         getAdmin();
-    },[]);
+        if(validationError.signin){
+            getAdmin();
+        }
+    },[validationError.signin]);
 
     useEffect(() => {
-        if(validationError){
+        if(validationError.signup){
             submitSignup();
+        } else {
+            getAdmin();
         }
-    }, [errors])
+    },[validationError.signup]);
+
+    useEffect(() => {
+
+        handleShowPass();
+
+        if(showPass){
+            const password = document.getElementById("password");
+            password.setAttribute("type","text");
+        } else {
+            const password = document.getElementById("password");
+            password.setAttribute("type","password");
+        }
+
+    },[showPass])
 
     const handleSignup = (e) => {
         setSignup({
@@ -52,15 +72,40 @@ function App() {
             .then(res => res.json())
             .then(response => {
 
-                if(response && response.data[0].error){
-                    console.log(response.data[0])
-                    errors.errors = response.data
-                    setValidationError(true)
+                if(response && response.error){
+
+                    Array.isArray(response.data)
+                        ? errors.errors = [...response.data]
+                        : errors.errors = [response.data]
+                    setValidationError({signin: validationError.signin, signup: true})
                     setAdmin({session: false});
+
+                    if(Array.isArray(response.data)){
+                        response.data.map( error => {
+
+                            const input = document.getElementById(`${error.field}`);
+
+                            input.value = ""
+
+                        })
+                    } else {
+
+                        const input = document.getElementById(`${response.data.field}`);
+
+                        input.value = ""
+
+                    }
+
+                }
+
+                if(response && response.data.session){
+                    setAdmin({session: true,...response.data});
                 }
             })
             .catch(error => console.log(error))
     }
+
+    const handleOnFocus = () => { }
 
     const handlePassword = (e) => {
         setPassword(e.target.value);
@@ -74,23 +119,46 @@ function App() {
             },
             body: JSON.stringify({password: password}),
         };
+
         fetch(`${urlApiBase}/api/admin/login`,options)
             .then(res => res.json())
             .then(response => {
 
-                if(response && response.data[0].error){
+                if(response && response.error){
 
-                    errors.errors = response.data
-                    setValidationError(true);
+                    errors.errors = [response.data]
+                    setValidationError({signin: true, signup: validationError.signup});
                     setAdmin({session: false});
 
+                    const input = document.getElementById(`${response.data.field}`);
+
+                    input.value = ""
+
                 }
-                console.log(response)
-                if(response && response.data[0].session){
-                    setAdmin({session: true,...response.data[0]});
+
+                if(response && response.data.session){
+                    setAdmin({session: true,...response.data});
                 }
             })
             .catch(error => console.log(error))
+    }
+
+    const handleShowPass = () => {
+
+        const icons = document.querySelectorAll("form .far");
+
+        icons.forEach(icon => {
+
+            icon.onclick = () => {
+                console.log(icon)
+                setShowPass(!showPass);
+                icons.forEach( icon => {
+                    icon.classList.toggle("d-none");
+                })
+            }
+
+        })
+
     }
 
         return (
@@ -106,9 +174,10 @@ function App() {
                             validations={validations}
                             handleSignup={handleSignup}
                             submitSignup={submitSignup}
+                            showPass={showPass}
                         />
                         : <Route path="/">
-                            <Dashboard admin={admin} setAdmin={setAdmin} />
+                            <Dashboard admin={admin} setAdmin={setAdmin} showPass={showPass} />
                         </Route>
                 }
             </Router>

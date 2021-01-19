@@ -82,6 +82,7 @@ export default function Dashboard(props) {
                     reserves={reserves}
                     admin={props.admin}
                     setAdmin={props.setAdmin}
+                    showPass={props.showPass}
                     setShowClock={setShowClock}
                     reservesOfTheDay={reservesOfTheDay}
                     setReservesOfTheDay={setReservesOfTheDay}
