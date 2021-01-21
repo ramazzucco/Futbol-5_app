@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import "../../css/Login.css";
-import mainFunctions from "../../mainFunctions";
 import { fieldsSignup as signupData, fieldsLogin as loginData } from "../../javascript/constantes";
+import "../../css/Login.css";
 
 //Components.
 import Form from "../Form";

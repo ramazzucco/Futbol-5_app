@@ -1,5 +1,5 @@
 import React from "react";
-import { deleteReserve } from "../mainFunctions";
+import { mainFunctions } from "../mainFunctions";
 import "../css/Cancha.css";
 
 //Components.
@@ -33,7 +33,7 @@ export default function Cancha(props) {
                 modalFooter.classList.add("bg-primary", "d-flex","justify-content-around");
                 modalButtom.innerHTML = "eliminar";
                 modalButtom.onclick = () => {
-                    deleteReserve(reserveOnDB, props.admin, props.setReservesOfTheDay,"reservesoftheday");
+                    mainFunctions.deleteReserve(reserveOnDB, props.admin, props.setReservesOfTheDay,"reservesoftheday");
                 }
                 modalButtomDanger.innerHTML = "cerrar"
                 modalButtom.classList.add("btn", "btn-sm","btn-info")

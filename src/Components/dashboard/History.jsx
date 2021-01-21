@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { sendHistoryReserve, deleteReserve } from "../../mainFunctions";
+import { mainFunctions } from "../../mainFunctions";
 import functions from "../../functions";
 import Loading from "../Loading";
 
@@ -36,7 +36,7 @@ export default function History(props) {
     };
 
     const handlerSendMail = () => {
-        sendHistoryReserve(props.admin)
+        mainFunctions.sendHistoryReserve(props.admin)
     }
 
     const handlerSelectRows = () => {
@@ -78,11 +78,11 @@ export default function History(props) {
         const id = Number(e.target.attributes[1].value);
         const reserve = history.find( reserve => reserve.id === id )
 
-        deleteReserve(reserve, props.admin, setHisory, "reserves");
+        mainFunctions.deleteReserve(reserve, props.admin, setHisory, "reserves");
     }
 
     const deleteSelected = () => {
-        deleteReserve(ids, props.admin, setHisory, "reserves");
+        mainFunctions.deleteReserve(ids, props.admin, setHisory, "reserves");
     }
 
     const cancelSelectRows = () => {

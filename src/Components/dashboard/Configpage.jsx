@@ -3,7 +3,7 @@ import {urlApiBase} from "../../functions";
 import { useForm } from "react-hook-form";
 import validations from "../../validations";
 import {cardPages} from "../../javascript/constantes";
-import {getDataPage, submitCanchaYhorario} from "../../mainFunctions";
+import {mainFunctions} from "../../mainFunctions";
 
 //Components.
 import Loading from '../Loading';
@@ -18,7 +18,7 @@ export default function Configpage(props) {
 
     useEffect(() => {
 
-        getDataPage(props.admin, setDataPage, setLoading);
+        mainFunctions.getDataPage(props.admin, setDataPage, setLoading);
 
     },[])
 
@@ -30,7 +30,7 @@ export default function Configpage(props) {
     const onSubmit = {
 
         modifyCanchaYhorario: (e) => {
-            submitCanchaYhorario(e, dataPost, setDataPage);
+            mainFunctions.submitCanchaYhorario(e, dataPost, setDataPage);
         },
 
     }
