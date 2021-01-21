@@ -412,7 +412,7 @@ module.exports = {
             .then(res => res.json())
             .then(response => {
 
-                setAdmin({session: false});
+                setAdmin({session: null});
                 setErrors({errors: ""});
                 setShowError(false);
                 setCreateAdmin(false);
