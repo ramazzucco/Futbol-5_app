@@ -20,7 +20,7 @@ const reSet = (admin, setReserves) => {
 
 };
 
-module.exports = {
+const mainFunctions = {
 
     onSubmit: (data, e) => {
         e.preventDefault()
@@ -422,3 +422,5 @@ module.exports = {
     },
 
 };
+
+export {mainFunctions}

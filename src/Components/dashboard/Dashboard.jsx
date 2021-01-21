@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import functions from "../../functions";
-import mainFunctions from "../../mainFunctions";
+import { mainFunctions } from "../../mainFunctions";
 import { initClock } from "../../javascript/clock";
 
 //Components
