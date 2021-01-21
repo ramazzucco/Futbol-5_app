@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import functions from "../../functions";
-import mainFunctions from "../../mainFunctions";
+import { getCanchaYhorario, reset, handlerLogout, deleteReserve, showInfoReserve} from "../../mainFunctions";
 import { initClock } from "../../javascript/clock";
 
 //Components
@@ -27,7 +27,7 @@ export default function Dashboard(props) {
         }
 
         if(loading.reserves && loading.reservesOfTheDay){
-            mainFunctions.getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay, props.admin)
+            getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay, props.admin)
         } else {
             setLoading({reserves: false, reservesOfTheDay: false})
         }
@@ -56,7 +56,7 @@ export default function Dashboard(props) {
         }
 
         if(time === "21:15:00"){
-            mainFunctions.reset(props.admin, setReserves);
+            reset(props.admin, setReserves);
         }
 
     }, [time]);
@@ -89,10 +89,10 @@ export default function Dashboard(props) {
                     reservesOfTheDay={reservesOfTheDay}
                     setCreateAdmin={props.setCreateAdmin}
                     setReservesOfTheDay={setReservesOfTheDay}
-                    handlerLogout={mainFunctions.handlerLogout}
-                    cancelarReserva={mainFunctions.cancelarReserva}
-                    showInfoReserve={mainFunctions.showInfoReserve}
-                    getCanchaYhorario={mainFunctions.getCanchaYhorario}
+                    handlerLogout={handlerLogout}
+                    cancelarReserva={deleteReserve}
+                    showInfoReserve={showInfoReserve}
+                    getCanchaYhorario={getCanchaYhorario}
                     paramGetCanchaYhorario={[loading, setLoading, setReserves, setReservesOfTheDay]}
                 />
         </div>

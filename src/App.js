@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import {urlApiBase} from "./functions";
 import { useForm } from "react-hook-form";
 import { getAdmin, submitSignup, showPasswords } from "./mainFunctions";
 import validations from "./validations";
