@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { getAdmin, submitSignup, showPasswords } from "./mainFunctions";
+import { mainFunctions } from "./mainFunctions";
 import validations from "./validations";
 import "./App.css";
 
@@ -62,18 +62,18 @@ function App() {
 
         login: () => {
 
-            getAdmin(password,setAdmin,setErrors,setCreateAdmin);
+            mainFunctions.getAdmin(password,setAdmin,setErrors,setCreateAdmin);
 
         },
         signup: () => {
 
-            submitSignup(signup,setAdmin,setErrors,setCreateAdmin);
+            mainFunctions.submitSignup(signup,setAdmin,setErrors,setCreateAdmin);
 
         }
 
     }
 
-    showPasswords();
+    mainFunctions.showPasswords();
 
     return (
         <Router>
