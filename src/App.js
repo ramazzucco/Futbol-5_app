@@ -80,7 +80,7 @@ function App() {
             {
                 !admin.session
                     ? <Login
-                        getAdmin={getAdmin}
+                        getAdmin={mainFunctions.getAdmin}
                         handlePassword={handlePassword}
                         register={register}
                         handleSubmit={handleSubmit}
