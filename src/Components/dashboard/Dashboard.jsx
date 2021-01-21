@@ -81,10 +81,13 @@ export default function Dashboard(props) {
                     loading={loading}
                     reserves={reserves}
                     admin={props.admin}
+                    setErrors={props.setErrors}
+                    setShowError={props.setShowError}
                     setAdmin={props.setAdmin}
                     showPass={props.showPass}
                     setShowClock={setShowClock}
                     reservesOfTheDay={reservesOfTheDay}
+                    setCreateAdmin={props.setCreateAdmin}
                     setReservesOfTheDay={setReservesOfTheDay}
                     handlerLogout={mainFunctions.handlerLogout}
                     cancelarReserva={mainFunctions.cancelarReserva}

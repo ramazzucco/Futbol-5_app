@@ -291,7 +291,114 @@ module.exports = {
             .catch(error => console.log(error))
     },
 
-    handlerLogout: (admin, setAdmin) => {
+    getAdmin: (password,setAdmin,setErrors,setCreateAdmin) => {
+
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(password),
+        };
+
+        fetch(`${urlApi}/api/admin/login`,options)
+            .then(res => res.json())
+            .then(response => {
+
+                if(response && response.error){
+
+                    setErrors({show: true, errors: [response.data]})
+                    setAdmin({session: false});
+
+                    const input = document.getElementById(`${response.data.field}`);
+
+                    input.value = ""
+
+                }
+
+                if(response && response.data.session){
+                    setAdmin({session: true,...response.data});
+                    setCreateAdmin(false);
+                }
+            })
+            .catch(error => console.log(error))
+    },
+
+    submitSignup: (signup,setAdmin,setErrors,setCreateAdmin) => {
+
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(signup),
+        };
+
+        fetch(`${urlApi}/api/admin/create`, options)
+            .then(res => res.json())
+            .then(response => {
+                console.log(response.data)
+                if(response && response.error){
+
+                    Array.isArray(response.data)
+                        ? setErrors({show: true, errors: [...response.data]})
+                        : setErrors({show: true, errors: [response.data]})
+                    setAdmin({session: false});
+
+                    if(Array.isArray(response.data)){
+                        response.data.map( error => {
+
+                            const input = document.getElementById(`${error.field}`);
+
+                            input.value = ""
+
+                        })
+                    } else {
+
+                        const input = document.getElementById(`${response.data.field}`);
+
+                        input.value = ""
+
+                    }
+
+                }
+
+                if(response && response.data.session){
+                    setAdmin({session: true,...response.data});
+                    setCreateAdmin(true);
+                }
+            })
+            .catch(error => console.log(error))
+    },
+
+    showPasswords: () => {
+        const icons = document.querySelectorAll("form .far");
+
+        icons.forEach(icon => {
+
+            const inputId = icon.getAttribute("data-id");
+
+            icon.onclick = () => {
+
+                const input = document.getElementById(`${inputId}`);
+                const type = document.getElementById(`${inputId}`).getAttribute("type");
+                const iconsEyes = document.querySelectorAll(`form .far.${inputId}`)
+
+                if(type === "password"){
+                    input.setAttribute("type","text")
+                } else {
+                    input.setAttribute("type","password")
+                }
+
+                iconsEyes.forEach( icon => {
+                    icon.classList.toggle("d-none");
+                })
+            }
+
+        })
+    },
+
+    handlerLogout: (admin, setAdmin, setErrors, setShowError, setCreateAdmin) => {
 
         const options = {
             method: "POST",
@@ -303,7 +410,14 @@ module.exports = {
 
         fetch(`${urlApi}/api/admin/logout`, options)
             .then(res => res.json())
-            .then(response => setAdmin({session: false}))
+            .then(response => {
+
+                setAdmin({session: false});
+                setErrors({errors: ""});
+                setShowError(false);
+                setCreateAdmin(false);
+
+            })
             .catch(error => console.log(error));
     },
 

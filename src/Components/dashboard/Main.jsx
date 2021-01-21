@@ -17,9 +17,12 @@ export default function DashboardMain(props){
             <Modal />
             <Sidebar
                 admin={props.admin}
+                setErrors={props.setErrors}
+                setShowError={props.setShowError}
                 setAdmin={props.setAdmin}
                 setShowClock={props.setShowClock}
                 handlerLogout={props.handlerLogout}
+                setCreateAdmin={props.setCreateAdmin}
                 getCanchaYhorario={props.getCanchaYhorario}
                 paramGetCanchaYhorario={props.paramGetCanchaYhorario}
             />

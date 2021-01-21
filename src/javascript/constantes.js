@@ -86,7 +86,9 @@ const dataButtons = (props) => {
             },
             {
                 className:buttonClassName,
-                onClick: () => { props.handlerLogout(props.admin, props.setAdmin) },
+                onClick: () => {
+                    props.handlerLogout(props.admin, props.setAdmin, props.setErrors, props.setShowError, props.setCreateAdmin)
+                },
                 content: (<p>Logout</p>),
             },
         ]

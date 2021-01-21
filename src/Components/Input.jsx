@@ -27,8 +27,8 @@ export default function Input(props) {
             />
             {props.field.input.type === "password"
                 ? <div>
-                    <i className="far fa-eye text-dark"></i>
-                    <i className="far fa-eye-slash d-none text-dark"></i>
+                    <i className={`far fa-eye ${props.field.input.name} text-dark`} data-id={props.field.input.name}></i>
+                    <i className={`far fa-eye-slash ${props.field.input.name} d-none text-dark`} data-id={props.field.input.name}></i>
                 </div>
                 : ""
             }

@@ -18,7 +18,7 @@ export default function Login(props) {
         fields: fieldsLogin,
         action: "login",
         class: fieldsLogin[0].class,
-        onSubmit: props.handleSubmit(props.getAdmin),
+        onSubmit: props.handleSubmit(props.onSubmit.login),
         onChange: props.handlePassword,
         errors: props.errors,
         buttonContent: "ingresar",
@@ -28,7 +28,7 @@ export default function Login(props) {
         fields: fieldsSignup,
         action: "Signup",
         class: fieldsSignup[0].class,
-        onSubmit: props.handleSubmit(props.submitSignup),
+        onSubmit: props.handleSubmit(props.onSubmit.signup),
         onChange: props.handleSignup,
         errors: props.errors,
         buttonContent: "enviar",
@@ -74,8 +74,8 @@ export default function Login(props) {
                 </div>
                 {
                     show === "login"
-                    ? <Form dataForm={dataLogin} />
-                    : <Form dataForm={dataSignup} showPass={props.showPass} />
+                    ? <Form dataForm={dataLogin} showError={props.showError} />
+                    : <Form dataForm={dataSignup} showPass={props.showPass} showError={props.showError} />
                 }
             </div>
         </div>

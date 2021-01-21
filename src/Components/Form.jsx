@@ -11,6 +11,11 @@ export default function Form(props) {
                     {props.dataForm.action}
                 </div>
                 <div className={props.dataForm.class.classNameInputCardBody}>
+                    <p
+                        className={`text-danger h5 ${props.showError ? "" : "d-none"}`}
+                    >
+                        Error!
+                    </p>
                     <form onSubmit={props.dataForm.onSubmit}>
                         {
                             props.dataForm.fields.map( (field,i) => {
