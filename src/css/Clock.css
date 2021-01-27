@@ -1,11 +1,13 @@
-.clock-conatiner.show {
+.clock-Conatiner.show {
     position: absolute;
-    top: 10%;
+    top: 7%;
     left: 50%;
     transform: translateX(-50%);
+    width: 110%;
+    height: 60vh;
     transition: all .3 linear;
 }
-.clock-conatiner.hide {
+.clock-Conatiner.hide {
     position: absolute;
     left: -100%;
 }

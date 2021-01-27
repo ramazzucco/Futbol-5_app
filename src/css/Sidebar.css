@@ -19,19 +19,23 @@
     z-index: 10;
 }
 
-.sidebarButtons {
+.mainButtons {
     border: none;
     background-color: transparent;
     padding: 10px 0;
     border-radius: 10px;
 }
 
-.sidebarButtons:hover {
+.mainButtons:hover {
     box-shadow: 3px 3px 3px 1px blue;
 }
 
 .sidebarButtons p {
     margin: 0;
+}
+
+.sidebarButtons p:hover {
+    color: black;
 }
 
 .sidebarButtons a {
@@ -45,6 +49,41 @@
     width: 0px;
     height: 0px;
     outline: 0px;
+}
+
+.subMenu {
+    background-color: rgba(0,0,0,.2);
+    border-radius: 0 0 10px 10px;
+}
+
+.subButtons {
+    background-color: transparent;
+    border: none;
+    padding: 10px 0;
+    border-radius: 10px;
+    transition: all .9s linear;
+}
+
+.subButtons:hover > a{
+    color: white;
+}
+
+.clicked {
+    background-color: rgba(0,0,0,.2);
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid rgba(0,0,0,.6);
+    box-shadow: 0 2px 3px 1px black;
+}
+
+.unclicked {
+    border: none;
+    background-color: transparent;
+    padding: 10px 0;
+    border-radius: 10px;
+}
+
+.unclicked:hover {
+    color: black;
 }
 
 .show {

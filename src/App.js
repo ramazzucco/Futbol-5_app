@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { mainFunctions } from "./mainFunctions";
+import { getAdmin, submitSignup } from "./javascript/servicesApi";
+import { showPasswords } from "./javascript/form";
+import { handleSwitchMode } from "./javascript/dashboard";
 import validations from "./validations";
 import "./App.css";
 
@@ -15,6 +17,7 @@ function App() {
     const [ createAdmin, setCreateAdmin ] = useState(false);
     const [ password, setPassword ] = useState({password: ""});
     const [ showError, setShowError ] = useState(false);
+    const [switchMode, setSwitchMode] = useState("ligth");
     const [ signup, setSignup ] = useState({
         name: "",
         lastname: "",
@@ -45,6 +48,12 @@ function App() {
         }
     },[errors])
 
+    useEffect(() => {
+        const changeSwitchMode = () => {
+            handleSwitchMode(switchMode, setSwitchMode);
+        }
+    }, [switchMode])
+
     const handleSignup = (e) => {
         setSignup({
             ...signup,
@@ -62,25 +71,25 @@ function App() {
 
         login: () => {
 
-            mainFunctions.getAdmin(password,setAdmin,setErrors,setCreateAdmin);
+            getAdmin(password,setAdmin,setErrors,setCreateAdmin);
 
         },
         signup: () => {
 
-            mainFunctions.submitSignup(signup,setAdmin,setErrors,setCreateAdmin);
+            submitSignup(signup,setAdmin,setErrors,setCreateAdmin);
 
         }
 
     }
 
-    mainFunctions.showPasswords();
+    showPasswords();
 
     return (
         <Router>
             {
                 !admin.session
                     ? <Login
-                        getAdmin={mainFunctions.getAdmin}
+                        getAdmin={getAdmin}
                         handlePassword={handlePassword}
                         register={register}
                         handleSubmit={handleSubmit}
@@ -89,12 +98,18 @@ function App() {
                         validations={validations}
                         handleSignup={handleSignup}
                         showError={showError}
+                        switchMode={switchMode}
+                        setSwitchMode={setSwitchMode}
                     />
                     : <Route path="/">
                         <Dashboard
                             admin={admin}
                             setAdmin={setAdmin}
+                            showError={showError}
+                            errors={errors}
                             setErrors={setErrors}
+                            switchMode={switchMode}
+                            setSwitchMode={setSwitchMode}
                             setShowError={setShowError}
                             setCreateAdmin={setCreateAdmin}
                         />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { fieldsNewReserve } from "../../javascript/constantes";
 import { useForm } from "react-hook-form";
+import { submitCreateReserve } from "../../javascript/servicesApi";
+import { fieldsNewReserve } from "../../javascript/constantes";
 import validations from "../../validations";
 
 //Components.
@@ -11,7 +12,7 @@ import Loading from "../Loading";
 export default function Newreserve(props) {
 
     const [ loading, setLoading ] = useState({reservesOfTheDay: true});
-    const [ data, setData ] = useState({});
+    const [ data, setData ] = useState({user: props.admin});
     const { register, handleSubmit, errors } = useForm();
 
     useEffect(() => {
@@ -22,24 +23,39 @@ export default function Newreserve(props) {
 
     },[])
 
-    const onSubmit = () => {
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
+    const onSubmit = {
+
+        createReserve: () => {
+
+            submitCreateReserve(
+                data,props.setReservesOfTheDay,props.reservesOfTheDay,props.setErrors,props.setShowError
+            );
+
         }
-        fetch(`/reserve/create`,options)
-            .then(res => res.json())
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => console.log(error))
+
     }
 
     const handlerChange = (e) => {
+
+        if(e.target.name === "cancha"){
+            const cancha = e.target.value;
+            const optionsHorarios = window.document.querySelectorAll(`.horarioOption`);
+
+            optionsHorarios.forEach( option => {
+
+                if(!option.className.includes("d-none") && !option.className.includes(`cancha${cancha}`)){
+                    option.classList.toggle("d-none");
+                }
+
+                if(option.className.includes(`cancha${cancha}`)){
+                    option.classList.toggle("d-none");
+                }
+
+            })
+        }
+
         setData({
+            ...data,
             [e.target.name]: e.target.value
         })
     }
@@ -52,7 +68,16 @@ export default function Newreserve(props) {
         });
     }
 
-    const dataFields = fieldsNewReserve(register,handleSubmit,errors,validations,handlerChange,onSubmit,props.reserves)
+    const dataFields = fieldsNewReserve(
+        register,
+        handleSubmit,
+        props.errors,
+        validations,
+        handlerChange,
+        onSubmit.createReserve,
+        props.reserves,
+        props.switchMode
+    )
 
     return (
         <div className="container-fluid d-flex justify-content-center p-5">
@@ -67,16 +92,23 @@ export default function Newreserve(props) {
                                 </div>
                             </div>
                             <div className={dataFields[0].component[0].class.classNameCardBody}>
-                                <form onSubmit={handleSubmit(onSubmit)} className="row">
+                                <p
+                                    className={`text-danger h5 ${props.showError ? "" : "d-none"}`}
+                                >
+                                    Error!
+                                </p>
+                                <form onSubmit={handleSubmit(onSubmit.createReserve)} className="row">
                                     {
-                                        dataFields[0].component.map((field) => {
+                                        dataFields[0].component.map((field,i) => {
                                             return (
                                                 field.type === "select"
                                                     ? <Select
+                                                        key={i}
                                                         field={field}
                                                         dataForm={{title: "new reserve"}}
                                                     />
                                                     : <Input
+                                                        key={i}
                                                         field={field}
                                                         dataForm={{
                                                             onChange: field.onChange,

@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import {urlApiBase} from "../../functions";
 import { useForm } from "react-hook-form";
 import validations from "../../validations";
 import {cardPages} from "../../javascript/constantes";
-import {mainFunctions} from "../../mainFunctions";
+import {getDataPage, submitCanchaYhorario} from "../../javascript/servicesApi";
 
 //Components.
 import Loading from '../Loading';
 import CardPage from '../CardPage';
 
 export default function Configpage(props) {
-    const urlApi = urlApiBase;
     const { register, handleSubmit, errors } = useForm();
     const [ loading, setLoading ] = useState({reservesOfTheDay: true});
     const [ dataPage, setDataPage ] = useState([]);
@@ -18,10 +16,9 @@ export default function Configpage(props) {
 
     useEffect(() => {
 
-        mainFunctions.getDataPage(props.admin, setDataPage, setLoading);
+        getDataPage(props.admin, setDataPage, setLoading);
 
     },[])
-
 
     const handlerChange = (e) => {
         setDataPost({user: props.admin,...dataPost,[e.target.name]: e.target.value})
@@ -30,14 +27,23 @@ export default function Configpage(props) {
     const onSubmit = {
 
         modifyCanchaYhorario: (e) => {
-            mainFunctions.submitCanchaYhorario(e, dataPost, setDataPage);
+            submitCanchaYhorario(e, dataPost, setDataPage);
         },
 
     }
 
     const fieldsCardsPages = loading.reservesOfTheDay
         ? console.log("cargando datos...")
-        : cardPages(register,handleSubmit,errors,validations,handlerChange,onSubmit,dataPage);
+        : cardPages(
+            register,
+            handleSubmit,
+            errors,
+            validations,
+            handlerChange,
+            onSubmit,
+            dataPage,
+            props.switchMode
+        );
 
     return (
         <div className="container-fluid row">

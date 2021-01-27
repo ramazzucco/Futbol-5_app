@@ -13,7 +13,11 @@ export default function Clock(props) {
                     <span className={`h1 p-2 minutos timer`}></span>
                     <span className={`h1 p-2 segundos timer`}></span>
                 </div>
-                <div className="cube-front bg-primary rounded">
+                <div
+                    className={`cube-front ${props.switchMode === "ligth" ? "bg-primary" : "bg-dark"}
+                        rounded`
+                    }
+                >
                     <i className="fas fa-stopwatch fa-6x"></i>
                     </div>
             </div>

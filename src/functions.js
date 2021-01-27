@@ -12,45 +12,6 @@ module.exports = {
 
     urlAppBase: urlAppBase,
 
-    responseSuccess: (response) => {
-        return (
-        `<div class="modal-content">
-            <div class="modal-header bg-success">
-                <h5
-                    class="modal-title font-weight-bold"
-                    id="exampleModalLabel"
-                >
-                    ${response.meta.msg}
-                </h5>
-                <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                >
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="col-12">
-                    <h5 class="text-center text-uppercase text-primary">Cancha N° ${response.data.cancha}  -  Horario ${response.data.horario}</h5>
-                    <p class="text-center font-weight-bold my-5">
-                        Tus Datos: \n\n<span class="text-muted font-weight-normal">${response.data.nombre + " " + response.data.apellido} - ${response.data.email} - ${response.data.telefono} - Hora y Fecha de la reserva : ${response.data.createdAt}</span>
-                    </p>
-                    <p>Le hemos enviado un mail a "${response.data.email} con los datos de la reserva."</p>
-                </div>
-                <div class="col-12 text-right">
-                        <button
-                            class="btn btn-danger"
-                            data-dismiss="modal"
-                        >
-                            Cerrar
-                        </button>
-                </div>
-            </div>
-        </div>`
-        )
-    },
     countDown: (cancha, paramHora, paramMinutos, paramSegundos) => {
 
         let hora = paramHora;

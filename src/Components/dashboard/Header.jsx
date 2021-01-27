@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { handleMenu } from "../../javascript/header";
 
 //Components.
 import "../../css/Sidebar.css";
@@ -14,23 +15,24 @@ export default function DashboardHeader(props) {
         setOnLine("text-danger");
     };
 
-    const handleMenu = () => {
-
-        const menu = document.querySelector(".sidebarcontent");
-
-        menu.classList.toggle("hide");
-
-        menu.onmouseup = () => {
-            menu.classList.toggle("hide");
-        }
-
-    };
-
+    handleMenu();
 
     return (
         <React.Fragment>
-            <nav className="navbar w-100 ml-auto justify-content-end bg-primary pl-2 pr-4">
-                <button className="btn button_menu d-flex justify-content-center p-1 ml-3 my-auto" onClick={handleMenu}>
+            <nav
+                className={
+                    `navbar w-100 ml-auto justify-content-end
+                    ${props.switchMode === "ligth" ? "bg-primary" : "bg-dark"}
+                    ${props.switchMode === "ligth" ? "text-dark" : "text-white"}
+                    pl-2 pr-4`
+                }
+            >
+                <button
+                    className={`btn button_menu d-flex justify-content-center p-1 ml-3 my-auto
+                    ${props.switchMode === "ligth" ? "text-dark" : "text-white"}
+                `}
+                    onClick={handleMenu}
+                >
                     menu{" "}
                     <i className="fas fa-ellipsis-v align-self-center m-0 ml-2"></i>
                 </button>

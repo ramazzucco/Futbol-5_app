@@ -1,8 +1,16 @@
 import React from 'react';
 import Input from './Input';
-
+import { showPasswords } from "../javascript/form";
 
 export default function Form(props) {
+
+    showPasswords();
+
+    const mode = props.switchMode === "ligth"
+        ? "btn-primary"
+        : props.switchMode === undefined
+            ? "btn-primary"
+            : "btn-dark";
 
     return (
         <div className={props.dataForm.class.classNameInputContentAbsolut}>
@@ -25,13 +33,15 @@ export default function Form(props) {
                                             field={field}
                                             dataForm={props.dataForm}
                                             showPass={props.showPass}
+                                            switchMode={props.switchMode}
                                         />
                                 );
                             })
                         }
                         <button
                             type="submit"
-                            className="btn btn-primary mx-auto text-uppercase mt-4"
+                            className={`btn ${mode}
+                                mx-auto text-uppercase mt-4`}
                         >
                             {props.dataForm.buttonContent}
                         </button>

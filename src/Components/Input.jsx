@@ -3,6 +3,7 @@ import React from "react";
 export default function Input(props) {
 
     const errors = props.dataForm.errors.errors;
+    const textcolor = props.switchMode === "ligth" || props.switchMode === undefined ? "text-dark" : "text-white";
 
     return (
         <div className={`${props.field.input.classNameDiv} form-group m-0`}>
@@ -27,8 +28,14 @@ export default function Input(props) {
             />
             {props.field.input.type === "password"
                 ? <div>
-                    <i className={`far fa-eye ${props.field.input.name} text-dark`} data-id={props.field.input.name}></i>
-                    <i className={`far fa-eye-slash ${props.field.input.name} d-none text-dark`} data-id={props.field.input.name}></i>
+                    <i
+                        className={`far fa-eye ${props.field.input.name} ${textcolor}`}
+                        data-id={props.field.input.name}
+                    ></i>
+                    <i
+                        className={`far fa-eye-slash ${props.field.input.name} d-none ${textcolor}`}
+                        data-id={props.field.input.name}
+                    ></i>
                 </div>
                 : ""
             }

@@ -32,13 +32,26 @@ export default function Select(props) {
                 {
                     props.dataForm && props.dataForm.title === "new reserve"
                         ? props.field.options.map((option,i) => {
+                            const index = i;
                             return (
                                 typeof option[0] === "object"
                                     ? option.map( (object,i) => {
                                         return (
                                             object.reservado === true
-                                                ? <option value={""} key={i}>Reservado</option>
-                                                : <option value={object.horario} key={i}>{object.horario}</option>
+                                                ? <option
+                                                    className={`horarioOption d-none cancha${index + 1} text-danger`}
+                                                    value={""}
+                                                    key={i}
+                                                >
+                                                    Reservado
+                                                </option>
+                                                : <option
+                                                    className={`horarioOption d-none cancha${index + 1}`}
+                                                    value={object.horario}
+                                                    key={i}
+                                                >
+                                                    {object.horario}
+                                                </option>
                                         )
                                     })
                                     : option.map( (string, i) => {

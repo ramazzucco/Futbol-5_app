@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import functions from "../../functions";
-import { mainFunctions } from "../../mainFunctions";
+import { getCanchaYhorario, reset, handlerLogout, deleteReserve } from "../../javascript/servicesApi";
+import { showInfoReserve, shortCut, handleOverflow } from "../../javascript/dashboard";
 import { initClock } from "../../javascript/clock";
 
 //Components
@@ -27,7 +28,7 @@ export default function Dashboard(props) {
         }
 
         if(loading.reserves && loading.reservesOfTheDay){
-            mainFunctions.getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay, props.admin)
+            getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay, props.admin)
         } else {
             setLoading({reserves: false, reservesOfTheDay: false})
         }
@@ -42,8 +43,7 @@ export default function Dashboard(props) {
             setTime(newTime);
         }, 1000);
 
-        if(!loading.reserves && !loading.reservesOfTheDay){
-
+        if(!loading.reserves && !loading.reservesOfTheDay && !reservesOfTheDay[0].error){
             reservesOfTheDay.forEach( reserve => {
 
                 const reserveTime = reserve.horario.slice(0,5) + ":00";
@@ -56,22 +56,31 @@ export default function Dashboard(props) {
         }
 
         if(time === "21:15:00"){
-            mainFunctions.reset(props.admin, setReserves);
+            reset(props.admin, setReserves);
         }
 
     }, [time]);
+
+    shortCut();
+
+    handleOverflow(path);
 
     return (
         <div className="row hidemenu">
             <Header
                 time={time}
                 admin={props.admin}
+                switchMode={props.switchMode}
             />
-            <div className={`clock-conatiner ${showClock} justify-content-around row w-100 my-5`}>
-                <div className="wrapper rounded ml-4">
+            <div className={`clock-Conatiner ${showClock} justify-content-around row`}>
+                <div className={`wrapper rounded ml-4`}>
                     {reserves.map((cancha,i) => {
                         return (
-                            <Clock  cancha={i + 1} key={i} />
+                            <Clock
+                                cancha={i + 1}
+                                key={i}
+                                switchMode={props.switchMode}
+                            />
                         )
                     })}
                 </div>
@@ -81,18 +90,22 @@ export default function Dashboard(props) {
                     loading={loading}
                     reserves={reserves}
                     admin={props.admin}
+                    switchMode={props.switchMode}
+                    setSwitchMode={props.setSwitchMode}
+                    errors={props.errors}
+                    showError={props.showError}
+                    showPass={props.showPass}
+                    setAdmin={props.setAdmin}
+                    setShowClock={setShowClock}
                     setErrors={props.setErrors}
                     setShowError={props.setShowError}
-                    setAdmin={props.setAdmin}
-                    showPass={props.showPass}
-                    setShowClock={setShowClock}
                     reservesOfTheDay={reservesOfTheDay}
                     setCreateAdmin={props.setCreateAdmin}
                     setReservesOfTheDay={setReservesOfTheDay}
-                    handlerLogout={mainFunctions.handlerLogout}
-                    cancelarReserva={mainFunctions.deleteReserve}
-                    showInfoReserve={mainFunctions.showInfoReserve}
-                    getCanchaYhorario={mainFunctions.getCanchaYhorario}
+                    handlerLogout={handlerLogout}
+                    cancelarReserva={deleteReserve}
+                    showInfoReserve={showInfoReserve}
+                    getCanchaYhorario={getCanchaYhorario}
                     paramGetCanchaYhorario={[loading, setLoading, setReserves, setReservesOfTheDay]}
                 />
         </div>

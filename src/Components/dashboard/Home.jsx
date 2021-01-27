@@ -9,7 +9,7 @@ export default function Home(props) {
     return (
         <div className="container-fluid cancha_container d-flex justify-content-around flex-wrap">
             <Loading loading={props.loading} />
-            <div className="canchayhorario-container justify-content-around row w-100 my-5">
+            <div className={`canchayhorario-container justify-content-around row w-100 my-5`}>
                 {props.reserves.map((cancha, i) => {
                     return (
                         <Cancha
@@ -17,6 +17,7 @@ export default function Home(props) {
                             cancha={i + 1}
                             horarios={cancha}
                             admin={props.admin}
+                            switchMode={props.switchMode}
                             reserves={props.reservesOfTheDay}
                             cancelarReserva={props.cancelarReserva}
                             showInfoReserve={props.showInfoReserve}

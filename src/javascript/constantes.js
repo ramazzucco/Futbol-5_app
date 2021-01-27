@@ -1,17 +1,30 @@
 import { Link } from "react-router-dom";
 import {urlApiBase} from "../functions";
 
-const dataButtons = (props) => {
-    const buttonClassName = "sidebarButtons mainButtons";
+const dataButtons = (props,showSubMenu, handleSwitchMode, hideSubMenu) => {
+    const mainButtonClassName = `sidebarButtons mainButtons
+        ${props.switchMode === "ligth" ? "text-dark" : "text-white"}`;
+    const subButtonClassName = `sidebarButtons subButtons w-100
+        ${props.switchMode === "ligth" ? "text-dark" : "text-white"}`;
 
     return (
         [
             {
-                className:buttonClassName,
+                className:mainButtonClassName + " mode border border-dark",
+                id: "mainButton",
+                content: "Mode > Ligth",
+                subMenu: true,
+                onClick: () => { handleSwitchMode(props.switchMode,props.setSwitchMode) },
+            },
+            {
+                className:mainButtonClassName,
+                id: "mainButton",
                 content: (
                     <Link
                         exact
                         to={`/`}
+                        className={`${props.switchMode === "ligth" ? "text-dark" : "text-white"}`}
+                        data-subMenu={false}
                     >
                         Home
                     </Link>
@@ -19,52 +32,81 @@ const dataButtons = (props) => {
                 onClick: () => { props.setShowClock("show") },
             },
             {
-                className:buttonClassName,
-                content: (
-                    <Link
-                        exact
-                        to={`/history`}
-                    >
-                        Reserve History
-                    </Link>
-                ),
-                onClick: () => { props.setShowClock("hide") },
+                className:mainButtonClassName + " reserves",
+                id: "mainButton",
+                subMenu: true,
+                title: "reserves",
+                content: "Reserves",
+                onClick: (e) => { showSubMenu(e) },
+                subButtons: [
+                    {
+                        className: subButtonClassName,
+                        id: "subButton",
+                        content: (
+                            <Link
+                                exact
+                                to={`/history`}
+                                data-subMenu={false}
+                                mainButton= "reserves"
+                            >
+                                History
+                            </Link>
+                        ),
+                        onClick: (e) => {
+                            hideSubMenu(e)
+                            props.setShowClock("hide")
+                        },
+                    },
+                    {
+                        className: subButtonClassName,
+                        id: "subButton",
+                        mainButton: "reserve",
+                        content: (
+                            <Link
+                                exact
+                                to={`/newreserve`}
+                                data-subMenu={false}
+                                mainButton= "reserves"
+                            >
+                                New
+                            </Link>
+                        ),
+                        onClick: (e) => {
+                            hideSubMenu(e)
+                            props.setShowClock("hide")
+                        },
+                    },
+                ]
             },
             {
                 onClick: () => {
                     props.getCanchaYhorario(...props.paramGetCanchaYhorario, props.admin);
                 },
-                className:buttonClassName,
+                className:mainButtonClassName,
+                id: "mainButton",
                 content: (<p>Refresh</p>),
             },
             {
-                className:buttonClassName,
-                content: (
-                    <Link
-                        exact
-                        to={`/newreserve`}
-                    >
-                        New Reserve
-                    </Link>
-                ),
-                onClick: () => { props.setShowClock("hide") },
-            },
-            {
-                className:buttonClassName,
+                className:mainButtonClassName,
+                id: "mainButton",
                 content: (
                     <Link
                         exact
                         to={`/configpage`}
+                        className={`${props.switchMode === "ligth" ? "text-dark" : "text-white"}`}
+                        data-subMenu={false}
                     >
-                        Page Config
+                        Page
                     </Link>
                 ),
                 onClick: () => { props.setShowClock("hide") },
             },
             {
-                className:buttonClassName,
+                className:mainButtonClassName,
+                id: "mainButton",
                 content: (
                     <a
+                        className={`${props.switchMode === "ligth" ? "text-dark" : "text-white"}`}
                         href={`${urlApiBase}`}
                         target="_blank"
                     >
@@ -73,21 +115,45 @@ const dataButtons = (props) => {
                 ),
             },
             {
-                className:buttonClassName,
-                content: (
-                    <Link
-                        exact
-                        to={`/changepassword`}
-                    >
-                        Change Password
-                    </Link>
-                ),
-                onClick: () => { props.setShowClock("hide") },
+                className:mainButtonClassName + " configuration",
+                id: "mainButton",
+                subMenu: true,
+                title: "configuration",
+                content: "Configuration",
+                onClick: (e) => { showSubMenu(e) },
+                subButtons: [
+                    {
+                        className:subButtonClassName,
+                        id: "subButton",
+                        content: (
+                            <Link
+                                exact
+                                to={`/changepassword`}
+                                data-subMenu={false}
+                                mainButton= "configuration"
+                            >
+                                Change Password
+                            </Link>
+                        ),
+                        onClick: (e) => {
+                            hideSubMenu(e)
+                            props.setShowClock("hide")
+                        },
+                    }
+                ]
             },
             {
-                className:buttonClassName,
+                className:mainButtonClassName,
+                id: "mainButton",
                 onClick: () => {
-                    props.handlerLogout(props.admin, props.setAdmin, props.setErrors, props.setShowError, props.setCreateAdmin)
+                    props.handlerLogout(
+                        props.admin,
+                        props.setAdmin,
+                        props.setErrors,
+                        props.setShowError,
+                        props.setCreateAdmin,
+                        props.setSwitchMode
+                    )
                 },
                 content: (<p>Logout</p>),
             },
@@ -214,15 +280,20 @@ const fieldsSignup = (props) => {
     return data;
 }
 
-const fieldsNewReserve = (register,handleSubmit,errors,validations,handlerChange,onSubmit,dataPage) => {
+const fieldsNewReserve = (register,handleSubmit,errors,validations,handlerChange,onSubmit,dataPage,switchMode) => {
+    const background = switchMode === "ligth" ? "bg-primary" : "bg-dark";
+    const textcolor = switchMode === "ligth" ? "text-dark" : "text-light";
     const classNameDiv = "col-12 row justify-content-end mb-2";
-    const classNameLabel = "col-3 m-0 pl-0 form-label text-center text-uppercase text-dark align-self-center";
-    const classNameSelect = "col-12 form-control text-capitalized text-center p-0";
-    const classNameInput = "col-9 text-left";
+    const classNameLabel = `col-3 m-0 pl-0 form-label text-center text-uppercase
+        ${textcolor} align-self-center`;
+    const classNameSelect = `col-12 form-control text-capitalized text-center p-0
+        ${switchMode === "ligth" ? "bg-light" : "bg-secondary"} ${textcolor}`;
+    const classNameInput = `col-9 text-left ${switchMode === "ligth" ? "bg-light" : "bg-secondary"}`;
     const classNameInputError = "h6 text-danger my-2"
-    const classNameCard = "col-12 col-md-9 col-lg-6 newreserve rounded shadow-lg px-0";
-    const classNameCardHeader = "card-header text-ligth bg-primary text-center text-uppercase h5";
-    const classNameCardBody = "card-body bg-light text-center rounded-bottom";
+    const classNameCard = `col-12 col-md-9 col-lg-6 newreserve rounded shadow-lg px-0`;
+    const classNameCardHeader = `card-header ${textcolor} ${background} text-center text-uppercase h5`;
+    const classNameCardBody = `card-body ${textcolor}
+        ${switchMode === "ligth" ? "bg-light" : "bg-secondary"} text-center rounded-bottom`;
 
     const data = [
         {
@@ -263,7 +334,7 @@ const fieldsNewReserve = (register,handleSubmit,errors,validations,handlerChange
                         classNameLabel: classNameLabel + " mb-2"
                     },
                     select: {
-                        name: "horarios",
+                        name: "horario",
                         id: "horarios",
                         ref: register(validations.horarios),
                         classNameDiv: "col-6 d-flex flex-column",
@@ -360,16 +431,20 @@ const fieldsNewReserve = (register,handleSubmit,errors,validations,handlerChange
     return data;
 }
 
-const cardPages = (register,handleSubmit,errors,validations,handlerChange,onSubmit,dataPage) => {
-
+const cardPages = (register,handleSubmit,errors,validations,handlerChange,onSubmit,dataPage,switchMode) => {
+    const background = switchMode === "ligth" ? "bg-primary" : "bg-dark";
+    const textcolor = switchMode === "ligth" ? "text-dark" : "text-light";
     const classNameDiv = "row mb-2";
-    const classNameLabel = "col-9 m-0 form-label text-left text-capitalized text-dark align-self-center";
-    const classNameInput = "col-3 text-left";
-    const classNameSelect = "form-control text-capitalized text-left";
+    const classNameLabel = `col-9 m-0 form-label text-left text-capitalized ${textcolor} align-self-center`;
+    const classNameInput = `col-3 text-left ${switchMode === "ligth" ? "bg-light" : "bg-secondary"}
+        ${textcolor}`;
+    const classNameSelect = `form-control text-capitalized text-left
+        ${switchMode === "ligth" ? "bg-light" : "bg-secondary"} ${textcolor}`;
     const classNameInputError = "h6 text-danger my-2"
     const classNameCard = "rounded shadow";
-    const classNameCardHeader = "card-header text-light bg-primary p-2";
-    const classNameCardBody = "card-body d-none bg-light text-center rounded-bottom";
+    const classNameCardHeader = `card-header ${background} ${textcolor} p-2`;
+    const classNameCardBody = `card-body d-none ${switchMode === "ligth" ? "bg-light" : "bg-secondary"}
+        text-center rounded-bottom`;
 
 
     const data = [
@@ -458,14 +533,20 @@ const cardPages = (register,handleSubmit,errors,validations,handlerChange,onSubm
     return data;
 }
 
-const fieldsChangepassword = (register,validations) => {
+const fieldsChangepassword = (register,validations,switchMode) => {
+    const background = switchMode === "ligth" ? "bg-primary" : "bg-dark";
+    const textcolor = switchMode === "ligth" ? "text-dark" : "text-light";
     const classNameDiv = "col-12 col-sm-9 col-md-9 col-lg-9 mx-auto";
-    const classNameLabel = "col-12 mb-3 form-label text-center text-uppercase text-dark h6 align-self-center";
-    const classNameInput = "col-12 text-center";
+    const classNameLabel = `col-12 mb-3 form-label text-center text-uppercase h6 align-self-center
+        ${textcolor}`;
+    const classNameInput = `col-12 text-center ${switchMode === "ligth" ? "bg-light" : "bg-secondary"}
+        ${textcolor}`;
     const classNameInputError = "h5 text-danger my-3";
     const classNameInputContentAbsolut = "col-12 col-md-9 col-lg-6 rounded shadow-lg px-0";
-    const classNameInputCardHeader = "card-header bg-primary text-ligth text-center text-uppercase h4";
-    const classNameInputCardBody = "card-body changepassword bg-light text-center p-5 rounded-bottom";
+    const classNameInputCardHeader = `card-header ${background} text-center text-uppercase h4
+        ${switchMode === "ligth" ? "text-dark" : "text-light"}`;
+    const classNameInputCardBody = `card-body changepassword text-center p-5 rounded-bottom
+        ${switchMode === "ligth" ? "bg-light" : "bg-secondary"}`;
 
     const data = [
         {

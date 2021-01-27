@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import validations from "../../validations";
 import { fieldsChangepassword } from "../../javascript/constantes";
-import {urlApiBase} from "../../functions";
+import { submitChangePassword } from "../../javascript/servicesApi";
 
 //Components.
 import Form from '../Form';
 import Loading from '../Loading';
-
-//Components.
 
 export default function Changepassword(props) {
 
@@ -27,50 +25,37 @@ export default function Changepassword(props) {
         setDataPost({user: props.admin,...dataPost,[e.target.name]: e.target.value})
     }
 
-    const onSubmit = () => {
-        const options = {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(dataPost),
-        }
-        fetch(`${urlApiBase}/api/admin/changepassword`, options)
-            .then(res => res.json())
-            .then(response => {
-                console.log(response)
-                if(response && response.data[0].error){
-                    errors.errors = [{
-                        error: true,
-                        field: response.data[0].field,
-                        message: response.data[0].message
-                    }]
-                } else {
-                    document.querySelector(".card-body.changepassword").innerHTML = `<h5 class=" text-dark p-5">User ${response.data[0].name} ${response.data[0].lastname}</h5><h3 class="text-success mb-3">Password changed successfully!</h3>`
-                }
+    const onSubmit = {
+        changePassword: () =>{
 
-            })
-            .catch(error => console.log(error))
+            submitChangePassword(dataPost, props.setErrors, props.setShowError, props.setAdmin);
+
+        }
     }
 
-    const dataFields = fieldsChangepassword(register,validations)
+    const dataFields = fieldsChangepassword(register,validations,props.switchMode)
 
     const dataFieldsChangePassword = {
         fields: dataFields,
         action: "Change Password",
         class: dataFields[0].class,
-        onSubmit: handleSubmit(onSubmit),
+        onSubmit: handleSubmit(onSubmit.changePassword),
         onChange: handlerChange,
-        errors: errors,
+        errors: props.errors,
         buttonContent: "enviar",
     };
 
     return (
-        <div className="container-fluid d-flex justify-content-center p-5">
+        <div className="container-fluid d-flex justify-content-center p-2">
             {
                 loading.reservesOfTheDay
                     ? <Loading loading={loading} />
-                    : <Form dataForm={dataFieldsChangePassword} />
+                    : <Form
+                        dataForm={dataFieldsChangePassword}
+                        showError={props.showError}
+                        showError={props.showError}
+                        switchMode={props.switchMode}
+                    />
             }
         </div>
     )

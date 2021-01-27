@@ -53,7 +53,7 @@ export default function Login(props) {
             <div className="w-50 bg-primary d-flex">
                 <div className="content-absolut form-content rounded shadow-lg p-5">
                     <div className="form-title mb-5 d-flex justify-content-center flex-wrap">
-                        <i className="fa fa-user fa-4x text-light my-2 bg-primary rounded-circle p-4"></i>
+                        <i className={`fa fa-user fa-4x my-2 rounded-circle p-4 bg-primary text-white`}></i>
                         <h1 className="text-light text-uppercase text-center w-100">
                             Welcome to MyApp
                         </h1>
@@ -73,8 +73,15 @@ export default function Login(props) {
                 </div>
                 {
                     show === "login"
-                    ? <Form dataForm={dataLogin} showError={props.showError} />
-                    : <Form dataForm={dataSignup} showPass={props.showPass} showError={props.showError} />
+                    ? <Form
+                        dataForm={dataLogin}
+                        showError={props.showError}
+                    />
+                    : <Form
+                        dataForm={dataSignup}
+                        showPass={props.showPass}
+                        showError={props.showError}
+                    />
                 }
             </div>
         </div>
