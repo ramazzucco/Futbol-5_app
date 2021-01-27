@@ -8,14 +8,18 @@ const handleMenu = () => {
 
         menu.classList.toggle("menu");
 
-        menu.onmouseup = (e) => {
-            const submenu = e.target.getAttribute("data-subMenu");
+        const buttons = window.document.querySelectorAll(".sidebarcontent button");
 
-            if(submenu === "false" || submenu === null){
-                menu.classList.toggle("hide");
+        buttons.forEach( btn => {
+
+            const hasSubMenu = btn.getAttribute("data-subMenu");
+
+            btn.onclick = () => {
+                if(hasSubMenu === true){
+                    menu.classList.toggle("hide");
+                }
             }
-
-        }
+        })
 
     }
 

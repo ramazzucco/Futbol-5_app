@@ -19,12 +19,12 @@ const dataButtons = (props,showSubMenu, handleSwitchMode, hideSubMenu) => {
             {
                 className:mainButtonClassName,
                 id: "mainButton",
+                subMenu: false,
                 content: (
                     <Link
                         exact
                         to={`/`}
                         className={`${props.switchMode === "ligth" ? "text-dark" : "text-white"}`}
-                        data-subMenu={false}
                     >
                         Home
                     </Link>
@@ -42,11 +42,11 @@ const dataButtons = (props,showSubMenu, handleSwitchMode, hideSubMenu) => {
                     {
                         className: subButtonClassName,
                         id: "subButton",
+                        subMenu: false,
                         content: (
                             <Link
                                 exact
                                 to={`/history`}
-                                data-subMenu={false}
                                 mainButton= "reserves"
                             >
                                 History
@@ -61,11 +61,11 @@ const dataButtons = (props,showSubMenu, handleSwitchMode, hideSubMenu) => {
                         className: subButtonClassName,
                         id: "subButton",
                         mainButton: "reserve",
+                        subMenu: false,
                         content: (
                             <Link
                                 exact
                                 to={`/newreserve`}
-                                data-subMenu={false}
                                 mainButton= "reserves"
                             >
                                 New
@@ -84,17 +84,18 @@ const dataButtons = (props,showSubMenu, handleSwitchMode, hideSubMenu) => {
                 },
                 className:mainButtonClassName,
                 id: "mainButton",
+                subMenu: false,
                 content: (<p>Refresh</p>),
             },
             {
                 className:mainButtonClassName,
                 id: "mainButton",
+                subMenu: false,
                 content: (
                     <Link
                         exact
                         to={`/configpage`}
                         className={`${props.switchMode === "ligth" ? "text-dark" : "text-white"}`}
-                        data-subMenu={false}
                     >
                         Page
                     </Link>
@@ -104,6 +105,7 @@ const dataButtons = (props,showSubMenu, handleSwitchMode, hideSubMenu) => {
             {
                 className:mainButtonClassName,
                 id: "mainButton",
+                subMenu: false,
                 content: (
                     <a
                         className={`${props.switchMode === "ligth" ? "text-dark" : "text-white"}`}
@@ -125,11 +127,11 @@ const dataButtons = (props,showSubMenu, handleSwitchMode, hideSubMenu) => {
                     {
                         className:subButtonClassName,
                         id: "subButton",
+                        subMenu: false,
                         content: (
                             <Link
                                 exact
                                 to={`/changepassword`}
-                                data-subMenu={false}
                                 mainButton= "configuration"
                             >
                                 Change Password
@@ -145,6 +147,7 @@ const dataButtons = (props,showSubMenu, handleSwitchMode, hideSubMenu) => {
             {
                 className:mainButtonClassName,
                 id: "mainButton",
+                subMenu: false,
                 onClick: () => {
                     props.handlerLogout(
                         props.admin,
