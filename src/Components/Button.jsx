@@ -26,6 +26,7 @@ export default function Button(props) {
                                             className={btn.className}
                                             type={btn.type}
                                             data-toggle={btn.datatoggle}
+                                            data-submenu={btn.subMenu}
                                             aria-label={btn.arialabel}
                                             onClick={btn.onClick}
                                             title={btn.title}

@@ -15,8 +15,6 @@ export default function DashboardHeader(props) {
         setOnLine("text-danger");
     };
 
-    handleMenu();
-
     return (
         <React.Fragment>
             <nav
@@ -31,7 +29,7 @@ export default function DashboardHeader(props) {
                     className={`btn button_menu d-flex justify-content-center p-1 ml-3 my-auto
                     ${props.switchMode === "ligth" ? "text-dark" : "text-white"}
                 `}
-                    onClick={() => { handleMenu() }}
+                    onClick={handleMenu}
                 >
                     menu{" "}
                     <i className="fas fa-ellipsis-v align-self-center m-0 ml-2"></i>

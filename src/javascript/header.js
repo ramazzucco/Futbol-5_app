@@ -12,10 +12,11 @@ const handleMenu = () => {
 
         buttons.forEach( btn => {
 
-            const hasSubMenu = btn.getAttribute("data-subMenu");
+            const hasSubMenu = btn.getAttribute("data-submenu");
 
             btn.onclick = () => {
-                if(hasSubMenu === true){
+                console.log(hasSubMenu)
+                if(hasSubMenu === "false"){
                     menu.classList.toggle("hide");
                 }
             }
