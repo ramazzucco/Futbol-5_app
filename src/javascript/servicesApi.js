@@ -132,7 +132,7 @@ const sendHistoryReserve = (admin) => {
     card.classList.toggle("d-none");
     card.classList.add("w-75");
     header.classList.add("bg-primary");
-    header. innerHTML = "Send email";
+    header.innerHTML = "Send email";
     body.innerHTML = `<div class="d-flex justify-content-center w-100">
         <div class="loading text-center">
             <div class="spinner-border text-success mx-auto" role="status"></div>

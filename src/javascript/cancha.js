@@ -5,7 +5,7 @@ const handleShowInfoReserve = (reserves, deleteReserve, admin, setReservesOfTheD
     reservesDOM.forEach( reserve => {
         reserve.onclick = () => {
             const idReserve = reserve.getAttribute("data-id");
-            const reserveOnDB = reserves.find(reserve => reserve.id == idReserve);
+            const reserveOnDB = reserves.find(reserve => reserve.id === idReserve);
 
             if(reserveOnDB){
                 const info = `<p>Id: <span class="text-muted">${reserveOnDB.id}</span></p>

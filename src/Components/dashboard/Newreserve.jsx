@@ -13,7 +13,7 @@ export default function Newreserve(props) {
 
     const [ loading, setLoading ] = useState({reservesOfTheDay: true});
     const [ data, setData ] = useState({user: props.admin});
-    const { register, handleSubmit, errors } = useForm();
+    const { register, handleSubmit } = useForm();
 
     useEffect(() => {
 

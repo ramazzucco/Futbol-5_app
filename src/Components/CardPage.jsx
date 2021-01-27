@@ -11,13 +11,15 @@ export default function CardPage(props) {
         showCardBody(e, props.setDataPost);
     }
 
+    const textcolor = props.switchMode === "ligth" ? "text-dark" : "text-white";
+
     return (
         <div className="col-12 col-md-6 col-lg-6 cardPage canchasYhorarios p-5">
             <div className={props.data.class.classNameCard}>
                 <div className={props.data.class.classNameCardHeader}>
                     <div className="row justify-content-around align-items-center contentHeader">
                         <span>{props.data.content}</span>
-                        <span className="font-weight-bold text-dark">{props.data.dataPage}</span>
+                        <span className={`font-weight-bold ${textcolor}`}>{props.data.dataPage}</span>
                         <button
                             className="btn btn-sm btn-outline-light"
                             name={props.data.card}

@@ -28,6 +28,17 @@ function App() {
     const [ errors, setErrors ] = useState({});
     const { register, handleSubmit } = useForm();
 
+    const onSubmit = {
+
+        login: () => {
+            getAdmin(password,setAdmin,setErrors,setCreateAdmin);
+        },
+        signup: () => {
+            submitSignup(signup,setAdmin,setErrors,setCreateAdmin);
+        }
+
+    }
+
     useEffect(() => {
         if(admin.session === false){
             onSubmit.login();
@@ -65,21 +76,6 @@ function App() {
 
     const handlePassword = (e) => {
         setPassword({[e.target.name]: e.target.value});
-    }
-
-    const onSubmit = {
-
-        login: () => {
-
-            getAdmin(password,setAdmin,setErrors,setCreateAdmin);
-
-        },
-        signup: () => {
-
-            submitSignup(signup,setAdmin,setErrors,setCreateAdmin);
-
-        }
-
     }
 
     showPasswords();

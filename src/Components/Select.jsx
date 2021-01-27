@@ -3,7 +3,6 @@ import React from "react";
 export default function Select(props) {
 
     const select = props.field.select;
-    const options = props.field.options[0];
 
     return (
         <div className={`${select.classNameDiv} form-group m-0`}>

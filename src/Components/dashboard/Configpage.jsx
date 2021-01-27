@@ -55,6 +55,7 @@ export default function Configpage(props) {
                             <CardPage
                                 data={card}
                                 setDataPost={setDataPost}
+                                switchMode={props.switchMode}
                             />
                         )
                     })

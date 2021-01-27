@@ -111,6 +111,7 @@ const dataButtons = (props,showSubMenu, handleSwitchMode, hideSubMenu) => {
                         className={`${props.switchMode === "ligth" ? "text-dark" : "text-white"}`}
                         href={`${urlApiBase}`}
                         target="_blank"
+                        rel="noreferrer"
                     >
                         Go to Page
                     </a>

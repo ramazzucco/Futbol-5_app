@@ -12,7 +12,9 @@ export default function Changepassword(props) {
 
     const [ loading, setLoading ] = useState({reservesOfTheDay: true});
     const [ dataPost, setDataPost ] = useState();
-    const { register, handleSubmit, errors } = useForm();
+    const { register, handleSubmit } = useForm();
+
+    const dataFields = fieldsChangepassword(register,validations,props.switchMode);
 
     useEffect(() => {
         dataFields.length
@@ -33,8 +35,6 @@ export default function Changepassword(props) {
         }
     }
 
-    const dataFields = fieldsChangepassword(register,validations,props.switchMode)
-
     const dataFieldsChangePassword = {
         fields: dataFields,
         action: "Change Password",
@@ -52,7 +52,6 @@ export default function Changepassword(props) {
                     ? <Loading loading={loading} />
                     : <Form
                         dataForm={dataFieldsChangePassword}
-                        showError={props.showError}
                         showError={props.showError}
                         switchMode={props.switchMode}
                     />
