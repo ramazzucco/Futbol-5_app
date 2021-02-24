@@ -5,7 +5,7 @@ import { getDataPage } from "../../javascript/servicesApi";
 
 //Components.
 import Loading from "../Loading";
-import Cardpage from "../Cardpage";
+import Card from "../Card";
 
 export default function Configpage(props) {
 
@@ -38,7 +38,7 @@ export default function Configpage(props) {
                     ? <Loading loading={loading} switchMode={props.switchMode}/>
                     : fieldsCardsPages.map(card => {
                         return (
-                            <Cardpage
+                            <Card
                                 card={card}
                                 dataPost={dataPost}
                                 setDataPost={setDataPost}
