@@ -1,60 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import { useForm } from "react-hook-form";
-import validations from "../../validations";
-import { fieldsChangepassword } from "../../javascript/constantes";
+import { fieldsChangepassword } from "../../javascript/changepassword";
 import { submitChangePassword } from "../../javascript/servicesApi";
+import { showPasswords } from "../../javascript/form";
 
 //Components.
-import Form from '../Form';
 import Loading from '../Loading';
+import Form from '../Form';
 
 export default function Changepassword(props) {
 
     const [ loading, setLoading ] = useState({reservesOfTheDay: true});
     const [ dataPost, setDataPost ] = useState();
-    const { register, handleSubmit } = useForm();
-
-    const dataFields = fieldsChangepassword(register,validations,props.switchMode);
 
     useEffect(() => {
         dataFields.length
             ? setLoading({reservesOfTheDay: false})
             : console.log("Cargando formulario...")
-
     },[])
 
     const handlerChange = (e) => {
         setDataPost({user: props.admin,...dataPost,[e.target.name]: e.target.value})
     }
 
-    const onSubmit = {
-        changePassword: () =>{
-
-            submitChangePassword(dataPost, props.setErrors, props.setShowError, props.setAdmin);
-
-        }
+    const onSubmit = (e) => {
+        submitChangePassword(e,dataPost, props.setAdmin);
     }
 
-    const dataFieldsChangePassword = {
-        fields: dataFields,
-        action: "Change Password",
-        class: dataFields[0].class,
-        onSubmit: handleSubmit(onSubmit.changePassword),
-        onChange: handlerChange,
-        errors: props.errors,
-        buttonContent: "enviar",
-    };
+    const cancelForm = () => {
+        const inputs = document.querySelectorAll(".changepassword input");
+        const errors = document.querySelectorAll("#changepassword .errors");
+
+        inputs.forEach( input => {
+            input.value = "";
+        })
+
+        errors.forEach( error => {
+            error.innerHTML = "";
+        })
+    }
+
+    const dataFields = fieldsChangepassword(
+        props.switchMode,onSubmit,dataPost,setDataPost,handlerChange,cancelForm
+    );
+
+    showPasswords();
 
     return (
         <div className="container-fluid d-flex justify-content-center p-2">
             {
                 loading.reservesOfTheDay
-                    ? <Loading loading={loading} />
-                    : <Form
-                        dataForm={dataFieldsChangePassword}
-                        showError={props.showError}
-                        switchMode={props.switchMode}
-                    />
+                    ? <Loading loading={loading} switchMode={props.switchMode}/>
+                    : <div className={dataFields[0].class.card}>
+                        <div className={dataFields[0].class.header}>
+                            <h5 className={dataFields[0].header.classNameTitle}>{dataFields[0].header.title}</h5>
+                        </div>
+                        <div className={dataFields[0].class.body + " " + dataFields[0].card}>
+                            {
+                                <Form  form={dataFields[0]} />
+                            }
+                        </div>
+                    </div>
             }
         </div>
     )

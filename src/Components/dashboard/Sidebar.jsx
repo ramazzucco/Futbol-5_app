@@ -1,15 +1,12 @@
 import React from "react";
-import { dataButtons as data } from "../../javascript/constantes";
 import { handleSwitchMode } from "../../javascript/dashboard";
-import { showSubMenu, hideSubMenu } from "../../javascript/sidebar";
+import { showSubMenu, hideSubMenu, dataButtons as data } from "../../javascript/sidebar";
 import "../../css/Sidebar.css";
 
 //Components.
 import Button from "../Button";
 
 export default function Sidebar(props) {
-
-    // showSubMenu();
 
     const dataButtons = data(props, showSubMenu, handleSwitchMode, hideSubMenu);
 

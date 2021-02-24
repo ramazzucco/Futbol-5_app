@@ -1,69 +1,44 @@
-import React from "react";
-import { showCardBody } from "../javascript/cardPage";
+import React, { useState } from 'react'
 
 //Components.
-import Input from "./Input";
+import Form from './Form';
 import Select from "./Select";
 
-export default function CardPage(props) {
+export default function Cardpage(props) {
 
-    const handleShowCardBody = (e) => {
-        showCardBody(e, props.setDataPost);
-    }
+    const [ showSection, setShowSection ] = useState("");
 
-    const textcolor = props.switchMode === "ligth" ? "text-dark" : "text-white";
+    const card = props.card;
 
     return (
-        <div className="col-12 col-md-6 col-lg-6 cardPage canchasYhorarios p-5">
-            <div className={props.data.class.classNameCard}>
-                <div className={props.data.class.classNameCardHeader}>
-                    <div className="row justify-content-around align-items-center contentHeader">
-                        <span>{props.data.content}</span>
-                        <span className={`font-weight-bold ${textcolor}`}>{props.data.dataPage}</span>
-                        <button
-                            className="btn btn-sm btn-outline-light"
-                            name={props.data.card}
-                            onClick={handleShowCardBody}
-                        >
-                            Cambiar
-                        </button>
-                    </div>
+        <div className={card.class.container}>
+            <div className={card.class.card}>
+                <div
+                    className={card.class.header}
+                    id={card.id}
+                >
+                    <p className={card.dataPage.classNameTitle}>
+                        {card.dataPage.title}
+                        <span className={card.dataPage.classNameContent}>
+                            {card.dataPage.content}
+                        </span>
+                        <i className={`fas fa-chevron-left fa-chevron-down text-right ${card.id}`}></i>
+                    </p>
                 </div>
-                <div className={props.data.class.classNameCardBody + " " + props.data.card}>
-                    <form onSubmit={props.data.onSubmit}>
-                        {props.data.component.map((field) => {
-                            return (
-                                    field.type === "input"
-                                    ?<Input
-                                        field={field}
-                                        dataForm={{
-                                            onChange: field.onChange,
-                                            errors: field.errors,
-                                        }}
-                                    />
-                                    : <Select field={field} />
-                            );
-                        })}
-                        <div className="d-flex justify-content-end mt-4 cardPageButtons">
-                            <button
-                                className="btn btn-sm btn-primary text-capitalize mx-2"
-                                type="submit"
-                            >
-                                enviar
-                            </button>
-                            <button
-                                className="btn btn-sm btn-danger text-capitalize mx-2"
-                                type="button"
-                                onClick={handleShowCardBody}
-                                data-action="cancelar"
-                                name={props.data.card}
-                            >
-                                cancelar
-                            </button>
-                        </div>
-                    </form>
+                <div className={card.class.body}>
+                    {
+                        card.section
+                            ? <Select dataSelect={card.section} />
+                            : ""
+                    }
+                    {
+                        card.section && showSection !== ""
+                            ? <Form form={card[showSection]} />
+                            : <Form form={card} />
+                    }
                 </div>
             </div>
         </div>
-    );
+
+    )
 }

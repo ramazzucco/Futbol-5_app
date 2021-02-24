@@ -1,59 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { useForm } from "react-hook-form";
-import validations from "../../validations";
-import {cardPages} from "../../javascript/constantes";
-import {getDataPage, submitCanchaYhorario} from "../../javascript/servicesApi";
+import { cardPageComponents } from "../../javascript/cardPageComponents";
+import { showCardBody, handleErrors } from "../../javascript/cardPage";
+import { getDataPage } from "../../javascript/servicesApi";
 
 //Components.
-import Loading from '../Loading';
-import CardPage from '../CardPage';
+import Loading from "../Loading";
+import Cardpage from '../Cardpage';
 
 export default function Configpage(props) {
-    const { register, handleSubmit, errors } = useForm();
+
     const [ loading, setLoading ] = useState({reservesOfTheDay: true});
     const [ dataPage, setDataPage ] = useState([]);
     const [ dataPost, setDataPost ] = useState([]);
 
     useEffect(() => {
-
         getDataPage(props.admin, setDataPage, setLoading);
-
-    },[])
-
-    const handlerChange = (e) => {
-        setDataPost({user: props.admin,...dataPost,[e.target.name]: e.target.value})
-    }
-
-    const onSubmit = {
-
-        modifyCanchaYhorario: (e) => {
-            submitCanchaYhorario(e, dataPost, setDataPage);
-        },
-
-    }
+    },[]);
 
     const fieldsCardsPages = loading.reservesOfTheDay
         ? console.log("cargando datos...")
-        : cardPages(
-            register,
-            handleSubmit,
-            errors,
-            validations,
-            handlerChange,
-            onSubmit,
+        : cardPageComponents(
             dataPage,
-            props.switchMode
+            props.switchMode,
+            setDataPost,
+            props.admin,
+            dataPost,
+            setDataPage,
+            handleErrors,
         );
+
+    showCardBody(setDataPost);
 
     return (
         <div className="container-fluid row">
             {
                 loading.reservesOfTheDay
-                    ? <Loading loading={loading}/>
+                    ? <Loading loading={loading} switchMode={props.switchMode}/>
                     : fieldsCardsPages.map(card => {
                         return (
-                            <CardPage
-                                data={card}
+                            <Cardpage
+                                card={card}
+                                dataPost={dataPost}
                                 setDataPost={setDataPost}
                                 switchMode={props.switchMode}
                             />

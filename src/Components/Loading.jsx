@@ -1,6 +1,9 @@
 import React from 'react'
 
 export default function Loading(props) {
+
+    const textcolor = props.switchMode === "ligth" ? "text-dark" : "text-white";
+
     return (
         <div className="d-flex justify-content-center w-100">
             <div className={
@@ -9,7 +12,7 @@ export default function Loading(props) {
                 }
             >
                 <div className={`spinner-border text-success mx-auto`} role="status"></div>
-                <h4 className="mt-3 mx-auto">
+                <h4 className={`mt-3 mx-auto ${textcolor}`}>
                     {props.loading.reservesOfTheDay ? `Cargando. . . ` : ""}
                 </h4>
             </div>

@@ -1,39 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { useForm } from "react-hook-form";
+import { fieldsNewReserve } from "../../javascript/Newreserve";
 import { submitCreateReserve } from "../../javascript/servicesApi";
-import { fieldsNewReserve } from "../../javascript/constantes";
-import validations from "../../validations";
 
 //Components.
-import Input from "../Input";
-import Select from "../Select";
+import Form from '../Form';
 import Loading from "../Loading";
 
-export default function Newreserve(props) {
+export default function New_newreserve(props) {
 
     const [ loading, setLoading ] = useState({reservesOfTheDay: true});
-    const [ data, setData ] = useState({user: props.admin});
-    const { register, handleSubmit } = useForm();
+    const [ dataPost, setDataPost ] = useState([]);
 
     useEffect(() => {
-
         dataFields.length
             ? setLoading({reservesOfTheDay: false})
             : console.log("Cargando formulario...")
 
-    },[])
-
-    const onSubmit = {
-
-        createReserve: () => {
-
-            submitCreateReserve(
-                data,props.setReservesOfTheDay,props.reservesOfTheDay,props.setErrors,props.setShowError
-            );
-
-        }
-
-    }
+    },[]);
 
     const handlerChange = (e) => {
 
@@ -54,91 +37,57 @@ export default function Newreserve(props) {
             })
         }
 
-        setData({
-            ...data,
-            [e.target.name]: e.target.value
+        setDataPost({user: props.admin,...dataPost, [e.target.name]: e.target.value})
+    }
+
+    const onSubmit = (e) => {
+        submitCreateReserve(e,dataPost,props.setReservesOfTheDay,props.reservesOfTheDay,props.setErrors,props.setShowError)
+    }
+
+    const cancelForm = () => {
+        const inputs = document.querySelectorAll(".newreserve input");
+        const selects = document.querySelectorAll(".newreserve select");
+        const errors = document.querySelectorAll("#newreserve .errors");
+
+        selects.forEach( select => {
+            select.options.selectedIndex = 0;
+        });
+
+        inputs.forEach( input => {
+            input.value = "";
+        })
+
+        errors.forEach( error => {
+            error.innerHTML = "";
         })
     }
 
-    const handleCancel = () => {
-        const inputs = document.querySelectorAll(".new-reserve input");
-
-        inputs.forEach( input => {
-            input.value = ""
-        });
-    }
-
     const dataFields = fieldsNewReserve(
-        register,
-        handleSubmit,
-        props.errors,
-        validations,
         handlerChange,
-        onSubmit.createReserve,
+        onSubmit,
+        props.switchMode,
+        dataPost,
+        setDataPost,
+        cancelForm,
         props.reserves,
-        props.switchMode
     )
 
     return (
-        <div className="container-fluid d-flex justify-content-center p-5">
+        <div className={dataFields[0].class.container}>
             {
                 loading.reservesOfTheDay
-                    ? <Loading loading={loading} />
-                    : (
-                        <div className={dataFields[0].component[0].class.classNameCard}>
-                            <div className={dataFields[0].component[0].class.classNameCardHeader}>
-                                <div className="row justify-content-around align-items-center contentHeader">
-                                    {dataFields[0].card}
-                                </div>
-                            </div>
-                            <div className={dataFields[0].component[0].class.classNameCardBody}>
-                                <p
-                                    className={`text-danger h5 ${props.showError ? "" : "d-none"}`}
-                                >
-                                    Error!
-                                </p>
-                                <form onSubmit={handleSubmit(onSubmit.createReserve)} className="row">
-                                    {
-                                        dataFields[0].component.map((field,i) => {
-                                            return (
-                                                field.type === "select"
-                                                    ? <Select
-                                                        key={i}
-                                                        field={field}
-                                                        dataForm={{title: "new reserve"}}
-                                                    />
-                                                    : <Input
-                                                        key={i}
-                                                        field={field}
-                                                        dataForm={{
-                                                            onChange: field.onChange,
-                                                            errors: field.errors,
-                                                        }}
-                                                    />
-                                            );
-                                        })
-                                    }
-                                    <div className="w-100 d-flex justify-content-center mt-4 mb-2 cardPageButtons">
-                                        <button
-                                            className="btn btn-primary text-capitalize mx-2"
-                                            type="submit"
-                                        >
-                                            enviar
-                                        </button>
-                                        <button
-                                            className="btn btn-danger text-capitalize mx-2"
-                                            type="button"
-                                            onClick={handleCancel}
-                                        >
-                                            cancelar
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
+                    ? <Loading loading={loading} switchMode={props.switchMode}/>
+                    : <div className={dataFields[0].class.card}>
+                        <div className={dataFields[0].class.header}>
+                            <h5 className={dataFields[0].header.classNameTitle}>{dataFields[0].header.title}</h5>
                         </div>
-                    )
+                        <div className={dataFields[0].class.body + " " + dataFields[0].card}>
+                            {
+                                <Form  form={dataFields[0]} />
+                            }
+                        </div>
+                    </div>
             }
-            
-    </div>
+        </div>
     )
 }

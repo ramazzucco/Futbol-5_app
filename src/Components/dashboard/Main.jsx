@@ -6,12 +6,11 @@ import Sidebar from "./Sidebar";
 import Home from "./Home";
 import History from "./History";
 import Modal from "../Modal";
-import Configpage from "./Configpage";
 import Newreserve from "./Newreserve";
 import Changepassword from "./Changepassword";
+import Configpage from "./Configpage";
 
-export default function DashboardMain(props){
-
+export default function DashboardMain(props) {
     return (
         <React.Fragment>
             <Modal />
@@ -28,7 +27,7 @@ export default function DashboardMain(props){
                 getCanchaYhorario={props.getCanchaYhorario}
                 paramGetCanchaYhorario={props.paramGetCanchaYhorario}
             />
-            <Route exact path="/" >
+            <Route exact path="/">
                 <Home
                     admin={props.admin}
                     loading={props.loading}
@@ -40,7 +39,7 @@ export default function DashboardMain(props){
                     setReservesOfTheDay={props.setReservesOfTheDay}
                 />
             </Route>
-            <Route  path="/history">
+            <Route path="/history">
                 <History
                     admin={props.admin}
                     switchMode={props.switchMode}
@@ -72,7 +71,7 @@ export default function DashboardMain(props){
                     setShowError={props.setShowError}
                 />
             </Route>
-            <Route  path="/configpage">
+            <Route path="/configpage">
                 <Configpage
                     admin={props.admin}
                     switchMode={props.switchMode}

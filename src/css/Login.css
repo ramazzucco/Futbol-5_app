@@ -4,10 +4,24 @@
 }
 
 .content-absolut {
-    width: 40%;
+    width: 80%;
     position: absolute;
-    top: 20%;
-    left: 55%;
+    top: 15%;
+    left: 10%;
+}
+
+.content-absolut.login {
+    width: 80%;
+    position: absolute;
+    top: 30%;
+    left: 10%;
+}
+
+.content-absolut.signup {
+    width: 80%;
+    position: absolute;
+    top: 15%;
+    left: 10%;
 }
 
 .form-content {
@@ -32,6 +46,57 @@
     transform: rotateY(0deg);
 }
 
+@media(max-width: 992px){
+    .form-img {
+        display: none;
+    }
+
+    .form-img img{
+        display: none;
+    }
+
+    .content-absolut {
+        top: 10%;
+    }
+}
+
+@media(max-width: 768px){
+
+    .content-absolut {
+        top: 10%;
+    }
+
+    .content-absolut.login {
+        top: 15%;
+    }
+
+    .content-absolut.signup {
+        top: 5%;
+    }
+
+}
+
+@media(max-width: 420px){
+    .form-img {
+        display: none;
+    }
+
+    .form-img img{
+        display: none;
+    }
+
+    .content-absolut {
+        top: 10%;
+    }
+
+    .content-absolut.login {
+        top: 15%;
+    }
+
+    .content-absolut.signup {
+        top: 5%;
+    }
+}
 /* .login {
     background-color: rgba(10, 10, 10, 0.777);
 }

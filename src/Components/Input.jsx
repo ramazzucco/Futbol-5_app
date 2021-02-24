@@ -1,57 +1,54 @@
-import React from "react";
+import React from 'react'
 
 export default function Input(props) {
 
-    const errors = props.dataForm.errors.errors;
-    const textcolor = props.switchMode === "ligth" || props.switchMode === undefined ? "text-dark" : "text-white";
+    const input = props.dataInput;
 
     return (
-        <div className={`${props.field.input.classNameDiv} form-group m-0`}>
-            <label
-                htmlFor={props.field.label.htmlFor}
-                className={props.field.label.classNameLabel}
-            >
-                {props.field.label.content}
-            </label>
+        <div className={input.classNameDiv}>
+            {
+                input.label
+                    ? <label
+                        className={input.label.classNameLabel}
+                        htmlFor={input.label.htmlFor}
+                    >
+                        {input.label.title}
+                    </label>
+                    : ""
+            }
+            {
+                input.type === "file"
+                    ? <img
+                        className={input.classNameFile}
+                        src={input.file.url}
+                        alt={input.file.name}
+                    />
+                    : ""
+            }
             <input
-                className={`${props.field.input.classNameInput} form-control`}
-                type={props.field.input.type === "password"
-                    ? props.showPass
-                        ? "text" : "password"
-                    : props.field.input.type
-                }
-                name={props.field.input.name}
-                id={props.field.input.id}
-                placeholder={props.field.input.placeholder ? props.field.input.placeholder : ""}
-                ref={props.field.input.ref}
-                onChange={props.dataForm.onChange}
+                type={input.type}
+                className={input.classNameInput}
+                name={input.name}
+                id={input.id}
+                onChange={input.onChange}
+                placeholder={input.placeholder}
+                disabled={input.disabled ? input.disabled : false}
             />
-            {props.field.input.type === "password"
-                ? <div>
+            {input.type === "password"
+                ? <div className="w-100 col-12">
                     <i
-                        className={`far fa-eye ${props.field.input.name} ${textcolor}`}
-                        data-id={props.field.input.name}
+                        className={input.classNameIconShowPass}
+                        data-id={input.id}
                     ></i>
                     <i
-                        className={`far fa-eye-slash ${props.field.input.name} d-none ${textcolor}`}
-                        data-id={props.field.input.name}
+                        className={input.classNameIconHidePass}
+                        data-id={input.id}
                     ></i>
                 </div>
                 : ""
             }
-            <p className={props.field.input.classNameInputError}>
-                {
-                    errors && errors.length
-                        ? errors.map( (error, i) => {
-                            return (
-                                error.field === props.field.label.htmlFor
-                                ? <i className={`fas fa-exclamation-circle ml-3`} key={i}>{"  "}{error.message}</i>
-                                : ""
-                            )
-                            })
-                        : " "
-                }
-            </p>
+            <p className="datapage input d-none">{input.data}</p>
+            <div className="col-12 errors input p-0" id={`error${input.errorid}`} ></div>
         </div>
-    );
+    )
 }

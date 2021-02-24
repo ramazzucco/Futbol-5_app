@@ -20,9 +20,10 @@ export default function Button(props) {
                     props.subButtons
                         ? <div className={`subMenu d-none ${props.title}`}>
                             {
-                                props.subButtons.map( btn => {
+                                props.subButtons.map( (btn, i) => {
                                     return (
                                         <button
+                                            key={i}
                                             className={btn.className}
                                             type={btn.type}
                                             data-toggle={btn.datatoggle}

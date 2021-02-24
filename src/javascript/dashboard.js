@@ -11,7 +11,6 @@ const showInfoReserve = (e) => {
 const shortCut = () => {
 
     onkeypress = () => {
-        console.log(process.argv[0])
     }
 
 }
@@ -33,8 +32,10 @@ const handleSwitchMode = (switchMode,setSwitchMode) => {
 
 const handleOverflow = (path) => {
     const body = window.document.querySelector("body");
+    const width = window.screen.width;
+    const bodyWidth = body.clientWidth;
 
-    if(path === "/history"){
+    if(path === "/history" || path === "/configpage"){
         if(body.className.includes("overflow-hidden")){
             body.classList.remove("overflow-hidden");
             body.classList.add("overflow-auto");
@@ -46,6 +47,26 @@ const handleOverflow = (path) => {
         }
     }
 
+    if(width <= 768 || body.clientWidth <= 768){
+        if(body.className.includes("overflow-hidden")){
+            body.classList.remove("overflow-hidden");
+            body.classList.add("overflow-auto");
+        } else {
+            if(body.className.includes("overflow-auto")){
+                body.classList.remove("overflow-auto");
+                body.classList.add("overflow-hidden");
+            }
+        }
+    }
+
+    window.onresize = () => {
+        const widthBeforeResize = bodyWidth;
+        const dif = body.clientWidth - widthBeforeResize;
+
+        if(dif < 0 && body.clientWidth >= 768){
+            body.scroll(0,0)
+        }
+    }
 }
 
 export {

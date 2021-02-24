@@ -15,7 +15,6 @@ const handleMenu = () => {
             const hasSubMenu = btn.getAttribute("data-submenu");
 
             btn.onclick = () => {
-                console.log(hasSubMenu)
                 if(hasSubMenu === "false"){
                     menu.classList.toggle("hide");
                 }

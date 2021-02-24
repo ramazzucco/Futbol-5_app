@@ -148,7 +148,7 @@ export default function History(props) {
                     </tbody>
                 </table>
             </div>
-            <Loading loading={loading} />
+            <Loading loading={loading} switchMode={props.switchMode}/>
         </React.Fragment>
     );
 }

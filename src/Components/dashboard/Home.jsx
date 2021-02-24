@@ -8,7 +8,7 @@ import Cancha from "../Cancha";
 export default function Home(props) {
     return (
         <div className="container-fluid cancha_container d-flex justify-content-around flex-wrap">
-            <Loading loading={props.loading} />
+            <Loading loading={props.loading} switchMode={props.switchMode} />
             <div className={`canchayhorario-container justify-content-around row w-100 my-5`}>
                 {props.reserves.map((cancha, i) => {
                     return (

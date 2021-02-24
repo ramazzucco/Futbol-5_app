@@ -5,6 +5,13 @@
     box-shadow: 0 0 5px 2px gray;
 }
 
+.cancha.dark {
+    min-width: 23%;
+    max-width: 50%;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 2px black;
+}
+
 .title {
     border-radius: 5px 5px 0 0;
 }
@@ -35,3 +42,11 @@
         top: 65%;
     }
 }
+
+@media(max-width: 490px){
+    .canchayhorario-container {
+        position: absolute;
+        top: 90%;
+    }
+}
+

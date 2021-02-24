@@ -1,3 +1,4 @@
+import axios from 'axios';
 const functions = require("../functions");
 const urlApi = functions.urlApiBase;
 
@@ -98,13 +99,14 @@ const deleteReserve = (reserve, admin, setData, request) => {
                 if(request === "reservesoftheday"){
                     const reserveDeleted = document.querySelector(`.horarios .id${reserve.id}`);
 
-                    reserveDeleted.innerHTML = `<p class="text-center m-0">15:00 Hs<span class="pl-3 text-uppercase">Libre</span></p>`
+                    reserveDeleted.innerHTML = `<p class="text-center m-0">${reserve.horario}Hs<span class="pl-3 text-uppercase">Libre</span></p>`
                     reserveDeleted.classList.remove("bg-danger");
                     reserveDeleted.classList.add("bg-success");
                 }
 
                 setData(response.data)
 
+                header.classList.remove("bg-danger");
                 modal.classList.toggle("d-none");
 
             })
@@ -209,7 +211,92 @@ const submitCanchaYhorario = (e, dataPost, setDataPage) => {
         .catch(error => console.log(error))
 }
 
-const getAdmin = (password,setAdmin,setErrors,setCreateAdmin) => {
+const submitLink = (e, dataPost, setDataPage) => {
+
+    e.preventDefault();
+
+    const optionsPageFetch = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataPost),
+    }
+
+    fetch(`${urlApi}/api/page/modifyheader/link`, optionsPageFetch)
+        .then(res => res.json())
+        .then(response => {
+            console.log(response)
+            setDataPage(response.data)
+            if(dataPost.link){
+                document.getElementById("link").value = ""
+            }
+        })
+        .catch(error => console.log(error))
+
+}
+
+const submitSection = (e, dataPost, setDataPage) => {
+    e.preventDefault();
+
+    console.log(dataPost)
+
+    const optionsPageFetch = {
+        method: "POST",
+        body: "",
+    }
+
+    if(dataPost.images){
+        const formData = new FormData();
+        formData.append("user", dataPost.user);
+        formData.append("section", dataPost.section);
+        dataPost.images.forEach( img => {
+            formData.append(img.name, img)
+        });
+        axios.post(`${urlApi}/api/page/modifysection`, formData)
+        // optionsPageFetch.body = formData;
+    } else {
+        optionsPageFetch.headers = {
+            "Content-Type": "application/json",
+        }
+        optionsPageFetch.body = JSON.stringify(dataPost);
+    }
+
+    console.log(optionsPageFetch)
+
+    fetch(`${urlApi}/api/page/modifysection`, optionsPageFetch)
+        .then(res => res.json())
+        .then(response => {
+            console.log(response)
+            setDataPage(response.data)
+        })
+        .catch(error => console.log(error))
+
+}
+
+const submitFooter = (e, dataPost, setDataPage) => {
+
+    e.preventDefault();
+
+    const optionsPageFetch = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataPost),
+    }
+
+    fetch(`${urlApi}/api/page/modifyfooter`, optionsPageFetch)
+        .then(res => res.json())
+        .then(response => {
+            console.log(response)
+            setDataPage(response.data)
+        })
+        .catch(error => console.log(error))
+
+}
+
+const getAdmin = (password,setAdmin) => {
 
     const options = {
         method: "POST",
@@ -224,28 +311,27 @@ const getAdmin = (password,setAdmin,setErrors,setCreateAdmin) => {
         .then(response => {
 
             if(response && response.error){
-
-                setErrors({show: true, errors: [response.data]})
-                setAdmin({session: null});
-
+                const passwordError = document.querySelector(`#login #errorpassword`);
+                console.log(passwordError)
+                passwordError.innerHTML = `<p class="text-danger text-center">${response.data.message}</p>`
+                setAdmin({session: false});
             }
 
             if(response && response.data.session){
                 setAdmin({session: true,...response.data});
-                setCreateAdmin(false);
             }
         })
         .catch(error => console.log(error))
 }
 
-const submitSignup = (signup,setAdmin,setErrors,setCreateAdmin) => {
+const submitSignup = (dataPost,setAdmin,setErrors,setCreateAdmin) => {
 
     const options = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(signup),
+        body: JSON.stringify(dataPost),
     };
 
     fetch(`${urlApi}/api/admin/create`, options)
@@ -254,9 +340,15 @@ const submitSignup = (signup,setAdmin,setErrors,setCreateAdmin) => {
             console.log(response.data)
             if(response && response.error){
 
-                Array.isArray(response.data)
-                    ? setErrors({show: true, errors: [...response.data]})
-                    : setErrors({show: true, errors: [response.data]})
+                if(Array.isArray(response.data)){
+                    response.data.map( error => {
+                        const errorDOM = document.querySelector(`#signup #error${error.field}`);
+                        errorDOM.innerHTML = `<p class="text-danger text-center">${error.message}</p>`;
+                    })
+                } else {
+                    const errorDOM = document.querySelector(`#signup #error${response.data.field}`);
+                    errorDOM.innerHTML = `<p class="text-danger text-center">${response.data.message}</p>`;
+                }
                 setAdmin({session: null});
 
             }
@@ -282,18 +374,14 @@ const handlerLogout = (admin, setAdmin, setErrors, setShowError, setCreateAdmin,
     fetch(`${urlApi}/api/admin/logout`, options)
         .then(res => res.json())
         .then(response => {
-
-            setErrors({errors: ""});
-            setShowError(false);
-            setCreateAdmin(false);
             setSwitchMode("ligth");
-            setAdmin({session: null});
-
+            setAdmin({session: false});
         })
         .catch(error => console.log(error));
 }
 
-const submitChangePassword = (dataPost, setErrors, setShowError, setAdmin) => {
+const submitChangePassword = (e,dataPost,setAdmin) => {
+    e.preventDefault();
 
     const options = {
         method: "PUT",
@@ -308,10 +396,16 @@ const submitChangePassword = (dataPost, setErrors, setShowError, setAdmin) => {
         .then(response => {
             console.log(response)
             if(response && response.data.error){
-                Array.isArray(response.data)
-                    ? setErrors({show: true, errors: [...response.data]})
-                    : setErrors({show: true, errors: [response.data]})
-                setShowError(true);
+                if(response.data.length){
+                    response.data.map( error => {
+                        const errorDOM = document.querySelector(`#changepassword #error${error.field}`);
+                        errorDOM.innerHTML = `<p class="text-danger text-center">${error.message}</p>`;
+                    })
+                } else {
+                    const errorDOM = document.querySelector(`#changepassword #error${response.data.field}`);
+                    errorDOM.innerHTML = `<p class="text-danger text-center">${response.data.message}</p>`;
+                }
+
             } else {
                 setAdmin(response.data)
                 document.querySelector(".card-body.changepassword")
@@ -360,7 +454,8 @@ const getHistory = (admin, setHisory, setLoading) => {
         .catch(error => console.log(error));
 }
 
-const submitCreateReserve = (data,setReservesOfTheDay,reservesOfTheDay,setErrors,setShowError) => {
+const submitCreateReserve = (e,data,setReservesOfTheDay,reservesOfTheDay,setErrors,setShowError) => {
+    e.preventDefault();
 
     const options = {
         method: "POST",
@@ -377,14 +472,27 @@ const submitCreateReserve = (data,setReservesOfTheDay,reservesOfTheDay,setErrors
 
             if(response.meta.status === 300){
 
-                Array.isArray(response.data)
-                ? setErrors({show: true, errors: [...response.data]})
-                : setErrors({show: true, errors: [response.data]})
+                response.data.map( error => {
+                    const errorDOM = document.querySelector(`#newreserve #error${error.field}`);
+                    errorDOM.innerHTML = `<p class="text-danger text-center">${error.message}</p>`;
+                })
+
                 setShowError(true);
 
             } else {
-                setShowError(false);
+                // setShowError(false);
                 setReservesOfTheDay([...reservesOfTheDay,response.data]);
+
+                const selects = document.querySelectorAll("#newreserve select");
+                const inputs = document.querySelectorAll("#newreserve input");
+
+                selects.forEach( select => {
+                    select.options.selectedIndex = 0;
+                })
+
+                inputs.forEach( input => {
+                    input.value = "";
+                })
 
                 const card = document.querySelector(".modal-info");
                 const header = document.querySelector(".modal-info .card-header");
@@ -395,7 +503,7 @@ const submitCreateReserve = (data,setReservesOfTheDay,reservesOfTheDay,setErrors
 
                 card.classList.add("w-50");
                 card.classList.toggle("d-none");
-                header.innerHTML = "New Reserve"
+                header.innerHTML = "New Reserve";
                 header.classList.remove("bg-primary");
                 header.classList.add("bg-success");
                 body.innerHTML = content;
@@ -425,4 +533,7 @@ export {
     reset,
     getHistory,
     submitCreateReserve,
+    submitLink,
+    submitSection,
+    submitFooter,
 }

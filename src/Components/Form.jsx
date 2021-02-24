@@ -1,53 +1,52 @@
-import React from 'react';
+import React from 'react'
+
+//Components.
 import Input from './Input';
-import { showPasswords } from "../javascript/form";
+import Select from "./Select";
+import Textarea from './Textarea';
 
 export default function Form(props) {
 
-    showPasswords();
-
-    const mode = props.switchMode === "ligth"
-        ? "btn-primary"
-        : props.switchMode === undefined
-            ? "btn-primary"
-            : "btn-dark";
+    const form = props.form.form;
+    const buttonsForm = props.form.buttons ? props.form.buttons : "";
 
     return (
-        <div className={props.dataForm.class.classNameInputContentAbsolut}>
-            <div className="text-white">
-                <div className={props.dataForm.class.classNameInputCardHeader}>
-                    {props.dataForm.action}
-                </div>
-                <div className={props.dataForm.class.classNameInputCardBody}>
-                    <p
-                        className={`text-danger h5 ${props.showError ? "" : "d-none"}`}
-                    >
-                        Error!
-                    </p>
-                    <form onSubmit={props.dataForm.onSubmit}>
-                        {
-                            props.dataForm.fields.map( (field,i) => {
-                                return (
-                                        <Input
-                                            key={i}
-                                            field={field}
-                                            dataForm={props.dataForm}
-                                            showPass={props.showPass}
-                                            switchMode={props.switchMode}
-                                        />
-                                );
-                            })
-                        }
-                        <button
-                            type="submit"
-                            className={`btn ${mode}
-                                mx-auto text-uppercase mt-4`}
-                        >
-                            {props.dataForm.buttonContent}
-                        </button>
-                    </form>
-                </div>
+        <form
+            encType={form.enctype}
+            method={form.method}
+            className={form.className}
+            onSubmit={form.onSubmit}
+            style={form.style}
+            id={form.id}
+        >
+            {
+                props.form.components.map( (component, i) => {
+                    return (
+                        component.componentName === "input"
+                            ? component.textarea
+                                ? <Textarea dataTextarea={component} key={i} />
+                                : <Input dataInput={component} key={i} />
+                            : <Select dataSelect={component} key={i} />
+                    )
+                })
+            }
+            <div className={props.form.class.buttons}>
+                {
+                    buttonsForm.map( (button, i) => {
+                        return (
+                            <button
+                                key={i}
+                                type={button.type}
+                                className={button.className}
+                                onClick={button.onClick}
+                                id={button.id}
+                            >
+                                {button.title}
+                            </button>
+                        )
+                    })
+                }
             </div>
-        </div>
+        </form>
     )
 }

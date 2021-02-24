@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import functions from "../../functions";
 import { getCanchaYhorario, reset, handlerLogout, deleteReserve } from "../../javascript/servicesApi";
 import { showInfoReserve, shortCut, handleOverflow } from "../../javascript/dashboard";
-import { initClock } from "../../javascript/clock";
+import { initClock, getRememberClocks } from "../../javascript/clock";
 
 //Components
 import Main from './Main';
@@ -31,6 +31,12 @@ export default function Dashboard(props) {
             getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay, props.admin)
         } else {
             setLoading({reserves: false, reservesOfTheDay: false})
+        }
+
+        const rememberClocks = getRememberClocks();
+
+        if(rememberClocks && rememberClocks.length){
+            initClock("", rememberClocks)
         }
 
     }, [reservesOfTheDay]);
