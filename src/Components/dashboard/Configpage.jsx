@@ -5,7 +5,7 @@ import { getDataPage } from "../../javascript/servicesApi";
 
 //Components.
 import Loading from "../Loading";
-import Cardpage from "../Cardpage";
+import Cardpage from "../../Components/Cardpage";
 
 export default function Configpage(props) {
 
