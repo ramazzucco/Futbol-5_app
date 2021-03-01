@@ -7,7 +7,6 @@ const submit = async (e, id, dataPost, setState, method, route) => {
     const errors =  handleErrors(id, dataPost);
 
     if(errors[0]){
-
         errors.map( (error, i) => {
 
             if(error.element === "input"){
@@ -18,6 +17,11 @@ const submit = async (e, id, dataPost, setState, method, route) => {
                     errorDOM.innerHTML += `<p class="col-12 text-danger my-2 border border-danger rounded pb-1">
                         ${error.message}
                     </p>`
+                }  else {
+                    const newerror = errorDOM.innerHTML + `<p class="col-12 text-danger my-2 border border-danger rounded pb-1">
+                        ${error.message}
+                    </p>`;
+                    errorDOM.innerHTML = newerror;
                 }
             } else if(error.element === "select"){
 
@@ -47,14 +51,14 @@ const submit = async (e, id, dataPost, setState, method, route) => {
 
             const formData = new FormData();
 
-            formData.append("user", dataPost.user);
+            formData.append("user", dataPost.user.token);
+            formData.append("section", dataPost.section);
 
             for(let i = 0; i < dataPost.images.length; i++){
-                formData.append(dataPost.images[i].name, dataPost.images[i].file)
+                formData.append(dataPost.images[i].name, dataPost.images[i].file);
             }
 
             options.method = method;
-            options.headers = { "Content-Type": "multipart/form-data" };
             options.body = formData;
 
         } else {
@@ -64,14 +68,24 @@ const submit = async (e, id, dataPost, setState, method, route) => {
             options.body = JSON.stringify(dataPost);
 
         }
-
         const submitform = await fetch(urlApiBase + route, options);
 
         const response = await submitform.json();
-
-        setState(response.data);
-
         console.log(response);
+
+        if(response.error){
+            setState(response.data.data)
+            const errorDOM = document.getElementById(response.data.error.error.field);
+
+            if(errorDOM.innerHTML === ""){
+                errorDOM.innerHTML += `<p class="col-12 text-danger my-2 border border-danger rounded pb-1">
+                    ${response.data.error.error.message}
+                </p>`
+            }
+        } else {
+            setState(response.data);
+        }
+
     }
 
 }

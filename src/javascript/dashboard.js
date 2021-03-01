@@ -33,7 +33,6 @@ const handleSwitchMode = (switchMode,setSwitchMode) => {
 const handleOverflow = (path) => {
     const body = window.document.querySelector("body");
     const width = window.screen.width;
-    const bodyWidth = body.clientWidth;
 
     if(path === "/history" || path === "/configpage"){
         if(body.className.includes("overflow-hidden")){
@@ -60,11 +59,12 @@ const handleOverflow = (path) => {
     }
 
     window.onresize = () => {
-        const widthBeforeResize = bodyWidth;
-        const dif = body.clientWidth - widthBeforeResize;
-
-        if(dif < 0 && body.clientWidth >= 768){
-            body.scroll(0,0)
+        if(window.screen.availWidth >= 768){
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth"
+            });
         }
     }
 }

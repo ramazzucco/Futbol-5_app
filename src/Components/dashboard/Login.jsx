@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fieldsSignup as signupData, fieldsLogin as loginData } from "../../javascript/login";
+import { handlerChange as handlerError} from "../../javascript/cardPage";
 import { getAdmin } from "../../javascript/servicesApi";
 import { showPasswords } from "../../javascript/form";
 import "../../css/Login.css";
@@ -20,6 +21,7 @@ export default function Login(props) {
     },[props.admin]);
 
     const handlerChange = (e) => {
+        handlerError(e,setDataPost,props.admin,dataPost).errorsErease()
         setDataPost({...dataPost,[e.target.name]: e.target.value})
     }
 

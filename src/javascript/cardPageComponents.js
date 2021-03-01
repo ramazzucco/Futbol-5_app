@@ -396,19 +396,20 @@ const cardPageComponents = (
                         componentName: "input",
                         label: {
                             title: sponsor.name,
-                            htmlFor: `auspiciante${i + 1}`,
+                            htmlFor: sponsor.name,
                             classNameLabel: classNameLabel.replace("center", "start") + " col-6 text-uppercase"
                         },
                         type: "file",
-                        name: `auspiciante${i + 1}`,
-                        id: `auspiciante${i + 1}`,
+                        name: sponsor.name,
+                        id: sponsor.name,
                         classNameDiv: classNameDiv + ` col-12 col-lg-6 home secondary mx-auto mt-3 pt-3 d-none`,
                         classNameInput: classNameInput + " col-12 my-3 form-control",
                         classNameInputError: classNameInputError,
                         file: sponsor,
                         classNameFile: "img-fluid col-6 pr-0",
                         placeholder: "",
-                        errorid: `auspiciante${i + 1}home`,
+                        dataid: sponsor.id,
+                        errorid: `${sponsor.name}home`,
                         onChange: (e) => {handlerChange(e,setDataPost,admin,dataPost,"home").sectionHome()},
                         // style: styleInput
                     }

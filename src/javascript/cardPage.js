@@ -173,6 +173,7 @@ const handlerChange = (e,setDataPost,admin,dataPost,cardName) => {
     }
 
     const sectionHome = () => {
+        console.log(e.target.name)
         if(e.target.name === "text"){
             setDataPost({user: admin,...dataPost,[e.target.name]: e.target.value});
         } else {
@@ -234,6 +235,7 @@ const handlerChange = (e,setDataPost,admin,dataPost,cardName) => {
     }
 
     return {
+        errorsErease,
         canchas,
         horarios,
         headerLink,
@@ -366,11 +368,12 @@ const handleErrors = (id, data) => {
             } else {
 
                 if(data.section === "home"){
-                    if(data.text){
-                        const datatext = data.text;
-                        const elementdatatext = document.querySelector(`.cardPage.section .card-body .home #text`);
 
-                        if(datatext === elementdatatext.value){
+                    if(data.text){
+                        const dataToSend = data.text;
+                        const dataOnDB = document.querySelector(".cardPage.section .home p").innerHTML;
+
+                        if(dataToSend === dataOnDB){
                             errors.push({
                                 main: false,
                                 element: "textarea",
@@ -378,56 +381,102 @@ const handleErrors = (id, data) => {
                                 message: "You must modify the text to send.!"
                             })
                         }
+                    } else {
+                        const files = data.images;
+
+                        files.map( file => {
+                            if(file.file.type !== "image/jpeg" && file.file.type !== "image/jpg" && file.file.type !== "image/png"){
+                                errors.push({
+                                    main: false,
+                                    element: "input",
+                                    errorid: `${file.name}home`,
+                                    message: "The file type must be .jpeg, .jpg o .png!"
+                                })
+                            }
+                            if(file.file.size > 50000){
+                                errors.push({
+                                    main: false,
+                                    element: "input",
+                                    errorid: `${file.name}home`,
+                                    message: "Max size of image must be 500 x 500 px!"
+                                })
+                            }
+                        })
                     }
 
                 }
 
                 if(data.section === "instalaciones"){
-                    if(!data.canchas){
-                        errors.push({
-                            main: false,
-                            element: "textarea",
-                            errorid:"canchasinstalaciones",
-                            message: "You must modify the text to send.!"
-                        })
+                    const dataOnDB = document.querySelectorAll(`.cardPage.section .instalaciones p`);
+
+                    if(data.canchas){
+                        const dataToSend = data.canchas;
+
+                        if(dataToSend === dataOnDB[0].innerHTML){
+                            errors.push({
+                                main: false,
+                                element: "textarea",
+                                errorid:"canchasinstalaciones",
+                                message: "You must modify the text to send.!"
+                            })
+                        }
+
                     }
-                    if(!data.vestuarios){
-                        errors.push({
-                            main: false,
-                            element: "textarea",
-                            errorid:"vestuariosinstalaciones",
-                            message: "You must modify the text to send.!"
-                        })
+                    if(data.vestuarios){
+                        const dataToSend = data.vestuarios;
+
+                        if(dataToSend === dataOnDB[1].innerHTML){
+                            errors.push({
+                                main: false,
+                                element: "textarea",
+                                errorid:"vestuariosinstalaciones",
+                                message: "You must modify the text to send.!"
+                            })
+                        }
                     }
-                    if(!data.parrillasybar){
-                        errors.push({
-                            main: false,
-                            element: "textarea",
-                            errorid:"parrillasybarinstalaciones",
-                            message: "You must modify the text to send.!"
-                        })
+                    if(data.parrillasybar){
+                        const dataToSend = data.vestuarios;
+
+                        if(dataToSend === dataOnDB[2].innerHTML){
+                            errors.push({
+                                main: false,
+                                element: "textarea",
+                                errorid:"parrillasybarinstalaciones",
+                                message: "You must modify the text to send.!"
+                            })
+                        }
                     }
                 }
 
                 if(data.section === "cumpleaños"){
-                    if(!data.cumpleaños){
-                        errors.push({
-                            main: false,
-                            element: "textarea",
-                            errorid:"cumpleañoscumpleaños",
-                            message: "You must modify the text to send.!"
-                        })
+                    const dataToSend = data.text;
+                    const dataOnDB = document.querySelector(".cardPage.section .cumpleaños p").innerHTML;
+
+                    if(data.cumpleaños){
+                        if(dataToSend === dataOnDB){
+                            errors.push({
+                                main: false,
+                                element: "textarea",
+                                errorid:"cumpleañoscumpleaños",
+                                message: "You must modify the text to send.!"
+                            })
+                        }
                     }
                 }
 
                 if(data.section === "escuelita"){
-                    if(!data.escuelita){
-                        errors.push({
-                            main: false,
-                            element: "textarea",
-                            errorid:"escuelitaescuelita",
-                            message: "You must modify the text to send.!"
-                        })
+                    const dataToSend = data.text;
+                    const dataOnDB = document.querySelector(".cardPage.section .escuelita p").innerHTML;
+
+                    if(data.escuelita){
+                        if(dataToSend === dataOnDB){
+                            errors.push({
+                                main: false,
+                                element: "textarea",
+                                errorid:"escuelitaescuelita",
+                                message: "You must modify the text to send.!"
+                            })
+                        }
                     }
                 }
 

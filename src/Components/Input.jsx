@@ -30,6 +30,7 @@ export default function Input(props) {
                 className={input.classNameInput}
                 name={input.name}
                 id={input.id}
+                dataId={input.dataid ? input.dataid : ""}
                 onChange={input.onChange}
                 placeholder={input.placeholder}
                 disabled={input.disabled ? input.disabled : false}

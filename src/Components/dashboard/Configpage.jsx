@@ -36,9 +36,10 @@ export default function Configpage(props) {
             {
                 loading.reservesOfTheDay
                     ? <Loading loading={loading} switchMode={props.switchMode}/>
-                    : fieldsCardsPages.map(card => {
+                    : fieldsCardsPages.map((card, i) => {
                         return (
                             <Card
+                                key={i}
                                 card={card}
                                 dataPost={dataPost}
                                 setDataPost={setDataPost}

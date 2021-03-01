@@ -43,10 +43,17 @@
     }
 }
 
-@media(max-width: 490px){
+@media(max-width: 770px){
     .canchayhorario-container {
         position: absolute;
         top: 90%;
+    }
+}
+
+@media(max-width: 520px){
+    .canchayhorario-container {
+        position: absolute;
+        top: 130%;
     }
 }
 
