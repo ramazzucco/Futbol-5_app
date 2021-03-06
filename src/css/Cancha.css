@@ -31,29 +31,19 @@
     cursor: pointer;
 }
 
-.canchayhorario-container {
-    position: absolute;
-    top: 50%;
+.cancha_container {
+    margin-top: 330px;
 }
 
-@media(max-width: 833px){
-    .canchayhorario-container {
-        position: absolute;
-        top: 65%;
+@media(max-width: 809px){
+    .cancha_container {
+        margin-top: 540px;
     }
 }
 
-@media(max-width: 770px){
-    .canchayhorario-container {
-        position: absolute;
-        top: 90%;
-    }
-}
-
-@media(max-width: 520px){
-    .canchayhorario-container {
-        position: absolute;
-        top: 130%;
+@media(max-width: 512px){
+    .cancha_container {
+        margin-top: 800px;
     }
 }
 

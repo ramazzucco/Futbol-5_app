@@ -48,7 +48,7 @@ const handleOverflow = (path) => {
         }
     }
 
-    if(width <= 768 || body.clientWidth <= 768){
+    if(width <= 812 || body.clientWidth <= 812){
         if(body.className.includes("overflow-hidden")){
             body.classList.remove("overflow-hidden");
             body.classList.add("overflow-auto");

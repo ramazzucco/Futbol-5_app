@@ -5,6 +5,10 @@
     overflow: hidden;
 }
 
+button.sidebarButtons  {
+    outline: none;
+}
+
 a {
     text-decoration: none;
 }
@@ -20,9 +24,10 @@ a {
 .ligth {
     background-color: white;
 }
-@media(max-width: 958px){
+
+@media(max-width: 420px){
     #root {
-        min-height: 160vh;
+        min-height: 667vh;
     }
 }
 @media(max-width: 768px){
@@ -30,7 +35,7 @@ a {
         min-height: 160vh;
     }
 }
-@media(max-width: 420px){
+@media(max-width: 958px){
     #root {
         min-height: 160vh;
     }

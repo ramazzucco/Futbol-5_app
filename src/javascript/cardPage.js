@@ -66,10 +66,10 @@ const cancelFormCard = (e, setDataPost) => {
         formGroup.forEach( group => {
             if(!group.className.includes("main")
                 && !group.className.includes("d-none")
-                && group.className.includes("secondary")
+                && group.className.includes("secondary","secundario")
                 || !group.className.includes("main")
                 && !group.className.includes("d-none")
-                && group.className.includes("terciary")){
+                && group.className.includes("terciary","terciario")){
 
                 group.classList.toggle("d-none");
             }

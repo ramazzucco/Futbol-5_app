@@ -4,7 +4,7 @@ import {urlApiBase} from "../functions";
 const showSubMenu = (e) => {
     const buttonClass = e.target.classList.value;
 
-    if (e.target.classList.value.includes("clicked")) {
+    if (e.target.classList.value.includes("clicked","clickeado")) {
         e.target.classList.replace("clicked", "uncliked");
     } else {
         e.target.classList.value = buttonClass + " clicked";

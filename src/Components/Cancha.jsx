@@ -15,7 +15,7 @@ export default function Cancha(props) {
     const shadow = props.switchMode === "ligth" ? "" : "dark bg-secondary";
 
     return (
-        <div className={`col-12 col-md-5 col-lg-2 px-0 cancha ${shadow} flex-column mx-1 mb-5`}>
+        <div className={`col-12 col-md-3 col-lg-2 px-0 cancha ${shadow} flex-column mx-1 mb-5`}>
             <div className={`title ${background}`}>
                 <h5 className={textcolor}>
                     Cancha N° {props.horarios.number}
