@@ -6,6 +6,7 @@ const showSubMenu = (e) => {
 
     if (e.target.classList.value.includes("clicked","clickeado")) {
         e.target.classList.replace("clicked", "uncliked");
+        e.target.classList.replace("clickeado", "desabrochado");
     } else {
         e.target.classList.value = buttonClass + " clicked";
     }

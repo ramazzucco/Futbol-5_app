@@ -75,6 +75,13 @@
     box-shadow: 0 2px 3px 1px black;
 }
 
+.clickeado {
+    background-color: rgba(0,0,0,.2);
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid rgba(0,0,0,.6);
+    box-shadow: 0 2px 3px 1px black;
+}
+
 .unclicked {
     border: none;
     background-color: transparent;
@@ -82,7 +89,18 @@
     border-radius: 10px;
 }
 
+.desabrochado {
+    border: none;
+    background-color: transparent;
+    padding: 10px 0;
+    border-radius: 10px;
+}
+
 .unclicked:hover {
+    color: black;
+}
+
+.desabrochado:hover {
     color: black;
 }
 
