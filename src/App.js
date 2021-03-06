@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 
@@ -9,7 +9,25 @@ import Login from "./Components/dashboard/Login";
 function App() {
 
     const [ admin, setAdmin ] = useState({session: false});
-    const [ switchMode, setSwitchMode ] = useState("ligth");
+    const [ switchMode, setSwitchMode ] = useState("");
+
+    useEffect(() => {
+        const getThemeMode = localStorage.getItem("switchMode");
+
+        if(!getThemeMode){
+            setSwitchMode("ligth");
+        }
+
+        if(getThemeMode && getThemeMode === "ligth"){
+            setSwitchMode("ligth");
+        }
+
+        if(getThemeMode && getThemeMode === "dark"){
+            document.getElementById("root").classList.toggle("ligth");
+            document.getElementById("root").classList.toggle("dark");
+            setSwitchMode("dark");
+        }
+    },[])
 
     return (
         <Router>

@@ -94,7 +94,6 @@ const handlerChange = (e,setDataPost,admin,dataPost,cardName) => {
     const errorsErease = () => {
         const id = cardName ? cardName : "";
         const error = document.getElementById(`error${e.target.name}${id !== "" ? id : ""}`);
-        console.log(error)
 
         if(error.innerHTML !== ""){
             error.innerHTML = "";

@@ -20,10 +20,12 @@ const handleSwitchMode = (switchMode,setSwitchMode) => {
     window.document.getElementById("root").classList.toggle("dark")
     window.document.getElementById("root").classList.toggle("ligth")
 
-    if(switchMode === "ligth"){
+    if(switchMode === "ligth" || switchMode === ""){
+        localStorage.setItem("switchMode","dark");
         window.document.querySelector("button.mode").innerHTML = "Mode > Dark"
         setSwitchMode("dark")
     } else {
+        localStorage.setItem("switchMode","ligth");
         window.document.querySelector("button.mode").innerHTML = "Mode > Ligth"
         setSwitchMode("ligth");
     }
@@ -50,11 +52,11 @@ const handleOverflow = (path) => {
         if(body.className.includes("overflow-hidden")){
             body.classList.remove("overflow-hidden");
             body.classList.add("overflow-auto");
-        } else {
-            if(body.className.includes("overflow-auto")){
-                body.classList.remove("overflow-auto");
-                body.classList.add("overflow-hidden");
-            }
+        }
+    } else {
+        if(body.className.includes("overflow-auto") && path !== "/configpage"){
+            body.classList.remove("overflow-auto");
+            body.classList.add("overflow-hidden");
         }
     }
 

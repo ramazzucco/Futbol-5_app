@@ -97,29 +97,3 @@
         top: 5%;
     }
 }
-/* .login {
-    background-color: rgba(10, 10, 10, 0.777);
-}
-
-input[type="password"] {
-    border: none;
-    border-radius: 5px;
-    box-shadow:
-        5px 5px 5px 3px #101010,
-        -5px -5px 5px 3px #313131;
-    transition: all .3s linear;
-}
-
-input[type="password"]:focus {
-    border-radius: 10px;
-    box-shadow:
-        5px 5px 5px 3px #101010,
-        -5px -5px 5px 3px #313131,
-        inset -5px -5px 10px #313131,
-        inset 5px 5px 10px #101010;
-}
-
-input.btn {
-    letter-spacing: 3px;
-    font-weight: 800;
-} */

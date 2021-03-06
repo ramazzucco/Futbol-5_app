@@ -34,10 +34,10 @@ export default function DashboardHeader(props) {
                     menu{" "}
                     <i className="fas fa-ellipsis-v align-self-center m-0 ml-2"></i>
                 </button>
-                <h4 className="mb-0 ml-auto mr-5 align-self-center">
+                <h4 className="mb-0 ml-auto align-self-center">
                     Bienvenido {props.admin.name}!
                 </h4>
-                <h6 className="h4 clock_header font_clock mb-0 mx-2 align-self-center">
+                <h6 className="h4 clock_header font_clock mb-0 mx-2 ml-4 align-self-center">
                     {props.time}
                 </h6>
                 <i

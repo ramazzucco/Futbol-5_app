@@ -72,12 +72,13 @@ export default function Dashboard(props) {
     handleOverflow(path);
 
     return (
-        <div className="row hidemenu">
-            <Header
+        <React.Fragment>
+        <Header
                 time={time}
                 admin={props.admin}
                 switchMode={props.switchMode}
-            />
+        />
+        <div className="row hidemenu">
             <div className={`clock-Conatiner ${showClock} justify-content-around row`}>
                 <div className={`wrapper rounded ml-4`}>
                     {reserves.map((cancha,i) => {
@@ -115,5 +116,6 @@ export default function Dashboard(props) {
                     paramGetCanchaYhorario={[loading, setLoading, setReserves, setReservesOfTheDay]}
                 />
         </div>
+        </React.Fragment>
     )
 }
