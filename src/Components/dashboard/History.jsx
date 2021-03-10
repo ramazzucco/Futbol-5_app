@@ -9,6 +9,7 @@ export default function History(props) {
     const [history, setHisory] = useState([]);
     const [loading, setLoading] = useState({reservesOfTheDay: true});
     const [selectRows, setSelectRows] = useState(false);
+    const [selectAllRows, setSelectAllRows] = useState(false);
     const [ids, setIds] = useState([]);
 
     useEffect(() => {
@@ -26,8 +27,7 @@ export default function History(props) {
     rowClick(setIds, ids, selectRows);
 
     const deleteOne = (e) => {
-
-        const id = Number(e.target.attributes[1].value);
+        const id = Number(e.target.attributes.id.value);
         const reserve = history.find( reserve => reserve.id === id )
 
         deleteReserve(reserve, props.admin, setHisory, "reserves");
@@ -43,6 +43,7 @@ export default function History(props) {
 
     const handleSelecAll = () => {
         selectAll(setIds);
+        setSelectAllRows(!selectAllRows);
     }
 
     const background = props.switchMode === "ligth" ? "bg-primary" : "bg-dark";
@@ -50,8 +51,30 @@ export default function History(props) {
 
     return (
         <React.Fragment>
-            <div className="container-fluid table-responsive p-3">
-                <table className="table table-hover border shadow-lg">
+            <div className="container-fluid mx-auto py-3 px-4">
+                <header className={`card-header ${background} my-3`}>
+                    <button
+                        className={`btn btn-sm ${selectRows ? "btn-secondary" : "btn-outline-light"} mr-2`}
+                        onClick={handlerSelectRows}
+                    >
+                        Seleccionar Columna
+                    </button>
+                    <button
+                        className={`btn btn-sm ${selectRows ? "" : "d-none"}
+                            ${selectAllRows ? "btn-secondary" : "btn-outline-light"} mr-2`
+                        }
+                        onClick={handleSelecAll}
+                    >
+                        Seleccionar Todos
+                    </button>
+                    <button
+                        className="btn btn-sm btn-outline-light ml-2"
+                        onClick={handlerSendMail}
+                    >
+                        Send email <i className="fas fa-envelope ml-2"></i>
+                    </button>
+                </header>
+                <table className="table col-12 table-hover border shadow-lg">
                     <thead className={`${background} text-white`}>
                         <tr>
                             <th scope="col">#</th>
@@ -62,33 +85,10 @@ export default function History(props) {
                             <th scope="col">Cancha</th>
                             <th scope="col">Horario</th>
                             <th scope="col">Hora Y Fecha</th>
-                            <th scope="col">
-                            <button
-                                    className={`btn btn-sm
-                                        ${selectRows ? "btn-light" : "btn-outline-light"} mr-2`
-                                    }
-                                    onClick={handlerSelectRows}
-                                >
-                                    Select
-                                </button>
-                                <button
-                                    className={`btn btn-sm ${selectRows ? "" : "d-none"}
-                                        btn-outline-light mr-2`
-                                    }
-                                    onClick={handleSelecAll}
-                                >
-                                    Select All
-                                </button>
-                                <button
-                                    className="btn btn-sm btn-outline-light ml-2"
-                                    onClick={handlerSendMail}
-                                >
-                                    Send email <i className="fas fa-envelope ml-2"></i>
-                                </button>
-                            </th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
-                    <tbody className={`${textcolor}`}>
+                    <tbody className={`${textcolor} overflow-auto`}>
                         {history.map((reserve) => {
                             return (
                                 <tr className="rows" key={reserve.id}>
@@ -103,22 +103,18 @@ export default function History(props) {
                                     <td>
                                         <a href="#modal" className="text-decoration-none">
                                             <button
-                                                className={`btn btn-sm btn-danger px-5
-                                                    ${selectRows ? "d-none" : ""}`
-                                                }
+                                                id={`${Number(reserve.id)}`}
+                                                className={`btn btn-sm btn-outline-danger border-0 ${selectRows ? "d-none" : ""}`}
                                                 onClick={deleteOne}
-                                                data-id={`${Number(reserve.id)}`}
                                             >
-                                                Delete
+                                                <i className="fas fa-trash" id={`${Number(reserve.id)}`}></i>
                                             </button>
                                         </a>
                                         <button
-                                            className={`btn btn-sm ${selectRows ? "" : "d-none"}
-                                                check ml-5`
-                                            }
+                                            className={`btn btn-sm ${selectRows ? "" : "d-none"} p-0 check ml-5`}
                                         >
-                                            <i className={`far fa-2x fa-square`}></i>
-                                            <i className={`fas fa-2x fa-check-square d-none`}></i>
+                                            <i className={`far fa-1x fa-square`}></i>
+                                            <i className={`fas fa-1x fa-check-square d-none`}></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -134,13 +130,13 @@ export default function History(props) {
                                         className="btn btn-sm btn-block btn-primary mr-2"
                                         onClick={handleCancelSelectRows}
                                     >
-                                        Cencel
+                                        Cencelar
                                     </button>
                                     <button
-                                        className="btn btn-sm btn-block btn-danger ml-2"
+                                        className="btn btn-sm btn-block btn-danger mt-0 ml-2"
                                         onClick={deleteSelected}
                                     >
-                                        Delete
+                                        Confirmar
                                     </button>
                                 </a>
                             </td>

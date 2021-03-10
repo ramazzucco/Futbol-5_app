@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import {urlApiBase} from "../functions";
 
@@ -34,13 +35,19 @@ const dataButtons = (props,showSubMenu, handleSwitchMode, hideSubMenu) => {
         ${props.switchMode === "ligth" ? "text-dark" : "text-white"}`;
     const subButtonClassName = `sidebarButtons subButtons w-100
         ${props.switchMode === "ligth" ? "text-dark" : "text-white"}`;
+    const iconSun = props.switchMode === "ligth" ? "fa-2x text-warning" : "text-secondary"
+    const iconMoon = props.switchMode === "ligth" ? "text-dark" : "fa-2x text-light"
 
     return (
         [
             {
-                className:mainButtonClassName + " mode border border-dark",
+                className:mainButtonClassName + " mode d-flex justify-content-around",
                 id: "mainButton",
-                content: "Mode > Ligth",
+                content: (
+                    <React.Fragment>
+                        <i class={`fas fa-sun ${iconSun} align-self-center`}></i><i class={`fas fa-moon ${iconMoon} align-self-center`}></i>
+                    </React.Fragment>
+                ),
                 subMenu: true,
                 onClick: () => { handleSwitchMode(props.switchMode,props.setSwitchMode) },
             },

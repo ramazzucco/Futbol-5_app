@@ -22,11 +22,11 @@ const handleSwitchMode = (switchMode,setSwitchMode) => {
 
     if(switchMode === "ligth" || switchMode === ""){
         localStorage.setItem("switchMode","dark");
-        window.document.querySelector("button.mode").innerHTML = "Mode > Dark"
+        // window.document.querySelector("button.mode").innerHTML = "Mode > Dark"
         setSwitchMode("dark")
     } else {
         localStorage.setItem("switchMode","ligth");
-        window.document.querySelector("button.mode").innerHTML = "Mode > Ligth"
+        // window.document.querySelector("button.mode").innerHTML = "Mode > Ligth"
         setSwitchMode("ligth");
     }
 
@@ -34,30 +34,40 @@ const handleSwitchMode = (switchMode,setSwitchMode) => {
 
 const handleOverflow = (path) => {
     const body = window.document.querySelector("body");
-    const width = window.screen.width;
+    const divMain = document.querySelector(".main");
+    const modal = document.getElementById("modal");
 
-    if(path === "/history" || path === "/configpage"){
-        if(body.className.includes("overflow-hidden")){
-            body.classList.remove("overflow-hidden");
-            body.classList.add("overflow-auto");
-        }
-    } else {
-        if(body.className.includes("overflow-auto")){
+    if(modal){
+        const modalID = modal.getAttribute("modal-id");
+
+        if(modalID && modalID !== "" && modalID !== "default"){
             body.classList.remove("overflow-auto");
             body.classList.add("overflow-hidden");
+
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth"
+            });
         }
+
     }
 
-    if(width <= 812 || body.clientWidth <= 812){
-        if(body.className.includes("overflow-hidden")){
+    if(divMain && divMain.clientHeight > window.screen.height){
+        const modalID = modal.getAttribute("modal-id");
+
+        if(!modalID || modalID === "default" && body.className.includes("overflow-hidden")){
             body.classList.remove("overflow-hidden");
             body.classList.add("overflow-auto");
         }
     } else {
-        if(body.className.includes("overflow-auto") && path !== "/configpage"){
-            body.classList.remove("overflow-auto");
-            body.classList.add("overflow-hidden");
-        }
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth"
+        });
+        body.classList.remove("overflow-auto");
+        body.classList.add("overflow-hidden");
     }
 
     window.onresize = () => {

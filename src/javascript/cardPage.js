@@ -226,7 +226,13 @@ const handlerChange = (e,setDataPost,admin,dataPost,cardName) => {
     }
 
     const footerRedessociales = () => {
-        setDataPost({user: admin,...dataPost, redessociales: [{titulo: e.target.attributes.id.value, url: e.target.value}]});
+
+        setDataPost({
+            user: admin,
+            ...dataPost,
+            [e.target.name]: { titulo: e.target.attributes.id.value,  url: e.target.value }
+        })
+
     }
 
     const footerContacto = () => {
@@ -493,7 +499,7 @@ const handleErrors = (id, data) => {
             break;
         case "footer":
             if(data.section === "redes sociales"){
-                if(!data.redessociales){
+                if(Object.keys(data).length <= 2){
                     errors.push({
                         main: false,
                         element: "input",

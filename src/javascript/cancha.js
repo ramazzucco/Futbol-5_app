@@ -8,29 +8,39 @@ const handleShowInfoReserve = (reserves, deleteReserve, admin, setReservesOfTheD
             const reserveOnDB = reserves.find(reserve => reserve.id === Number(idReserve));
 
             if(reserveOnDB){
-                const info = `<p>Id: <span class="text-muted">${reserveOnDB.id}</span></p>
-                    <p>Reserva: <span class="text-muted">Cancha n° ${reserveOnDB.cancha} - ${reserveOnDB.horario}Hs</span></p>
-                    <p>Cliente: <span class="text-muted">${reserveOnDB.name} ${reserveOnDB.lastname}</span></p>
-                    <p>Email: <span class="text-muted">${reserveOnDB.email}</span></p>
-                    <p>Telefono: <span class="text-muted">${reserveOnDB.telefono}</span></p>`;
+                const info = `
+                <ul class="col-12 col-lg-9 col-xl-8 mx-auto p-0 px-3 m-0 list-unstyled">
+                    <li class="p-0 d-flex inline-block">
+                        Id: <span class="text-muted ml-auto">${reserveOnDB.id}</span>
+                    </li>
+                    <li class="d-flex inline-block">
+                        Reserva: <span class="text-muted ml-auto">Cancha n° ${reserveOnDB.cancha} - ${reserveOnDB.horario}Hs</span>
+                    </li>
+                    <li class="d-flex inline-block">
+                        Cliente: <span class="text-muted ml-auto">${reserveOnDB.name} ${reserveOnDB.lastname}</span>
+                    </li>
+                    <li class="d-flex inline-block">
+                        Email: <span class="text-muted ml-auto">${reserveOnDB.email}</span>
+                    </li>
+                    <li class="d-flex inline-block">
+                        Telefono: <span class="text-muted ml-auto">${reserveOnDB.telefono}</span>
+                    </li>
+                </ul>`
+
                 const modal = document.querySelector(".card.modal-info");
                 const modalHeader = document.querySelector(".card.modal-info .card-header");
                 const modalBody = document.querySelector(".card.modal-info .card-body");
-                const modalButtom = document.querySelector(".card.modal-info .card-button");
-                const modalButtomDanger = document.querySelector(".card.modal-info .btn-danger");
-                const modalFooter = document.querySelector(".card.modal-info .card-footer");
+                const modalButtom = document.getElementById("secondaryButton");
+                const modalButtomDanger = document.getElementById("cancelButton");
+
+                modal.setAttribute("modal-id","inforeserve");
                 modalHeader.innerHTML = "Detalle";
-                modalHeader.classList.add("bg-primary");
-                modalBody.classList.add("text-dark");
                 modalBody.innerHTML = info;
-                modalFooter.classList.add("bg-primary", "d-flex","justify-content-around");
                 modalButtom.innerHTML = "eliminar";
                 modalButtom.onclick = () => {
                     deleteReserve(reserveOnDB, admin, setReservesOfTheDay,"reservesoftheday");
                 }
-                modalButtomDanger.innerHTML = "cerrar"
-                modalButtom.classList.add("btn", "btn-sm","btn-info")
-                modal.classList.toggle("d-none");
+                modalButtomDanger.innerHTML = "cerrar";
             }
         }
     })

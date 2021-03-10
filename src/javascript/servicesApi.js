@@ -58,19 +58,11 @@ const deleteReserve = (reserve, admin, setData, request) => {
     const header = document.querySelector(".card.modal-info .card-header");
     const body = document.querySelector(".card.modal-info .card-body");
     const footer = document.querySelector(".card.modal-info .card-footer");
-    const buttonCancel = document.querySelector(".card.modal-info .btn-danger");
-    const buttonConfirm = document.querySelector(".card.modal-info .card-button");
+    const buttonCancel = document.getElementById("cancelButton");
+    const buttonConfirm = document.getElementById("secondaryButton");
 
-    if(modal.className.includes("d-none")){
-        modal.classList.toggle("d-none");
-        buttonConfirm.classList.add("btn-primary");
-    }
-
-    header.classList.add("bg-danger");
+    modal.setAttribute("modal-id","historydeleteone");
     header.innerHTML = "eliminar";
-    body.classList.add("text-dark");
-    footer.classList.remove("bg-primary");
-    footer.classList.add("bg-white");
     buttonConfirm.innerHTML = "Si";
     buttonCancel.innerHTML = "No";
 
@@ -106,8 +98,7 @@ const deleteReserve = (reserve, admin, setData, request) => {
 
                 setData(response.data)
 
-                header.classList.remove("bg-danger");
-                modal.classList.toggle("d-none");
+                modal.setAttribute("modal-id","default");
 
             })
             .catch(error => console.log(error));

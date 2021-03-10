@@ -74,11 +74,11 @@ export default function Dashboard(props) {
     return (
         <React.Fragment>
         <Header
-                time={time}
-                admin={props.admin}
-                switchMode={props.switchMode}
+            time={time}
+            admin={props.admin}
+            switchMode={props.switchMode}
         />
-        <div className="row hidemenu">
+        <div className="row hidemenu main">
             <div className={`clock-Conatiner ${showClock} justify-content-around row`}>
                 <div className={`wrapper rounded ml-4`}>
                     {reserves.map((cancha,i) => {

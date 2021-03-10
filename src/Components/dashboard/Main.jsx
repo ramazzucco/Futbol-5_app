@@ -13,7 +13,7 @@ import Configpage from "./Configpage";
 export default function DashboardMain(props) {
     return (
         <React.Fragment>
-            <Modal />
+            <Modal switchMode={props.switchMode} time={props.time} />
             <Sidebar
                 admin={props.admin}
                 setErrors={props.setErrors}
