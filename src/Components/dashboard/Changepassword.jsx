@@ -46,7 +46,7 @@ export default function Changepassword(props) {
     showPasswords();
 
     return (
-        <div className="container-fluid d-flex justify-content-center p-2">
+        <div className="container-fluid d-flex justify-content-center">
             {
                 loading.reservesOfTheDay
                     ? <Loading loading={loading} switchMode={props.switchMode}/>

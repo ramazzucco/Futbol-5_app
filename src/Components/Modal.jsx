@@ -47,20 +47,24 @@ export default function Modal(props) {
 
     return (
         <div className="cardcontainer" style={style.cardcontainer}>
-            <div className="card modal-info text-white" style={style.card} id="modal">
+            <div
+                className={`card modal-info text-white ${window.screen.width < 420 ? "col-10 p-0" : ""}`}
+                style={style.card}
+                id="modal"
+            >
                 <div className="card-header text-uppercase text-center" style={style.header}></div>
                 <div className="card-body p-5" style={style.body}></div>
                 <div className="card-footer text-center" style={style.footer}>
                     <button
                         id="secondaryButton"
-                        className={`btn btn-sm text-uppercase px-5`}
+                        className={`btn btn-sm text-uppercase px-md-5`}
                         style={hover.secondaryButton ? style.hover.secondaryButton : style.secondaryButton}
                         onMouseOver={ () => setHover({ ...hover, secondaryButton: true}) }
                         onMouseOut={ () => setHover({ ...hover, secondaryButton: false}) }
                     ></button>
                     <button
                         id="cancelButton"
-                        className={`card-button text-uppercase btn btn-sm px-5`}
+                        className={`btn btn-sm text-uppercase px-md-5`}
                         onClick={close}
                         style={hover.cancelButton ? style.hover.cancelButton : style.cancelButton}
                         onMouseOver={ () => setHover({...hover, cancelButton: true}) }

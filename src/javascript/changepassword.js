@@ -2,7 +2,7 @@ const fieldsChangepassword = (switchMode,onSubmit,dataPost,setDataPost,handlerCh
     const background = switchMode === "ligth" ? "bg-primary" : "bg-dark";
     const textcolor = switchMode === "ligth" ? "text-dark" : "text-light";
     const classNameCardContainer = "";
-    const classNameCard = "col-10 col-md-9 col-lg-6 rounded shadow-lg px-0  mx-auto my-5";
+    const classNameCard = "col-10 col-md-9 col-lg-6 rounded shadow px-0  mx-auto my-4";
     const classNameCardHeader = `card-header ${background} text-center text-uppercase h4
         ${switchMode === "ligth" ? "text-dark" : "text-light"}`;
     const classNameTitle = "";

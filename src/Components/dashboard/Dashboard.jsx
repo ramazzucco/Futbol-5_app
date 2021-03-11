@@ -99,13 +99,9 @@ export default function Dashboard(props) {
                     admin={props.admin}
                     switchMode={props.switchMode}
                     setSwitchMode={props.setSwitchMode}
-                    errors={props.errors}
-                    showError={props.showError}
                     showPass={props.showPass}
                     setAdmin={props.setAdmin}
                     setShowClock={setShowClock}
-                    setErrors={props.setErrors}
-                    setShowError={props.setShowError}
                     reservesOfTheDay={reservesOfTheDay}
                     setCreateAdmin={props.setCreateAdmin}
                     setReservesOfTheDay={setReservesOfTheDay}

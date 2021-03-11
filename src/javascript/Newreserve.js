@@ -5,12 +5,12 @@ const fieldsNewReserve = (
     const textcolor = switchMode === "ligth" ? "text-dark" : "text-light";
     const classNameTitle = "";
     const classNameCardContainer = "w-100";
-    const classNameCard = `col-10 col-md-9 col-lg-6 newreserve rounded shadow-lg px-0 mx-auto my-5`;
+    const classNameCard = `col-10 col-md-9 col-lg-6 newreserve rounded shadow px-0 mx-auto my-5`;
     const classNameCardHeader = `card-header ${textcolor} ${background} text-center text-uppercase h5`;
     const classNameCardBody = `card-body ${textcolor}
         ${switchMode === "ligth" ? "bg-light" : "bg-secondary"} text-center rounded-bottom`;
     const classNameDiv = "col-12 row justify-content-end mb-2";
-    const classNameLabel = `col-12 m-0 pl-0 form-label text-center text-uppercase
+    const classNameLabel = `col-12 m-0 pl-0 form-label text-right text-uppercase
         ${textcolor} align-self-center`;
     const classNameSelect = `col-12 form-control text-capitalized text-center p-0
         ${switchMode === "ligth" ? "bg-light" : "bg-secondary"} ${textcolor}`;
@@ -62,7 +62,7 @@ const fieldsNewReserve = (
                     label: {
                         title: "cancha",
                         htmlFor: "cancha",
-                        classNameLabel: classNameLabel
+                        classNameLabel: classNameLabel.replace("right","center")
                     },
                     classNameDiv: classNameDiv + " col-12 col-md-6 col-lg-6 mx-auto mb-3",
                     classNameSelect: classNameSelect,
@@ -75,7 +75,7 @@ const fieldsNewReserve = (
                         disabled: true
                     },...dataPage.map(cancha => {
                         return {
-                            className: "",
+                            className: "text-center",
                             value: cancha.number,
                             title: `Cancha N° ${cancha.number}`,
                             selected: false,
@@ -93,13 +93,13 @@ const fieldsNewReserve = (
                     label: {
                         title: "horarios",
                         htmlFor: "horarios",
-                        classNameLabel: classNameLabel
+                        classNameLabel: classNameLabel.replace("right","center")
                     },
                     classNameDiv: classNameDiv + " col-12 col-md-6 col-lg-6 mx-auto mb-3",
                     classNameSelect: classNameSelect,
                     classNameInputError: classNameInputError,
                     options: [{
-                        className: "",
+                        className: "text-center",
                         value: "",
                         title: "Seleccione una opcion.",
                         selected: true,

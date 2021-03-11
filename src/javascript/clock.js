@@ -253,6 +253,7 @@ const commands = () => {
         // BACK.
         if(button.className.includes("arrow-left")){
             button.onclick = () => {
+                document.querySelector(`.clock${id}`).classList.replace("cube-wrapperBefore","cube-wrapper");
                 document.querySelector(`.clock${id} .cube-back`).classList.remove("cube-back-before");
                 document.querySelector(`.clock${id} .cube-front`).classList.remove("cube-front-before");
             }
@@ -266,11 +267,13 @@ const showClockOff = () => {
 
     iconclock.forEach( (icon, i) => {
         icon.onclick = () => {
+            const clock = document.querySelector(`.clock${i+1}`)
             const clockFront = document.querySelector(`.clock${i+1} .cube-front`);
             const clockBack = document.querySelector(`.clock${i+1} .cube-back`);
 
             clockFront.classList.toggle("cube-front-before");
             clockBack.classList.toggle("cube-back-before");
+            clock.classList.replace("cube-wrapper","cube-wrapperBefore");
         }
     })
 }

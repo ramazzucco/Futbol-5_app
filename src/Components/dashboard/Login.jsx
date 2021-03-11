@@ -65,7 +65,7 @@ export default function Login(props) {
     showPasswords();
 
     return (
-        <div className="container-form d-flex">
+        <div className={`container-form d-flex`}>
             <div className="form-img col-lg-5 my-auto d-flex justify-content-center p-0">
                 <img src="/assets/logo.jpg" alt="logo" />
             </div>
