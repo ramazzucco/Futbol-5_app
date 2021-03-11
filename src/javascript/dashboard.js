@@ -22,11 +22,9 @@ const handleSwitchMode = (switchMode,setSwitchMode) => {
 
     if(switchMode === "ligth" || switchMode === ""){
         localStorage.setItem("switchMode","dark");
-        // window.document.querySelector("button.mode").innerHTML = "Mode > Dark"
         setSwitchMode("dark")
     } else {
         localStorage.setItem("switchMode","ligth");
-        // window.document.querySelector("button.mode").innerHTML = "Mode > Ligth"
         setSwitchMode("ligth");
     }
 

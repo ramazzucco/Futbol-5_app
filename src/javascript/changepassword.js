@@ -85,11 +85,11 @@ const fieldsChangepassword = (switchMode,onSubmit,dataPost,setDataPost,handlerCh
                     componentName: "input",
                     label: {
                         title: "Repita su nueva contraseña",
-                        htmlFor: "password",
+                        htmlFor: "repeatnewpassword",
                         classNameLabel: classNameLabel
                     },
                     type: "password",
-                    name: "password",
+                    name: "repeatnewpassword",
                     id: "repeatnewpassword",
                     classNameDiv: classNameDiv + " col-12 mx-auto justify-content-between",
                     classNameInput: classNameInput + " col-3 form-control mb-3",
