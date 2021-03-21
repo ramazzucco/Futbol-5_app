@@ -21,7 +21,12 @@ export default function Login(props) {
     },[props.admin]);
 
     const handlerChange = (e) => {
-        handlerError(e,setDataPost,props.admin,dataPost).errorsErease()
+        const error = document.getElementById(`error${e.target.attributes.id.value}`);
+
+        if(error.innerHTML !== ""){
+            error.innerHTML = "";
+        }
+
         setDataPost({...dataPost,[e.target.name]: e.target.value})
     }
 
@@ -40,6 +45,7 @@ export default function Login(props) {
     const goBack = () => {
         const inputsLogin = document.querySelector("form#login input");
         const inputsSignup = document.querySelectorAll("form#signup input");
+        const errors = document.querySelectorAll(".errors p");
         const formContent = document.querySelector(".form-content");
         const formContentBack = document.querySelector(".form-content-back");
         formContent.classList.remove("form-content-before");
@@ -51,11 +57,14 @@ export default function Login(props) {
             inputsLogin.value = "";
         } else {
             formContentBack.classList.remove("signup");
-
             inputsSignup.forEach( input => {
                 input.value = "";
             })
         }
+
+        errors.forEach( error => {
+            if(error.innerHTML != "") error.innerHTML = "";
+        })
 
     }
 
