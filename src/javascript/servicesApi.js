@@ -302,12 +302,12 @@ const getAdmin = (password,setAdmin) => {
         .then(response => {
 
             if(response && response.error){
-                const passwordError = document.querySelector(`#login #errorpassword`);
+                const passwordError = document.querySelector(`#login #errorpassword p`);
                 console.log(passwordError)
-                passwordError.innerHTML = `<p class="text-danger text-center">${response.data.message}</p>`
+                passwordError.innerHTML = `<p class="text-danger text-center">${response.data.data.message}</p>`
                 setAdmin({session: false});
             }
-
+console.log(response)
             if(response && response.data.session){
                 setAdmin({session: true,...response.data});
             }
