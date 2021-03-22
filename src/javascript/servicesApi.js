@@ -2,7 +2,7 @@ import axios from 'axios';
 const functions = require("../functions");
 const urlApi = functions.urlApiBase;
 
-const getCanchaYhorario = async (loading,setLoading,setReserves,setReservesOfTheDay,admin) => {
+const getCanchaYhorario = (loading,setLoading,setReserves,setReservesOfTheDay,admin) => {
 
     const options = {
         method: "POST",
@@ -12,39 +12,43 @@ const getCanchaYhorario = async (loading,setLoading,setReserves,setReservesOfThe
         body: JSON.stringify(admin),
     }
 
-    const getCanchaYhorario = await fetch(`${urlApi}/api/reserves/canchaYhorario`,options);
-    const response = await getCanchaYhorario.json();
+    fetch(`${urlApi}/api/reserves/canchaYhorario`,options)
+        .then( res => res.json())
+        .then( response => {
 
-    console.log(response)
+            console.log(response)
 
-    if(response) {
-        setLoading({
-            reserves: false,
-            reservesOfTheDay: loading.reservesOfTheDay,
-        });
+            if(response) {
+                setLoading({
+                    reserves: false,
+                    reservesOfTheDay: loading.reservesOfTheDay,
+                });
 
-        setReserves(response.data);
+                setReserves(response.data);
 
-        const getReservesOfTheDay = await fetch(`${urlApi}/api/reserves/reservesoftheday`,options);
-        const response2 = await getReservesOfTheDay.json();
+            } else {
+                setLoading({
+                    reserves: true,
+                    reservesOfTheDay: loading.reservesOfTheDay,
+                });
+            }
 
-        console.log(response2)
+            fetch(`${urlApi}/api/reserves/reservesoftheday`,options)
+                .then( res => res.json())
+                .then( response => {
+                    console.log(response)
 
-        if(response2.data.length && response2.data[0].error){
-            reset(admin,setReserves);
-        }
+                    if(response.data.length && response.data[0].error){
+                        reset(admin,setReserves);
+                    }
 
-        setReservesOfTheDay(response2.data);
-        setLoading({
-            reserves: loading.reserves,
-            reservesOfTheDay: false,
-        });
-    } else {
-        setLoading({
-            reserves: true,
-            reservesOfTheDay: loading.reservesOfTheDay,
-        });
-    }
+                    setReservesOfTheDay(response.data);
+                    setLoading({
+                        reserves: loading.reserves,
+                        reservesOfTheDay: false,
+                    });
+                })
+        })
 }
 
 const deleteReserve = (reserve, admin, setData, request) => {
