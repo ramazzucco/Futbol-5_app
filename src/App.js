@@ -5,6 +5,7 @@ import "./App.css";
 //Components
 import Dashboard from "./Components/dashboard/Dashboard";
 import Login from "./Components/dashboard/Login";
+import { getAdmin } from "./javascript/servicesApi";
 
 function App() {
 
@@ -17,8 +18,7 @@ function App() {
 
         if(getSession){
             const session = JSON.parse(getSession);
-            session.session = true;
-            setAdmin(session)
+            getAdmin(session,setAdmin)
         }
 
         if(!getThemeMode){
