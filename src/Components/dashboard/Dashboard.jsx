@@ -19,7 +19,7 @@ export default function Dashboard(props) {
 
     const path = window.location.pathname;
 
-    useEffect(() => {
+    useEffect( async () => {
 
         if(path !== "/"){
             setShowClock("hide");
@@ -28,9 +28,9 @@ export default function Dashboard(props) {
         }
 
         if(loading.reserves && loading.reservesOfTheDay){
-            getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay, props.admin)
+           await getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay, props.admin)
         } else {
-            setLoading({reserves: false, reservesOfTheDay: false})
+            await setLoading({reserves: false, reservesOfTheDay: false})
         }
 
         const rememberClocks = getRememberClocks();
