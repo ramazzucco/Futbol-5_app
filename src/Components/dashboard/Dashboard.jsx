@@ -27,18 +27,21 @@ export default function Dashboard(props) {
             setShowClock("show");
         }
 
-        if(loading.reserves && loading.reservesOfTheDay){
-            console.log("LOADING reserves: ",loading.reserves, "LOADING reservesoftheday: ",loading.reservesOfTheDay)
-            getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay, props.admin)
-            console.log("INFO: ",reserves, reservesOfTheDay)
-        } else {
-            setLoading({reserves: false, reservesOfTheDay: false})
-        }
+        if(props.admin.session){
+            if(loading.reserves && loading.reservesOfTheDay){
+                console.log("LOADING reserves: ",loading.reserves, "LOADING reservesoftheday: ",loading.reservesOfTheDay)
+                getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay, props.admin)
+                console.log("INFO: ",reserves, reservesOfTheDay)
+            } else {
+                setLoading({reserves: false, reservesOfTheDay: false})
+            }
 
-        const rememberClocks = getRememberClocks();
+            const rememberClocks = getRememberClocks();
 
-        if(rememberClocks && rememberClocks.length){
-            initClock("", rememberClocks)
+            if(rememberClocks && rememberClocks.length){
+                initClock("", rememberClocks)
+            }
+
         }
     }, [reservesOfTheDay]);
 
