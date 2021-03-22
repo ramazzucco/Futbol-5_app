@@ -29,8 +29,8 @@ export default function Dashboard(props) {
 
         if(loading.reserves && loading.reservesOfTheDay){
             console.log("LOADING reserves: ",loading.reserves, "LOADING reservesoftheday: ",loading.reservesOfTheDay)
-            console.log("INFO: ",reserves, reservesOfTheDay)
             getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay, props.admin)
+            console.log("INFO: ",reserves, reservesOfTheDay)
         } else {
             setLoading({reserves: false, reservesOfTheDay: false})
         }
