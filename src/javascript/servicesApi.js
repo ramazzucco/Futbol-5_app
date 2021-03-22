@@ -11,7 +11,7 @@ const getCanchaYhorario = (loading,setLoading,setReserves,setReservesOfTheDay,ad
         },
         body: JSON.stringify(admin),
     }
-
+    console.log(options)
     fetch(`${urlApi}/api/reserves/canchaYhorario`,options)
         .then( res => res.json())
         .then( response => {
