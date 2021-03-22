@@ -185,14 +185,8 @@ const dataButtons = (props,showSubMenu, handleSwitchMode, hideSubMenu) => {
                 id: "mainButton",
                 subMenu: false,
                 onClick: () => {
-                    props.handlerLogout(
-                        props.admin,
-                        props.setAdmin,
-                        props.setErrors,
-                        props.setShowError,
-                        props.setCreateAdmin,
-                        props.setSwitchMode
-                    )
+                    props.setAdmin({session: false});
+                    localStorage.clear("session");
                 },
                 content: (<p>Logout</p>),
             },

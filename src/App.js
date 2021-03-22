@@ -12,7 +12,14 @@ function App() {
     const [ switchMode, setSwitchMode ] = useState("");
 
     useEffect(() => {
+        const getSession = localStorage.getItem("session");
         const getThemeMode = localStorage.getItem("switchMode");
+
+        if(getSession){
+            const session = JSON.parse(getSession);
+            session.session = true;
+            setAdmin(session)
+        }
 
         if(!getThemeMode){
             setSwitchMode("ligth");

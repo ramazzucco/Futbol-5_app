@@ -35,7 +35,6 @@ const fieldsLogin = (props, handlerChange, dataPost, goBack) => {
                 id: "login",
                 onSubmit: (e) => {
                     e.preventDefault();
-                    console.log(dataPost)
                     getAdmin(dataPost,props.setAdmin)
                 },
                 // style: styleForm

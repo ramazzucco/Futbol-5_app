@@ -302,14 +302,13 @@ const getAdmin = (password,setAdmin) => {
         .then(response => {
 
             if(response && response.error){
-                const passwordError = document.querySelector(`#login #errorpassword p`);
-                console.log(passwordError)
-                passwordError.innerHTML = `<p class="text-danger text-center">${response.data.data.message}</p>`
+                const passwordError = document.querySelector(`#login #errorpassword`);
+                passwordError.innerHTML = `<p class="text-danger text-center">${response.data.message}</p>`
                 setAdmin({session: false});
-            }
-console.log(response)
-            if(response && response.data.session){
-                setAdmin({session: true,...response.data});
+            } else {
+                const admin = {session: true,...response.data}
+                localStorage.setItem("session",JSON.stringify(admin))
+                setAdmin(admin);
             }
         })
         .catch(error => console.log(error))
@@ -352,7 +351,7 @@ const submitSignup = (dataPost,setAdmin,setErrors,setCreateAdmin) => {
         .catch(error => console.log(error))
 }
 
-const handlerLogout = (admin, setAdmin, setErrors, setShowError, setCreateAdmin, setSwitchMode) => {
+const handlerLogout = (admin, setAdmin, setSwitchMode) => {
 
     const options = {
         method: "POST",
@@ -367,6 +366,7 @@ const handlerLogout = (admin, setAdmin, setErrors, setShowError, setCreateAdmin,
         .then(response => {
             setSwitchMode("ligth");
             setAdmin({session: false});
+            localStorage.clear("session");
         })
         .catch(error => console.log(error));
 }

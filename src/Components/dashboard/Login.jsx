@@ -13,12 +13,12 @@ export default function Login(props) {
     const [ dataPost, setDataPost ] = useState({});
     const [ show, setShow ] = useState("login");
 
-    useEffect(() => {
-        if(!props.admin.session){
-            const password = { password: "" }
-            getAdmin(password, props.setAdmin)
-        }
-    },[props.admin]);
+    // useEffect(() => {
+    //     if(!props.admin.session){
+    //         const password = { password: "" }
+    //         getAdmin(password, props.setAdmin)
+    //     }
+    // },[props.admin]);
 
     const handlerChange = (e) => {
         const error = document.getElementById(`error${e.target.attributes.id.value}`);
