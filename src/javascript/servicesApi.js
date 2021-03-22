@@ -48,7 +48,9 @@ const getCanchaYhorario = (loading,setLoading,setReserves,setReservesOfTheDay,ad
                         reservesOfTheDay: false,
                     });
                 })
+                .catch(error => console.log(error))
         })
+        .catch(error => console.log(error))
 }
 
 const deleteReserve = (reserve, admin, setData, request) => {
