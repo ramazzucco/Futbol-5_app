@@ -33,22 +33,22 @@ const getCanchaYhorario = (loading,setLoading,setReserves,setReservesOfTheDay,ad
                 });
             }
 
-            fetch(`${urlApi}/api/reserves/reservesoftheday`,options)
-                .then( res => res.json())
-                .then( response => {
-                    console.log(response)
+            // fetch(`${urlApi}/api/reserves/reservesoftheday`,options)
+            //     .then( res => res.json())
+            //     .then( response => {
+            //         console.log(response)
 
-                    if(response.data.length && response.data[0].error){
-                        reset(admin,setReserves);
-                    }
+            //         if(response.data.length && response.data[0].error){
+            //             reset(admin,setReserves);
+            //         }
 
-                    setReservesOfTheDay(response.data);
-                    setLoading({
-                        reserves: loading.reserves,
-                        reservesOfTheDay: false,
-                    });
-                })
-                .catch(error => console.log(error))
+            //         setReservesOfTheDay(response.data);
+            //         setLoading({
+            //             reserves: loading.reserves,
+            //             reservesOfTheDay: false,
+            //         });
+            //     })
+            //     .catch(error => console.log(error))
         })
         .catch(error => console.log(error))
 }
