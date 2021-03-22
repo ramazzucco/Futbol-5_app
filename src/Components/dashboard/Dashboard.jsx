@@ -28,6 +28,8 @@ export default function Dashboard(props) {
         }
 
         if(loading.reserves && loading.reservesOfTheDay){
+            console.log("LOADING reserves: ",loading.reserves, "LOADING reservesoftheday: ",loading.reservesOfTheDay)
+            console.log("INFO: ",reserves, reservesOfTheDay)
             getCanchaYhorario(loading, setLoading, setReserves, setReservesOfTheDay, props.admin)
         } else {
             setLoading({reserves: false, reservesOfTheDay: false})
@@ -38,7 +40,6 @@ export default function Dashboard(props) {
         if(rememberClocks && rememberClocks.length){
             initClock("", rememberClocks)
         }
-console.log(reserves, reservesOfTheDay)
     }, [reservesOfTheDay]);
 
     useEffect(() => {
