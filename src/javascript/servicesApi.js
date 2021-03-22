@@ -15,6 +15,8 @@ const getCanchaYhorario = async (loading,setLoading,setReserves,setReservesOfThe
     const getCanchaYhorario = await fetch(`${urlApi}/api/reserves/canchaYhorario`,options);
     const response = await getCanchaYhorario.json();
 
+    console.log(response)
+
     if (response) {
         setLoading({
             reserves: false,
