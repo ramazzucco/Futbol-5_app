@@ -38,7 +38,7 @@ export default function Dashboard(props) {
         if(rememberClocks && rememberClocks.length){
             initClock("", rememberClocks)
         }
-
+console.log(reserves, reservesOfTheDay)
     }, [reservesOfTheDay]);
 
     useEffect(() => {

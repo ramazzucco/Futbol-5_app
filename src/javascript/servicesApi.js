@@ -17,7 +17,7 @@ const getCanchaYhorario = async (loading,setLoading,setReserves,setReservesOfThe
 
     console.log(response)
 
-    if (response) {
+    if(response) {
         setLoading({
             reserves: false,
             reservesOfTheDay: loading.reservesOfTheDay,
