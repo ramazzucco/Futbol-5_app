@@ -50,7 +50,7 @@ export default function Dashboard(props) {
             setTime(newTime);
         }, 1000);
 
-        if(!loading.reserves && !loading.reservesOfTheDay && !reservesOfTheDay[0].error){
+        if(!loading.reserves && !loading.reservesOfTheDay && reservesOfTheDay && !reservesOfTheDay[0].error){
             reservesOfTheDay.forEach( reserve => {
 
                 const reserveTime = reserve.horario.slice(0,5) + ":00";
