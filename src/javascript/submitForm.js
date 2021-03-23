@@ -94,7 +94,6 @@ const submit = async (e, id, dataPost, setState, method, route) => {
 
             card.setAttribute("modal-id","cardsuccess");
             body.innerHTML = content;
-            // button.classList.replace("btn-danger","btn-outline-danger");
             button.innerHTML = "Cancel";
 
         }
