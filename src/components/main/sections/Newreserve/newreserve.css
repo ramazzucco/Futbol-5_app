@@ -1,0 +1,72 @@
+.container-newreserve {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+}
+
+.container-newreserve .error.field,
+.container-newreserve .error.shedule,
+.container-newreserve .error.phone {
+    top: 60px;
+    left: 20px;
+}
+.container-newreserve .error.name,
+.container-newreserve .error.lastname,
+.container-newreserve .error.email {
+    top: 0;
+    left: 50%;
+    display: inline;
+}
+.container-newreserve select option {
+    background: var(--first-color-contrast);
+    color: var(--third-color);
+}
+.container-newreserve .phone {
+    border: 1px solid var(--third-color);
+    border-radius: 0;
+    background: transparent;
+    width: fit-content;
+}
+.container-newreserve .phone input {
+    background: transparent;
+    color: var(--fourth-color);
+}
+.container-newreserve input#prefix {
+    border: none;
+    text-align: center;
+    padding: 0;
+}
+.container-newreserve input#slash {
+    border: none;
+    width: 10px;
+    padding: 0;
+}
+.container-newreserve input#phone {
+    border: none;
+    text-align: center;
+    padding-left: 1rem;
+    padding: 0;
+}
+.container-newreserve select,
+.container-newreserve input {
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 0px;
+    background: transparent;
+    border: 1px solid var(--third-color);
+    padding: 0 1rem;
+    color: var(--fourth-color);
+}
+.container-newreserve select:focus,
+.container-newreserve input:focus {
+    outline: none;
+}
+@media(max-width: 540px){
+    .container-newreserve section {
+        overflow: auto;
+    }
+}

@@ -1,0 +1,7 @@
+.history {
+   min-height: 90vh;
+   overflow-x: auto;
+}
+.items-list {
+    background: rgba(0, 0, 0, .2);
+}

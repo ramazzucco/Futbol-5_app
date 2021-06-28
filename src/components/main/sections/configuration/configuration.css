@@ -1,0 +1,55 @@
+/* --------------------- FIELDS ------------------------- */
+.configuration .fields .content input[type="number"] {
+    -moz-appearance: textfield;
+    text-align: center;
+    display: block;
+    width: 50px;
+    font-size: 3rem;
+    background: var(--first-color);
+    border: 1px solid var(--third-color);
+    margin-bottom: 2rem;
+    color: var(--third-color);
+}
+.configuration .fields .content input[type="number"]:focus {
+    outline: none;
+    box-shadow: 0 0 1px 1px var(--third-color-contrast);
+}
+
+.input-buttons {
+    margin-bottom: 2rem;
+}
+.input-buttons hr {
+    height: 1px;
+    margin: 0;
+}
+
+.configuration .fields .content button.send {
+    display: none;
+}
+.configuration .fields .content:focus-within > button.send {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* --------------------- SHEDULES ------------------------- */
+.configuration .hoursoftheday button.hours {
+    background: var(--first-color);
+    color: var(--third-color);
+    outline: none;
+}
+.configuration .hoursoftheday button.hours:hover {
+    background: var(--first-color-contrast);
+}
+.configuration .hoursoftheday button.hours.db {
+    background: var(--third-color);
+    color: var(--second-color);
+}
+
+.configuration .hoursoftheday button.hours.db:hover {
+    background: var(--third-color-contrast);
+}
+.configuration .hoursoftheday button.hours:active,
+.configuration .hoursoftheday button.hours.db:active {
+    box-shadow: inset -1px -1px 3px 1px rgba(0, 0, 0, 0.3);
+}

@@ -1,0 +1,268 @@
+.header select {
+    width: 30%;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-right: none;
+    padding-left: 10px;
+    color: var(--third-color);
+    transition: all 0.7s ease;
+}
+.header option {
+    background: var(--second-color);
+    border-radius: none;
+}
+
+.header .search input {
+    width: 100%;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-right: none;
+    padding-left: 10px;
+    transition: all 0.7s ease;
+}
+.header .search i {
+    height: 32px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-left: none;
+    background: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.3);
+}
+.header .search input:focus {
+    outline: none;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: none;
+}
+.header .search .datalist {
+    top: 32px;
+    left: 0;
+    width: calc(100% - 47px);
+    z-index: 10;
+}
+.header .search .datalist div {
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-top: none;
+    background: rgba(0, 0, 0, 0.1);
+}
+.header .search .datalist div .option-search-admin {
+    color: var(--third-color);
+}
+.header .search .datalist div .option-search-admin:hover {
+    background: rgba(0, 0, 0, .3);
+}
+
+
+.icons-header {
+    font-size: 1.5rem;
+}
+.icons-header p {
+    font-size: 1rem;
+}
+
+/* -------------------------------- icono menu -------------------------------- */
+.menu-toggle {
+    height: 32px;
+    position: relative;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+    margin: 10px;
+    width: 40px;
+}
+.menu-toggle:hover {
+    color: #999;
+}
+.menu-toggle i,
+.menu-toggle i:after,
+.menu-toggle i:before {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 30px;
+    right: 0;
+    background: var(--caput-mortuum);
+    border-radius: 2px;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.25s ease-in-out;
+    -moz-transition: 0.25s ease-in-out;
+    -o-transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
+}
+.menu-toggle i:after,
+.menu-toggle i:before {
+    content: "";
+}
+.menu-toggle i:after {
+    top: -20px;
+}
+.menu-toggle i:before {
+    top: -10px;
+}
+.menu-toggle i {
+    top: calc(10vh - 38px);
+}
+.menu-toggle.open i:after {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    top: -18px;
+}
+.menu-toggle.open i:before {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    top: -18px;
+}
+
+.menu-toggle.second i,
+.menu-toggle.second i:after,
+.menu-toggle.second i:before {
+    width: 40px;
+    border-radius: 0px;
+}
+.menu-toggle.second i:nth-child(1):after {
+    top: 14px;
+}
+.menu-toggle.second i:nth-child(1):before {
+    top: -14px;
+}
+.menu-toggle.second i:nth-child(1) {
+    top: 14px;
+    right: 0;
+}
+.menu-toggle.second i:nth-child(2):after {
+    top: 14px;
+}
+.menu-toggle.second i:nth-child(2):before {
+    top: 14px;
+}
+.menu-toggle.second i:nth-child(2) {
+    top: 14px;
+}
+.menu-toggle.second.open i:nth-child(1) {
+    right: 25px;
+}
+.menu-toggle.second.open i:nth-child(2) {
+    right: -25px;
+}
+.menu-toggle.second.open i:before {
+    top: 0px;
+}
+.menu-toggle.second.open i:after {
+    top: 0px;
+}
+.menu-toggle.second.open i:nth-child(1):before {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    right: -25px;
+}
+.menu-toggle.second.open i:nth-child(1):after {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    right: -25px;
+}
+.menu-toggle.second.open i:nth-child(2):after {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    right: 25px;
+}
+.menu-toggle.second.open i:nth-child(2):before {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    right: 25px;
+}
+
+/* ----------------------------  menu --------------------------------- */
+.menu {
+    top: 10vh;
+    left: 0;
+    height: 0;
+    overflow: hidden;
+    z-index: 20;
+    transition: height .7s ease-in-out;
+}
+.menu .buttons {
+    height: 0;
+    background: rgba(0, 0, 0, 0.2);
+    transition: height .7s ease-in-out
+}
+.menu .icons {
+    height: 10vh;
+    font-size: 1.3rem;
+    background: rgba(0, 0, 0, 0.2);
+}
+.menu .icons i {
+    padding: 1rem;
+    cursor: pointer;
+}
+.menu .icons i:hover {
+    border-bottom: 3px solid var(--third-color);
+}
+.menu.show {
+    height: 90vh;
+    overflow: visible;
+}
+.menu.show .buttons {
+    height: 80vh;
+}
+.header .buttons button {
+    width: 75%;
+    border: none;
+    border-left: 0 solid var(--third-color);
+    background: transparent;
+    color: var(--third-color);
+    padding: 10px;
+    padding-right: auto;
+    text-align: left;
+    transition: all .6s ease-in-out;
+}
+.header .buttons button:active,
+.header .buttons button:hover {
+    padding-right: 10px;
+    border-left: 70px solid var(--third-color);
+}
+
+@media(max-width: 768px){
+    .menu {
+        top: 15vh;
+    }
+    .menu.show {
+        height: 85vh;
+    }
+    .menu.show .buttons {
+        height: 75vh;
+    }
+
+    .header select {
+        width: 45%;
+    }
+
+    .header .search input {
+        width: 0;
+    }
+    .header .search input:focus {
+        width: 100%;
+    }
+}

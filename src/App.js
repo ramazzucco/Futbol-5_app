@@ -1,59 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-//Components
-import Dashboard from "./Components/dashboard/Dashboard";
-import Login from "./Components/dashboard/Login";
-import { getAdmin } from "./javascript/servicesApi";
+// Components.
+import Index from './components/Index';
+import Page from "./components/page/Page";
 
 function App() {
-
-    const [ admin, setAdmin ] = useState({session: false});
-    const [ switchMode, setSwitchMode ] = useState("");
-
-    useEffect(() => {
-        const getSession = localStorage.getItem("session");
-        const getThemeMode = localStorage.getItem("switchMode");
-
-        if(getSession){
-            const session = JSON.parse(getSession);
-            getAdmin(session,setAdmin)
-        }
-
-        if(!getThemeMode){
-            setSwitchMode("ligth");
-        }
-
-        if(getThemeMode && getThemeMode === "ligth"){
-            setSwitchMode("ligth");
-        }
-
-        if(getThemeMode && getThemeMode === "dark"){
-            document.getElementById("root").classList.toggle("ligth");
-            document.getElementById("root").classList.toggle("dark");
-            setSwitchMode("dark");
-        }
-    },[])
-
     return (
         <Router>
-            <Route path="/">
-            {
-                !admin.session
-                    ? <Login
-                        switchMode={switchMode}
-                        setSwitchMode={setSwitchMode}
-                        admin={admin}
-                        setAdmin={setAdmin}
-                    />
-                    : <Dashboard
-                        admin={admin}
-                        setAdmin={setAdmin}
-                        switchMode={switchMode}
-                        setSwitchMode={setSwitchMode}
-                    />
-            }
+            <Route path='/app'>
+                <div className="App">
+                    <Index />
+                </div>
+            </Route>
+            <Route path='/page'>
+                <div className="Page">
+                    <Page />
+                </div>
             </Route>
         </Router>
     );

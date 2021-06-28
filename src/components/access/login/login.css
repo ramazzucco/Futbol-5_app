@@ -1,0 +1,7 @@
+.error {
+    font-size: .9rem;
+}
+.login .fa-user,
+.login .fa-lock {
+    left: 1rem;
+}

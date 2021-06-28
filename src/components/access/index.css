@@ -1,0 +1,225 @@
+.img-presentation.init {
+    min-width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    transition: min-width 1s ease;
+    -webkit-animation: pulse 1s ease-in;
+    -moz-animation: pulse 1s ease-in;
+    animation: pulse 1s ease-in;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+.img-presentation.init img {
+    width: 20%;
+}
+.img-presentation {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-width: 40%;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,.7));
+}
+
+.forms.init .login,
+.forms.init .register,
+.forms.init .login.show,
+.forms.init .register.show {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: width 1s ease, padding 1s ease;
+}
+.forms {
+    height: 100vh;
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: all 1s ease;
+}
+.login,
+.register {
+    padding: 3rem;
+    position: absolute;
+    transition: all 1s ease;
+}
+.login form,
+.register form {
+    margin-top: 5rem;
+}
+.register {
+    transform-origin: bottom;
+    transform: rotateX(90deg);
+}
+.login {
+    transform-origin: top;
+    transform: rotateX(-90deg);
+}
+.register.show {
+    transform-origin: bottom;
+    transform: rotateX(0deg);
+}
+.login.show {
+    transform-origin: top;
+    transform: rotateX(0deg);
+}
+
+.login .group,
+.register .group {
+    width: 80%;
+    position: relative;
+    margin: 1.2rem auto .3rem auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+}
+.login label,
+.register label {
+    position: absolute;
+    display: block;
+    width: 100%;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 2.5rem;
+    padding: 0;
+    margin-bottom: 0;
+    background: transparent;
+    text-align: center;
+    transition: all 1s ease;
+}
+.login input,
+.register input {
+    position: absolute;
+    width: 100%;
+    height: 3rem;
+    padding: 0;
+    background: transparent;
+    text-align: center;
+    z-index: 5;
+    transition: all 1s ease;
+}
+.login .group:focus-within > label,
+.register .group:focus-within > label {
+    width: auto;
+    top: -35%;
+    left: 15%;
+    transform: translate(-20%,-20%);
+    height: 1.6rem;
+    z-index: 1;
+}
+.login .group:focus-within > label {
+    background-color: #343A40;
+}
+.register .group:focus-within > label {
+    background-color: white;
+}
+.login .group:focus-within > input,
+.register .group:focus-within > input {
+    outline: none;
+    z-index: 0;
+}
+.login .group i.fa-eye,
+.login .group i.fa-eye-slash,
+.register .group i.fa-eye,
+.register .group i.fa-eye-slash {
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+    z-index: 15;
+}
+
+.error {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 auto;
+    font-size: .9rem;
+}
+
+.forms button {
+    border-radius: 0;
+}
+
+@keyframes pulse {
+    0% {
+        -webkit-transform: scale(0.7);
+        opacity: 0.5;
+    }
+    25% {
+        -webkit-transform: scale(0.5);
+        opacity: 0.7;
+    }
+    50% {
+        -webkit-transform: scale(0.3);
+        opacity: 1;
+    }
+    75% {
+        -webkit-transform: scale(0.5);
+        opacity: 0.7;
+    }
+    100% {
+        -webkit-transform: scale(0.7);
+        opacity: 0.5;
+    }
+}
+
+@media(max-width: 990px){
+    .login .group,
+    .register .group {
+        width: 100%;
+    }
+    .img-presentation.init {
+        min-width: 100%;
+        max-width: 100%;
+        max-height: 100vh;
+        display: flex;
+        transform: scale(.7);
+        transition: min-width 1s ease;
+    }
+    .img-presentation.init img{
+        width: 50%;
+    }
+
+    .img-presentation {
+        width: 0;
+        display: none;
+        filter: drop-shadow(0 0 5px rgba(0,0,0,.7));
+    }
+    .img-presentation img {
+        width: 0;
+    }
+    .forms.init .login,
+    .forms.init .register,
+    .forms.init .login.show,
+    .forms.init .register.show {
+        width: 0;
+        padding: 0;
+        overflow: hidden;
+        transition: width 1s ease, padding 1s ease;
+    }
+    .forms {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        transition: all 1s ease;
+    }
+    .error {
+        width: 100%;
+    }
+}
+@media(max-width: 540px){
+    .login,
+    .register {
+        padding: 1.5rem 1.5rem 3rem 1.5rem;
+    }
+}

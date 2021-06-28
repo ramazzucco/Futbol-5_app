@@ -1,0 +1,132 @@
+.configpage .content {
+    min-height: 60vh;
+}
+
+.sections .header button:hover,
+.footer .header button:hover {
+    font-weight: 500;
+    color: var(--second-color);
+}
+
+.configpage input,
+.configpage textarea {
+    border: 1px solid var(--third-color);
+}
+.configpage textarea:focus,
+.configpage input:focus {
+    outline: none;
+    box-shadow: 0 0 1px 1px var(--third-color);
+}
+.configpage .home .text:focus-within > .button,
+.configpage .fields:focus-within > .button,
+.configpage .changingrooms:focus-within > .button,
+.configpage .grillsandbar:focus-within > .button,
+.configpage .birthdays .text:focus-within > .button,
+.configpage .school .text:focus-within > .button,
+.configpage .promotions .promo:focus-within > .button {
+    display: flex;
+}
+.home .text .button,
+.fields .button,
+.changingrooms .button,
+.grillsandbar .button,
+.birthdays .text .button,
+.school .text .button,
+.promotions .promo .button {
+    display: none;
+}
+.configpage input.file {
+    visibility: hidden;
+}
+.configpage label.file {
+    content: 'Change image';
+    cursor: pointer;
+    border: none;
+    margin-top: 5px;
+    background: var(--second-color);
+    color: var(--third-color);
+    padding: 10px 30px;
+    box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, .3),
+    5px 5px 20px 5px rgba(0, 0, 0, .3);
+}
+.configpage label.file:hover {
+    background: var(--second-color-contrast);
+}
+.configpage label.file:active {
+    outline: none;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, .7);
+}
+.configpage img {
+    max-height: 75%;
+    filter: brightness(70%);
+}
+.configpage .error {
+    top: 0;
+    left: 0;
+    padding: .3rem;
+}
+
+
+.footer .contact .data:focus-within > .button {
+    display: flex;
+}
+.footer .contact .data .button {
+    display: none;
+}
+.footer .socialnetworks input {
+    padding: 0;
+}
+
+.footer .socialnetworks .social:focus-within > input,
+.footer .socialnetworks .social:focus-within > .button {
+    display: flex;
+    height: auto;
+    overflow: visible;
+    padding: 1rem 2rem;
+    transition: all .3s ease-in-out;
+}
+.footer .socialnetworks input,
+.footer .socialnetworks .button {
+    max-height: 0;
+    overflow: hidden;
+    transition: all .3s ease-in-out;
+}
+.socialnetworks .facebook label {
+    color: #3B5998;
+    font: italic 600 2rem Arial, Helvetica, sans-serif;
+}
+.socialnetworks .twitter label {
+    color: #1DA1F2;
+    font: 600 2rem 'Segoe UI';
+}
+.socialnetworks .instagram label {
+    font: italic 600 2rem 'Segoe UI';
+}
+
+.socialnetworks label::before {
+    content: 'click para modificar';
+    display: none;
+    position: absolute;
+    width: 60%;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--third-color);
+    color: var(--first-color);
+    font: lighter 1rem arial;
+    padding: 1rem 2rem;
+    text-align: center;
+    box-shadow: 3px 3px 3px 1px rgba(0,0,0,.3);
+}
+.socialnetworks label::after {
+    content: '';
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background: var(--third-color);
+    width: 15px;
+    height: 15px;
+    transform: rotate(45deg);
+    box-shadow: 3px 3px 3px 1px rgba(0,0,0,.3);
+}

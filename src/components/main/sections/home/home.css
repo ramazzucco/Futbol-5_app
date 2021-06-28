@@ -1,0 +1,148 @@
+.clocks .clock {
+    border-radius: 50%;
+    height: 120px;
+    padding: 10px 35px;
+    overflow: hidden;
+    transition: border-radius 1s ease-in-out;
+}
+.clocks .clock .time {
+    width: 0;
+    transition: all 1s ease-in-out;
+}
+.clocks .clock .icon i{
+    transform: scale(2);
+    transition: transform 1s ease-in-out;
+}
+.clocks .time p{
+    font-size: 1.5rem;
+}
+.clocks .clock.show {
+    border-radius: 0;
+    padding: 5px 15px;
+    overflow: visible;
+}
+.clocks .clock.show .time {
+    width: 230px;
+}
+.clocks .clock.shohw .icon i{
+    transform: scale(1);
+}
+.clocks .clock.show .time{
+    margin-left: 24px;
+}
+
+.home {
+    min-height: 90vh;
+    padding: 2rem 0 1rem 0;
+}
+.home .reserves .field {
+    width: 350px;
+    background: rgba(0, 0, 0, .3);
+    padding: 2rem 5rem;
+}
+.home .reserves .field .row {
+    border-bottom: 1px solid var(--first-color);
+}
+.home .reserves .field .row.text-danger {
+    cursor: pointer;
+}
+.home .reserves .field .row span {
+    margin-left: 1rem;
+}
+.home .reserves .field .row.reserved span {
+    -webkit-animation: pulse 2s ease-in;
+    -moz-animation: pulse 2s ease-in;
+    animation: pulse 2s ease-in;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+
+/* --------------------- TOOLTIP ------------------------------- */
+.home .mytooltip {
+    display: none;
+    position: relative;
+    min-width: 100%;
+}
+.home .mytooltip::before {
+    content: attr(datatitle);
+    position: absolute;
+    background-color: var(--third-color);
+    padding: 1.5rem;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--first-color);
+    min-width: 200px;
+    font-weight: lighter;
+    text-transform: capitalize;
+    box-shadow: 3px 3px 3px 1px rgba(0,0,0,.3);
+    z-index: 10;
+}
+.home .mytooltip::after {
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: 75%;
+    width: 15px;
+    height: 16px;
+    background-color: var(--third-color);
+    box-shadow: 5px 5px 3px 1px rgba(0,0,0,.3);
+    transform: translateX(-50%) rotate(45deg);
+    z-index: 11;
+}
+
+@keyframes pulse {
+    0% {
+        -webkit-transform: scale(.9);
+        opacity: 0.5;
+    }
+    25% {
+        -webkit-transform: scale(1.25);
+        opacity: 0.7;
+    }
+    50% {
+        -webkit-transform: scale(1.5);
+        opacity: 1;
+    }
+    75% {
+        -webkit-transform: scale(1.25);
+        opacity: 0.7;
+    }
+    100% {
+        -webkit-transform: scale(.9);
+        opacity: 0.5;
+    }
+}
+
+@media(max-width: 1100px){
+    .home .reserves .field {
+        width: 300px;
+        padding: 2rem 4rem;
+    }
+}
+@media(max-width: 990px){
+    .home .reserves .field {
+        width: 250px;
+        padding: 2rem 3rem;
+    }
+}
+@media(max-width: 768px){
+    .home .reserves {
+        min-height: 85vh;
+    }
+    .home .reserves .field {
+        width: 300px;
+        padding: 2rem 3rem;
+    }
+}
+@media(max-width: 540px){
+    .home .reserves {
+        min-height: 85vh;
+    }
+    .home .reserves .field {
+        width: 400px;
+        padding: 2rem 4rem;
+    }
+}
+

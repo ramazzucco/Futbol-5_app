@@ -1,0 +1,127 @@
+.navbar-brand img {
+  width: 60px;
+  height: 60px;
+  object-fit: scale-down;
+}
+
+.nav-link:hover {
+  border-bottom: 2px solid black;
+}
+
+.nav-link.active {
+  border-bottom: 2px solid black;
+  font-weight: bold;
+}
+
+.reserve {
+  margin-top: 100px;
+  background-image: url("http://localhost:3000/images/fondocancha.jpg");
+  background-position: bottom;
+  min-height: 50vh;
+}
+
+.reserve .btn {
+  letter-spacing: .5rem;
+}
+
+.page {
+  min-height: 90vh;
+  padding-top: 60px;
+}
+
+.auspiciantes img {
+  width: 250px;
+  height: 250px;
+}
+
+#cumpleaños p, #escuelita p, #instalaciones .textContent {
+	overflow: auto;
+}
+
+#cumpleaños .imagesHome, #escuelita .imagesHome, #instalaciones .imagesHome {
+  float: left;
+}
+
+.social-networks {
+  justify-content: center;
+  align-items: center;
+}
+
+.social-networks i {
+  padding: 10px;
+  text-shadow: 0px 6px 8px rgba(0, 0, 0, 0.6);
+  transition: all ease-in-out 150ms;
+}
+
+.fa-facebook,
+.social-networks a:nth-child(1) {
+  color: #3b5998;
+}
+
+.fa-twitter,
+.social-networks a:nth-child(2) {
+  color: #1DA1F2;
+}
+
+.social-networks a:nth-child(3) {
+  color: #00E676;
+}
+
+.social-networks i:hover {
+  margin-top: -3px;
+  text-shadow: 0px 14px 10px rgba(0, 0, 0, 0.4);
+}
+
+.fa-instagram {
+  color: transparent;
+  background: -webkit-radial-gradient(30% 107%, circle, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background: -o-radial-gradient(30% 107%, circle, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.container-modalreserve {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 1040;
+}
+
+.form-control.phone:focus-within {
+  border: 3px solid #BADAFC;
+}
+.form-control.phone:focus-within > input {
+  outline: none;
+}
+.page .error.field,
+.page .error.shedule,
+.page .error.phone {
+  top: 60px;
+  left: 20px;
+}
+.page .error.name,
+.page .error.lastname,
+.page .error.email {
+  top: 60px;
+  left: 100%;
+  transform: translateX(-45%);
+}
+
+@media (max-width: 760px){
+  .nav-link {
+    text-align: center;
+  }
+  .nav-link:hover {
+    font-weight: bold;
+    border-bottom: none;
+  }
+  .nav-link.active {
+    padding: 8px 100px;
+  }
+}
+
