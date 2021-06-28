@@ -15,7 +15,7 @@
 
 .reserve {
   margin-top: 100px;
-  background-image: url("http://localhost:3000/images/fondocancha.jpg");
+  background-image: url("https://api-futbol5.herokuapp.com/images/fondocancha.jpg");
   background-position: bottom;
   min-height: 50vh;
 }
