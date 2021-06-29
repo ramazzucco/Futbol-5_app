@@ -83,7 +83,7 @@ export default function Main(props) {
 
    useEffect(() => {
       setInterval(() => {
-         getReserves();
+         setRefresh(true);
       },1000 * 60 * 5)
    },[getReserves])
 
