@@ -233,7 +233,7 @@
     border-left: 0 solid var(--third-color);
     background: transparent;
     color: var(--third-color);
-    padding: 10px;
+    padding: .7rem;
     padding-right: auto;
     text-align: left;
     transition: all .6s ease-in-out;

@@ -1,0 +1,16 @@
+.admins h5 {
+    display: inline;
+}
+.admins .fa-sync-alt {
+    display: none;
+}
+.admins .fa-sync-alt:hover {
+    color: var(--third-color-contrast);
+}
+
+.admins .title {
+    cursor: pointer;
+}
+.admins .title:hover > .fa-sync-alt {
+    display: inline;
+}

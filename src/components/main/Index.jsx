@@ -12,11 +12,16 @@ import Configpage from "./sections/configpage/Configpage";
 import Newreserve from "./sections/Newreserve/Newreserve";
 import Configuration from "./sections/configuration/Configuration";
 import Statistics from "./sections/statistics/Statistics";
+import Admins from "./sections/admins/Admins";
 
 export default function Main(props) {
    const [ reserves, setReserves ] = useState([]);
    const [ historyreserves, setHistoryreserves ] = useState([]);
    const [ refresh, setRefresh ] = useState(false);
+
+   useEffect(() => {
+      qS('head title').innerHTML = 'Dashboard';
+   },[])
 
    const getHistoryReserves = useCallback(async () => {
       const url = `${urlapi}/reserves/history`;
@@ -31,12 +36,8 @@ export default function Main(props) {
 
       if(response && !response.error){
          setHistoryreserves(response.data)
-      }else{
-         qS('.modal-container .my-modal').classList.add('bg-danger');
-         qS('.modal-container .content').classList.add('text-white');
-         qS('.modal-container .content').innerHTML = `<p>${response.message}</p>`;
-         qS('.modal-container').classList.toggle('d-none');
       }
+
    },[props.admin]);
 
    const getReserves = useCallback(async () => {
@@ -52,11 +53,6 @@ export default function Main(props) {
 
       if(response && !response.error){
          setReserves(response.data);
-      }else{
-         qS('.modal-container .my-modal').classList.add('bg-danger');
-         qS('.modal-container .content').classList.add('text-white');
-         qS('.modal-container .content').innerHTML = `<p>${response.message}</p>`;
-         qS('.modal-container').classList.toggle('d-none');
       }
 
    },[props.admin]);
@@ -76,7 +72,7 @@ export default function Main(props) {
          const title = `new reserve (${newreserve})`;
 
          newreserve === 0
-            ? qS('head title').innerHTML = 'Dashboard - Futbol 5'
+            ? qS('head title').innerHTML = 'Dashboard'
             : qS('head title').innerHTML = title;
       }
    }
@@ -174,6 +170,12 @@ export default function Main(props) {
                admin={props.admin}
                setAdmin={props.setAdmin}
                reserves={reserves}
+            />
+         </Route>
+         <Route path="/app/admins">
+            <Admins
+               admin={props.admin}
+               setAdmin={props.setAdmin}
             />
          </Route>
       </div>

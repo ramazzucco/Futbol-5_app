@@ -93,6 +93,16 @@ export default function Menu(props) {
                         <i className="fas fa-cog mr-3"></i>
                         Configuration
                     </button>
+                    {
+                        props.admin.id === 1
+                            ? (
+                                <button onClick={() => buttonClick('/app/admins')}>
+                                    <i className="fas fa-users mr-3"></i>
+                                    Admins
+                                </button>
+                            )
+                            : ''
+                    }
                     <button onClick={logout}>
                         <i className="fas fa-sign-out-alt mr-3"></i>
                         Logout
