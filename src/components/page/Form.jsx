@@ -188,16 +188,16 @@ export default function Modal(props) {
     return (
         <div className="container-modalreserve d-none">
             <section className="d-flex justify-content-center align-items-center h-100">
-                <div className="col-12 col-sm-10 col-md-8 col-lg-7 col-xl-6 px-5 py-4 bg-light rounded">
-                    <p className="text-center w-100 mb-4 h5 border-primary text-primary border-bottom pb-2">
+                <div className="container-form col-12 col-sm-10 col-md-8 col-lg-7 col-xl-6 px-5 py-4 bg-light rounded">
+                    <p className="text-center w-100 mb-4 h5 border-primary text-primary border-bottom pt-4 pt-sm-0 pb-2">
                         Reserva
                     </p>
                     <form
                         className="form_reserve w-100"
                         onSubmit={handlerSubmit}
                     >
-                        <div className="row px-3 mt-3 mb-4 flex-nowrap justify-content-around selects">
-                            <div className="col-6">
+                        <div className="row px-3 mt-3 mb-4 flex-wrap justify-content-around selects">
+                            <div className="col-12 col-md-6">
                                 <label htmlFor="field" className="col-form-label text-secondary">
                                     Cancha
                                 </label>
@@ -222,7 +222,7 @@ export default function Modal(props) {
                                 <p className="d-none error field text-danger position-absolute"></p>
                             </div>
 
-                            <div className="col-6">
+                            <div className="col-12 col-md-6">
                                 <label
                                     htmlFor="shedule"
                                     className="col-form-label text-secondary"
@@ -293,7 +293,7 @@ export default function Modal(props) {
 
                         <div className="col-12 form-group mt-2">
                             <label htmlFor="prefix" className='text-secondary mb-0'>Telefono</label>
-                            <div className="d-flex form-control phone col-6">
+                            <div className="d-flex form-control phone col-12 col-sm-8 col-md-6">
                                 <input
                                     id='prefix'
                                     className="border-0 text-right col-5 px-1"

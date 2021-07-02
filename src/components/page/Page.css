@@ -113,6 +113,22 @@
 }
 
 @media (max-width: 760px){
+  .container-modalreserve .container-form {
+    max-height: 100vh;
+    overflow: auto;
+  }
+  .auspiciantes h1,
+  #instalaciones h1,
+  #escuelita h1,
+  #promociones h1 {
+    font-size: 1.3rem;
+    margin: 0 2rem;
+  }
+  #cumpleaños h1 {
+    font-size: 1.3rem;
+    margin: 0 .5rem;
+  }
+
   .nav-link {
     text-align: center;
   }
@@ -124,4 +140,8 @@
     padding: 8px 100px;
   }
 }
-
+@media(max-width: 540px){
+  .auspiciantes img {
+    width: 100%;
+  }
+}

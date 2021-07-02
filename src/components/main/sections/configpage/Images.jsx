@@ -8,7 +8,7 @@ export default function Images(props) {
                       return (
                           <div
                               key={i}
-                              className="d-flex flex-column col-8 col-sm-6 col-md-4 p-3 text-third"
+                              className="d-flex flex-column col-12 col-sm-6 col-md-4 p-1 p-md-3 text-third"
                           >
                               <img
                                   className={`${props.properties.title}${data.id}`}

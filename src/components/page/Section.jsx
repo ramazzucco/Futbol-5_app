@@ -10,7 +10,7 @@ import Promotions from './Promotions';
 
 export default function Section(props) {
     return (
-        <div className="container-fluid pt-5">
+        <div className="container-fluid px-0 px-md-3 pt-5">
             <Route exact path='/page'>
                 <Home data={props.data.home} />
             </Route>

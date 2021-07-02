@@ -32,10 +32,10 @@ export default function Configpage(props) {
     },[datapage])
 
     return (
-        <div className='configpage section bg-first p-4' onClick={hideMenu}>
+        <div className='configpage section bg-first p-0 p-md-4' onClick={hideMenu}>
             <Loadinginfo />
 
-            <div className="title text-left text-third mb-3">
+            <div className="title text-left text-third mb-3 pt-3 pt-md-0 px-3 px-md-0">
                 <h5>
                     Configure web page
                 </h5>
@@ -67,11 +67,11 @@ export default function Configpage(props) {
                                     <Header data={datapage.data.header} active={active} admin={props.admin} />
                                     <Sections data={datapage.data.section} active={active} admin={props.admin} />
                                     <Footer data={datapage.data.footer} active={active} admin={props.admin} />
-                                    <i className={`fas fa-archive fa-3x text-first ${active === '' ? '' : 'd-none'}`}></i>
                                 </React.Fragment>
                             )
                             : <Loadingdata />
                     }
+                    <i className={`fas fa-archive fa-3x text-first ${active === '' ? '' : 'd-none'}`}></i>
                 </div>
             </div>
         </div>

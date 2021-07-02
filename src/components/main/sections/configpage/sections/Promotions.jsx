@@ -57,7 +57,7 @@ export default function Promotions(props) {
         >
             {promotions.map((promo, i) => {
                 return (
-                    <div className={`d-flex flex-wrap p-3 promo`} key={i}>
+                    <div className={`d-flex flex-wrap pt-3 p-0 p-md-3 promo`} key={i}>
                         <u className='w-100 h5 text-second mb-4'>
                             Promotion N° {promo.id} :
                         </u>

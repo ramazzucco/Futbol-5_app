@@ -46,11 +46,11 @@ export default function Admins(props) {
                     admins.users.map((admin, i) => {
                         return (
                             <div
-                                className="d-flex flex-wrap justify-content-center align-items-center mb-3 px-4"
+                                className="d-flex flex-wrap justify-content-center align-items-center mb-3 px-0 px-md-4"
                                 key={i}
                             >
                                 <div
-                                    className={`user col-12 col-md-6 p-4 d-flex flex-wrap
+                                    className={`user col-12 col-md-6 p-0 p-md-4 d-flex flex-wrap
                                         ${admin.id === 1 ? 'bg-second text-third' : 'bg-third text-second'}
                                         ${!admin.token ? 'bg-rgba3' : ''}
                                     `}
@@ -79,7 +79,7 @@ export default function Admins(props) {
                                     </div>
                                 </div>
                                 <div
-                                    className={`token col-12 col-md-6 p-4 d-flex flex-wrap
+                                    className={`token col-12 col-md-6 p-0 p-md-4 d-flex flex-wrap
                                         ${admin.id === 1 ? 'bg-second text-third' : 'bg-third text-second'}
                                         ${!admin.token ? 'bg-rgba3' : ''}
                                     `}

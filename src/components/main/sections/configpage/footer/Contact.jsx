@@ -58,7 +58,7 @@ export default function Contact(props) {
                 props.subnavactive === "contact" ? "" : "d-none"
             }`}
         >
-            <div className="d-flex flex-wrap justify-content-center p-4">
+            <div className="d-flex flex-wrap justify-content-between pt-4 p-0 p-md-4">
                 {contact.length ? (
                     contact.map((data, i) => {
                         return (

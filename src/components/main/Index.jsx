@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { qS, qSall, urlapi } from "../../functions";
 import "./index.css";
 
@@ -153,10 +153,16 @@ export default function Main(props) {
             />
          </Route>
          <Route path="/app/statistics">
-            <Statistics
-               admin={props.admin}
-               setAdmin={props.setAdmin}
-            />
+            {
+               props.admin.id === 1
+                  ? <Statistics
+                     admin={props.admin}
+                     setAdmin={props.setAdmin}
+                     reserves={reserves}
+                     history={historyreserves}
+                  />
+                  : <Redirect to='/app' />
+            }
          </Route>
          <Route path="/app/configpage">
             <Configpage
@@ -173,10 +179,14 @@ export default function Main(props) {
             />
          </Route>
          <Route path="/app/admins">
-            <Admins
-               admin={props.admin}
-               setAdmin={props.setAdmin}
-            />
+            {
+               props.admin.id === 1
+                  ? <Admins
+                     admin={props.admin}
+                     setAdmin={props.setAdmin}
+                  />
+                  : <Redirect to='/app' />
+            }
          </Route>
       </div>
    );

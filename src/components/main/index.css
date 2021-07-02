@@ -107,6 +107,11 @@
     min-height: 90vh;
 }
 
+@media (min-width: 768px) and (max-width: 1024px){
+    .main .header {
+        max-height: 15vh;
+    }
+}
 @media(max-width: 768px){
     .main .header {
         min-height: 15vh;

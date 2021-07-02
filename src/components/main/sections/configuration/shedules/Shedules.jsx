@@ -59,9 +59,13 @@ export default function Shedules(props) {
     }
 
     return (
-        <div className="shedules col-12 col-md-6 p-0 d-flex flex-column justify-content-center bg-first-contrast shadow mb-4 mb-md-0">
+        <div
+            className={`shedules col-12 col-md-6 p-0 flex-column justify-content-center bg-first-contrast shadow mb-4 mb-md-0
+                ${props.active === 'Fields & Shedules' ? 'd-flex' : 'd-none'}
+            `}
+        >
             <p className='title p-2 mb-0 bg-third text-second text-center'>
-                Available shedules
+                Shedules settings
             </p>
             <ul className='mt-2 mb-0 ml-3 px-5 d-flex flex-wrap'>
                 <li className='text-third mr-5'>hours on data base</li>
@@ -71,7 +75,7 @@ export default function Shedules(props) {
                 {hoursoftheday.map((hours, i) => {
                     return (
                         <button
-                            className={`hours py-2 px-4 col-4 col-lg-3 border-third ${
+                            className={`hours py-2 px-4 col-12 col-sm-4 col-lg-3 border-third ${
                                 hoursondb.includes(hours) ? "db" : ""
                             }`}
                             key={i}

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Text(props) {
     return (
-        <div className={`${props.data.title} pb-0 pt-4 px-4`}>
+        <div className={`${props.data.title} pb-0 pt-4 px-0 px-md-4`}>
             <label
                 className="text-third text-capitalize"
                 htmlFor={props.data.title}

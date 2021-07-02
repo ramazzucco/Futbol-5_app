@@ -32,7 +32,7 @@ export default function Page(props) {
     };
 
     return (
-        <div className="main col-12">
+        <div className="main col-12 p-0 p-md-3">
             {
                 datapage.data
                     ? (

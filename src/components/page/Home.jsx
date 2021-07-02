@@ -10,17 +10,15 @@ export default function Home(props) {
 
     return (
         <React.Fragment>
-             <div className="d-flex reserve my-5" id="home">
-                <div className="d-flex flex-column mx-auto text-center w-50">
+             <div className="reserve d-flex justify-content-center align-items-end rounded px-4 my-5" id="home">
                     <button
-                        className="btn btn-success text-capitalize mt-auto mb-5 py-3"
+                        className="btn btn-success col-12 col-md-8 col-lg-6 text-capitalize mb-5 py-3"
                         data-toggle="modal"
                         data-target="#formreserve"
                         onClick={handleModal}
                     >
                         reservar cancha
                     </button>
-                </div>
             </div>
             <div className="maincontent">
                 <hr className="mx-auto w-50 bg-info shadow-lg"/>

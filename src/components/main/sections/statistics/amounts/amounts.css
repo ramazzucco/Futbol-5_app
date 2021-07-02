@@ -1,0 +1,4 @@
+.income .amount p,
+.debt .amount p {
+    font-size: 1.7rem;
+}

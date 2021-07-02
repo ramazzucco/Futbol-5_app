@@ -15,7 +15,7 @@ export default function Header(props) {
 
     return (
         <header>
-            <nav className="navbar fixed-top navbar-expand-md navbar-light bg-success p-0">
+            <nav className="navbar fixed-top navbar-expand-md navbar-light bg-success">
                 <Link className="navbar-brand p-2" to="/page">
                     <img
                         className="rounded-circle"

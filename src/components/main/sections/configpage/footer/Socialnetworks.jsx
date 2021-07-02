@@ -58,13 +58,13 @@ export default function Socialnetworks(props) {
                 props.subnavactive === "social networks" ? "" : "d-none"
             }`}
         >
-            <div className="d-flex flex-wrap justify-content-center p-4">
+            <div className="d-flex flex-wrap justify-content-center pt-3 p-0 p-md-4">
                 {socialnetworks.length ? (
                     socialnetworks.map((socialnet, i) => {
                         return (
                             <div
                                 key={i}
-                                className={`social ${socialnet.name} col-12 col-md-8 col-lg-4 mb-5`}
+                                className={`social ${socialnet.name} col-12 col-sm-8 col-lg-4 mb-5`}
                             >
                                 <label
                                     htmlFor={socialnet.name}

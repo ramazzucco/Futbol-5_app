@@ -10,7 +10,7 @@
 }
 .header option {
     background: var(--second-color);
-    border-radius: none;
+    border-radius: 0;
 }
 
 .header .search input {
@@ -233,7 +233,8 @@
     border-left: 0 solid var(--third-color);
     background: transparent;
     color: var(--third-color);
-    padding: .7rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
     padding-right: auto;
     text-align: left;
     transition: all .6s ease-in-out;
@@ -264,5 +265,47 @@
     }
     .header .search input:focus {
         width: 100%;
+    }
+}
+@media (max-width: 768px) and (orientation: portrait){
+
+    .menu {
+        top: 15vh;
+    }
+    .menu.show {
+        height: 75vh;
+    }
+    .menu .icons {
+        height: 10vh;
+    }
+    .menu.show .buttons {
+        height: 65vh;
+        padding-bottom: 20%;
+    }
+    .menu-toggle i {
+        top: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) and (orientation: landscape){
+    .menu {
+        top: 23vh;
+    }
+    .menu.show {
+        height: 120vh;
+    }
+    .menu .icons {
+        height: 20vh;
+    }
+    .menu.show .buttons {
+        height: 100vh;
+    }
+    .menu-toggle i {
+        top: 1.5rem;
+    }
+}
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape){
+    .menu-toggle i {
+        top: calc(3vh);
     }
 }

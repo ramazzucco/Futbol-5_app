@@ -1,8 +1,10 @@
+.configuration .content {
+    min-height: 60vh;
+}
 /* --------------------- FIELDS ------------------------- */
-.configuration .fields .content input[type="number"] {
+.configuration .fields .data input[type="number"] {
     -moz-appearance: textfield;
     text-align: center;
-    display: block;
     width: 50px;
     font-size: 3rem;
     background: var(--first-color);
@@ -10,7 +12,7 @@
     margin-bottom: 2rem;
     color: var(--third-color);
 }
-.configuration .fields .content input[type="number"]:focus {
+.configuration .fields .data input[type="number"]:focus {
     outline: none;
     box-shadow: 0 0 1px 1px var(--third-color-contrast);
 }
@@ -23,10 +25,10 @@
     margin: 0;
 }
 
-.configuration .fields .content button.send {
+.configuration .fields .data button.send {
     display: none;
 }
-.configuration .fields .content:focus-within > button.send {
+.configuration .fields .data:focus-within > button.send {
     display: flex;
     justify-content: center;
     width: 100%;

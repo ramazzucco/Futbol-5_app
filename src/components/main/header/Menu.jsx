@@ -55,7 +55,7 @@ export default function Menu(props) {
             <div className="menu-toggle first mr-auto" onClick={showMenu}>
                 <i></i>
             </div>
-            <div className={`menu col-8 col-md-6 col-lg-4 p-0 bg-second position-absolute`}>
+            <div className={`menu col-12 col-sm-8 col-md-6 col-lg-4 p-0 bg-second position-absolute`}>
                 <div className='icons d-flex justify-content-center align-items-center p-4'>
                     <i
                         className="fas fa-home mx-2"
@@ -81,10 +81,16 @@ export default function Menu(props) {
                         <i className="fas fa-history mr-3"></i>
                         Booking history
                     </button>
-                    <button onClick={() => buttonClick('/app/statistics')}>
-                        <i className="fas fa-chart-line mr-3"></i>
-                        Statistics
-                    </button>
+                    {
+                        props.admin.id === 1
+                            ? (
+                                <button onClick={() => buttonClick('/app/statistics')}>
+                                    <i className="fas fa-chart-line mr-3"></i>
+                                    Statistics
+                                </button>
+                            )
+                            : ''
+                    }
                     <button onClick={() => buttonClick('/app/configpage')}>
                         <i className="fas fa-globe mr-3"></i>
                         Configure page

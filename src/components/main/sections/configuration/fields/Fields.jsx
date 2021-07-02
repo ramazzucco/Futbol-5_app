@@ -41,11 +41,15 @@ export default function Fields(props) {
     };
 
     return (
-        <div className="fields col-12 col-md-4 p-0 bg-first-contrast shadow ml-md-5">
+        <div
+            className={`fields col-12 col-md-4 p-0 bg-first-contrast shadow ml-md-5
+                ${props.active === 'Fields & Shedules' ? '' : 'd-none'}
+            `}
+        >
             <p className='title p-2 mb-0 bg-third text-second text-center'>
-                Available soccer fields
+                Soccer fields settings
             </p>
-            <div className='content p-5 d-flex flex-wrap justify-content-center'>
+            <div className='data d-flex flex-wrap justify-content-center p-4'>
                 <input
                     type="number"
                     name="number"

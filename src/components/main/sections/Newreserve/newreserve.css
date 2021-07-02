@@ -70,3 +70,9 @@
         overflow: auto;
     }
 }
+@media(max-width: 768px) and (orientation: landscape) {
+    .container-newreserve section {
+        padding-top: 12rem;
+        overflow: auto;
+    }
+}

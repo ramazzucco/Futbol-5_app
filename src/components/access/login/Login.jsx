@@ -30,8 +30,6 @@ export default function Login(props) {
         const request = await fetch(url, options);
         const response = await request.json();
 
-        console.log(response);
-
         if(response && response.error) {
             response.data.forEach((error) => {
                 const errorElement = `
