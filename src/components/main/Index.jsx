@@ -125,13 +125,18 @@ export default function Main(props) {
             admin={props.admin}
             setAdmin={props.setAdmin}
             historyreserves={historyreserves}
+            setReserves={setReserves}
             getReserves={getReserves}
             getHistoryReserves={getHistoryReserves}
             setRefresh={setRefresh}
          />
 
          <Modal />
-         <Newreserve reserves={reserves} />
+
+         <Newreserve
+            reserves={reserves}
+            setRefresh={setRefresh}
+         />
 
          <Route exact path="/app">
             <Home

@@ -1,5 +1,5 @@
 import React from 'react';
-import { qS } from '../../functions';
+import { qS } from '../../../functions';
 
 export default function Home(props) {
 

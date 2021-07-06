@@ -31,6 +31,12 @@
 .text-third { color: var(--third-color); }
 .text-fourth { color: var(--fourth-color); }
 
+.text-first-contrast { color: var(--first-color-contrast); }
+.text-second-contrast { color: var(--second-color-contrast); }
+.text-third-contrast { color: var(--third-color-contrast); }
+.text-fourth-contrast { color: var(--fourth-color-contrast); }
+.text-rgba3 { color:rgba(0, 0, 0, .3); }
+
 .pointer {
     cursor: pointer;
 }

@@ -31,7 +31,6 @@ export default function Index() {
                 qS('.modal-container').classList.toggle('d-none');
             }else{
                 setAdmin(response.user);
-                setInitSession(response);
             }
         }
     },[admin])
@@ -49,21 +48,6 @@ export default function Index() {
 
         getSession();
     },[getSession])
-
-    const setInitSession = (data) => {
-        const date = new Date();
-        const init = localStorage.getItem('init');
-
-        if(!init){
-            const hours = date.getHours();
-            const minutes = date.getMinutes();
-            const seconds = date.getSeconds();
-
-            data.user.time = `${hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}`: seconds}`;
-
-            localStorage.setItem('init',JSON.stringify(data.user));
-        }
-    }
 
     return (
         <React.Fragment>

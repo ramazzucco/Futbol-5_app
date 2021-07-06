@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { qS } from "../../functions";
+import { gEbID, qS } from "../../../functions";
 
 export default function Header(props) {
 
     const [ active, setActive ] = useState('')
+    const [ fixed, setFixed ] = useState(true)
+    const [ scrollposition, setScrollposition ] = useState(0)
 
     const history = useHistory();
 
@@ -13,16 +15,33 @@ export default function Header(props) {
         setActive(path)
     },[history])
 
+    useEffect(() => {
+        if(gEbID('root')){
+            window.onscroll = () => {
+
+                console.log(gEbID('root').getBoundingClientRect().top , scrollposition)
+                if(gEbID('root').getBoundingClientRect().top > scrollposition){
+                    if(!fixed) setFixed(true);
+                }else{
+                    setFixed(false);
+                }
+
+                setScrollposition(gEbID('root').getBoundingClientRect().top)
+            }
+        }
+    },[fixed, scrollposition])
+
     return (
         <header>
-            <nav className="navbar fixed-top navbar-expand-md navbar-light bg-success">
-                <Link className="navbar-brand p-2" to="/page">
+            <nav className={`navbar navbar-expand-md navbar-light bg-success ${fixed ? 'fixed-top' : 'd-none'}`}>
+                <div className="navbar-brand p-2">
                     <img
-                        className="rounded-circle"
+                        className="rounded-circle pointer"
                         src={`${props.data.logo.url}`}
                         alt="logo"
+                        onClick={() => {history.push('/page'); setActive('home')}}
                     />
-                </Link>
+                </div>
                 <button
                     className="navbar-toggler m-3"
                     type="button"

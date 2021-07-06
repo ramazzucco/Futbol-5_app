@@ -104,11 +104,17 @@ export default function Newreserve(props) {
 
         if(response && !response.error){
             const getfields = response.reserves.map( field => { return field.number });
+
             setFields(getfields);
+
+            props.setRefresh(true);
 
             handlerCancel();
 
-            modal('success', 'Enhorabuena !', response.newreserve);
+            modal('successful',
+                'Congratulations !',
+                `The reservation on soccer field n°${response.newreserve.field} and time ${response.newreserve.shedule} was created successfully`
+            );
         }else{
             if(response.errorform){
                 response.data.forEach( error => {

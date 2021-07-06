@@ -13,6 +13,7 @@ export default function Header(props) {
                 admin={props.admin}
                 setAdmin={props.setAdmin}
                 getReserves={props.getReserves}
+                setReserves={props.setReserves}
                 getHistoryReserves={props.getHistoryReserves}
                 setRefresh={props.setRefresh}
             />

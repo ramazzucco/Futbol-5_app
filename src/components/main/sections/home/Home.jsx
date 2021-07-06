@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { hideMenu } from "../../../../functions";
 import './home.css';
 
 // Components.
 import Field from "./Field";
-import Clocks from "./Clocks";
-import { hideMenu } from "../../../../functions";
+import Clock from "./Clock";
+import Loadingdata from "../../../Loading/Loadingdata";
+import Loadinginfo from "../../../Loading/Loadinginfo";
 
 export default function Home(props) {
 
@@ -16,8 +18,23 @@ export default function Home(props) {
 
     return (
         <div className='home section d-flex flex-wrap justify-content-center align-items-end bg-first' onClick={hideMenu}>
+
+            <Loadinginfo />
+
             <div className="clocks col-12 d-flex flex-wrap justify-content-around align-items-center">
-                <Clocks reserves={reserves} />
+                {
+                    reserves.length
+                        ? props.reserves.map( (field,i ) => {
+                            return (
+                                <Clock
+                                    key={i}
+                                    number={field.number}
+                                    reserves={field.options}
+                                />
+                            )
+                        })
+                        : <Loadingdata />
+                }
             </div>
             <div className="reserves col-12 d-flex flex-wrap justify-content-around align-items-center">
                 {

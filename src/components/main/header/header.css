@@ -1,3 +1,6 @@
+.header {
+    z-index: 100;
+}
 .header select {
     width: 30%;
     height: 32px;
@@ -54,11 +57,50 @@
     background: rgba(0, 0, 0, .3);
 }
 
-
 .icons-header {
+    position: relative;
     font-size: 1.5rem;
 }
 .icons-header p {
+    font-size: 1rem;
+}
+.header .time {
+    position: absolute;
+    display: none;
+    top: 3.3rem;
+    right: 1rem;
+    background: var(--second-color-contrast);
+    padding: 1rem 2rem;
+    z-index: 1000;
+}
+.header .time::after {
+    content: '';
+    display: none;
+    position: absolute;
+    top: -5px;
+    left: 72%;
+    width: 10px;
+    height: 10px;
+    background: var(--second-color-contrast);
+    transform: rotate(45deg);
+}
+.icons-header .fa-user-circle:hover {
+    cursor: pointer;
+    color: var(--third-color-contrast);
+}
+.icons-header .fa-user-circle:hover > .time,
+.icons-header .fa-user-circle:hover > .time::after {
+    display: flex;
+}
+.header .time .clock .fa-clock {
+    font-size: 1rem;
+}
+
+.header .time .clock .hours,
+.header .time .clock .minutes {
+    font-size: 1.3rem;
+}
+.header .time .clock .seconds {
     font-size: 1rem;
 }
 
@@ -200,7 +242,7 @@
     left: 0;
     height: 0;
     overflow: hidden;
-    z-index: 20;
+    z-index: 10;
     transition: height .7s ease-in-out;
 }
 .menu .buttons {
@@ -222,7 +264,6 @@
 }
 .menu.show {
     height: 90vh;
-    overflow: visible;
 }
 .menu.show .buttons {
     height: 80vh;
@@ -245,6 +286,11 @@
     border-left: 70px solid var(--third-color);
 }
 
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape){
+    .menu-toggle i {
+        top: calc(3vh);
+    }
+}
 @media(max-width: 768px){
     .menu {
         top: 15vh;
@@ -289,23 +335,18 @@
 
 @media (max-width: 768px) and (orientation: landscape){
     .menu {
-        top: 23vh;
+        top: 15vh;
     }
     .menu.show {
-        height: 120vh;
+        height: 75vw;
     }
     .menu .icons {
         height: 20vh;
     }
     .menu.show .buttons {
-        height: 100vh;
+        height: 65vw;
     }
     .menu-toggle i {
         top: 1.5rem;
-    }
-}
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape){
-    .menu-toggle i {
-        top: calc(3vh);
     }
 }

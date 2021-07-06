@@ -50,6 +50,49 @@ export default function Menu(props) {
         qS(".container-newreserve").classList.toggle("d-none");
     }
 
+    const clearReserves = async () => {
+        const url = `${urlapi}/reserves/reset`;
+        const options = {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(props.admin),
+        };
+
+        const request = await fetch(url, options);
+        const response = await request.json();
+
+        console.log(response);
+
+        if(!response.error){
+            props.setReserves(response.data);
+            qS(".container-modalinfo .modal-info section button.cancel").click();
+        }
+    }
+
+    const modalAreyouSure = () =>{
+        const div = qS(".modal-info div");
+
+        div.classList.value = "d-flex flex-column p-5 shadow bg-fourth";
+        div.setAttribute("style", "border-top: 5px solid #DC3545");
+
+        qS(".modal-info header").classList.value = "text-center mt-2";
+        qS(".modal-info header i").classList.value = "fas fa-exclamation-triangle text-danger fa-3x";
+        qS(".modal-info header p").classList.value = "text-center text-danger font-weight-bold h4 mt-4";
+        qS(".modal-info header p").innerHTML = "Atention !";
+
+        qS(".modal-info section").classList.value = "my-4";
+        qS(".modal-info section p").classList.value = "text-danger text-center font-weight-bold mt-3";
+        qS(".modal-info section p").innerHTML = 'Are you sure to clean reserves ?';
+        qS(".modal-info section div").classList.value = "d-flex justify-content-center mt-5";
+
+        qS(".modal-info section button.cancel").classList.value = "cancel border-0 bg-transparent text-third";
+        qS(".modal-info section button.other-action").innerHTML = "Clear";
+        qS(".modal-info section button.other-action").classList.value = "other-action btn btn-danger ml-4 text-fourth";
+        qS(".modal-info section button.other-action").onclick = clearReserves;
+
+        qS(".container-modalinfo").classList.toggle("d-none");
+    }
+
     return (
         <React.Fragment>
             <div className="menu-toggle first mr-auto" onClick={showMenu}>
@@ -70,6 +113,11 @@ export default function Menu(props) {
                         title='Ir a la pagina web'
                         className="fas fa-futbol mx-2"
                         onClick={() => history.push('/page')}
+                    ></i>
+                    <i
+                        title='Clear reserves'
+                        className="fas fa-redo-alt mx-2 text-third-contrast"
+                        onClick={modalAreyouSure}
                     ></i>
                 </div>
                 <div className='buttons d-flex flex-column justify-content-center align-items-center'>

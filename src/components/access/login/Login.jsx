@@ -41,8 +41,16 @@ export default function Login(props) {
                 qS(`form#login .error.${error.param === 'name' ? 'user' : error.param}`).innerHTML = errorElement;
             });
         } else {
-            props.setAdmin(response.user);
+            const date = new Date();
+            const hours = date.getUTCHours();
+            const minutes = date.getUTCMinutes();
+            const seconds = date.getUTCSeconds();
+
+            response.user.time = `${hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}`: seconds}`;
+
             localStorage.setItem("admin", JSON.stringify(response.user));
+
+            props.setAdmin(response.user);
         }
 
         if(response) {

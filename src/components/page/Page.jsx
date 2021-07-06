@@ -4,9 +4,9 @@ import "./Page.css";
 
 //Compoonents.
 import Form from "./Form";
-import Header from "./Header";
-import Section from "./Section";
-import Footer from "./Footer";
+import Header from "./header/Header";
+import Section from "./section/Section";
+import Footer from "./footer/Footer";
 import Reservemodal from "./Reservemodal";
 import Loadingpage from "./Loadingpage";
 
@@ -32,7 +32,7 @@ export default function Page(props) {
     };
 
     return (
-        <div className="main col-12 p-0 p-md-3">
+        <div className="main col-12 p-0 px-md-3">
             {
                 datapage.data
                     ? (

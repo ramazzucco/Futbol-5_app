@@ -140,6 +140,11 @@
     padding: 8px 100px;
   }
 }
+@media(max-width: 768px){
+  .container-fluid {
+    font-size: .9rem;
+  }
+}
 @media(max-width: 540px){
   .auspiciantes img {
     width: 100%;

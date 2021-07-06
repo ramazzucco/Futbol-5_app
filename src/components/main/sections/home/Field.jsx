@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { qS, urlapi } from "../../../../functions";
+import { gEbID, modal, qS, urlapi } from "../../../../functions";
 
 export default function Field(props) {
     const [field, setField] = useState();
@@ -36,7 +36,7 @@ export default function Field(props) {
 
             qS(".modal-info section button.cancel").innerHTML = "Salir";
             qS(".modal-info section button.cancel").classList.value =
-                "border-0 bg-transparent text-third";
+                "cancel border-0 bg-transparent text-third";
             qS(".modal-info section button.other-action").innerHTML = "Aceptar";
             qS(".modal-info section button.other-action").classList.value =
                 "other-action btn btn-danger ml-4 text-fourth";
@@ -52,6 +52,10 @@ export default function Field(props) {
     };
 
     const cancelReserve = async (reserve) => {
+
+        qS(".modal-info section button.cancel").click();
+        gEbID('loading-info').classList.toggle('d-none');
+
         const url = `${urlapi}/reserves/cancel`;
         const options = {
             method: "POST",
@@ -67,7 +71,12 @@ export default function Field(props) {
 
         if (response && !response.error) {
             props.setRefresh(true);
-            qS(".modal-info section button.cancel").click();
+            gEbID('loading-info').classList.toggle('d-none');
+        }
+
+        if(!response || response.error){
+            gEbID('loading-info').classList.toggle('d-none');
+            modal('failed', 'We`re sorry !', response.message ? response.message : 'An error has occurred.')
         }
     };
 
@@ -88,9 +97,10 @@ export default function Field(props) {
     return (
         <div className="field d-flex flex-column align-items-center mb-4 shadow">
             {field ? (
-                <p className="col-12 text-center text-third font-weight-bold bg-second py-2 px-lg-4 px-xl-5">
-                    Cancha N° {field.number}
-                </p>
+                <div className={`title ${props.field.full ? 'full' : ''}`}>
+                    <p className='mb-0'>Cancha N° {field.number}</p>
+                    <p className='full-title mb-0'>{props.field.full ? 'FULL' : ''}</p>
+                </div>
             ) : (
                 ""
             )}
@@ -105,7 +115,7 @@ export default function Field(props) {
                             onMouseOut={() => handlerOnMouseOut(selector)}
                         >
                             <span
-                                id={`reserve${option.reserve_id}`}
+                                id={`reserve${option.reserve_id ? option.reserve_id : 'null'}`}
                                 className={`mytooltip text-center reserve${option.reserve_id}`}
                                 datatitle={`${option.name} ${option.phone}`}
                             ></span>

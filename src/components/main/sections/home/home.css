@@ -1,9 +1,13 @@
+/* --------------------------- CLOCK ------------------------------- */
 .clocks .clock {
+    position: relative;
+    top: 0;
     border-radius: 50%;
     height: 120px;
     padding: 10px 35px;
     overflow: hidden;
-    transition: border-radius 1s ease-in-out;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, .1);
+    transition: all .3s ease-in-out;
 }
 .clocks .clock .time {
     width: 0;
@@ -24,21 +28,85 @@
 .clocks .clock.show .time {
     width: 230px;
 }
-.clocks .clock.shohw .icon i{
+.clocks .clock.show .icon i{
     transform: scale(1);
 }
 .clocks .clock.show .time{
     margin-left: 24px;
 }
+.clocks .clock.show .commands {
+    opacity: 0;
+    transition: all .7s ease;
+}
+.clocks .clock.show:hover > .commands {
+    opacity: 1;
+}
+.clocks .clock .fa-stopwatch:hover {
+    cursor: pointer;
+    filter: drop-shadow(1px 1px 10px rgba(0,0,0,.3));
+}
+.clocks .clock:hover{
+    top: -3px;
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, .3),
+        1px 1px 10px 10px rgba(0, 0, 0, .1),
+        1px 1px 30px 25px rgba(0, 0, 0, .1);
+}
+.clocks .clock.show .fas {
+    cursor: pointer;
+}
+.clocks .clock.show .fa-stop:hover {
+    color: rgb(200, 50, 50);
+}
+.clocks .clock.show .fa-pause:hover {
+    color: rgb(180, 180, 0);
+}
+.clocks .clock.show .fa-plus-square:hover {
+    color: rgb(80, 200, 80);
+}
+.clocks .clock.show .fa-arrow-left:hover {
+    color: rgb(80, 80, 200);
+}
 
+/* --------------------------- FIELD ------------------------------- */
 .home {
     min-height: 90vh;
     padding: 2rem 0 1rem 0;
 }
 .home .reserves .field {
     width: 350px;
+    position: relative;
     background: rgba(0, 0, 0, .3);
-    padding: 2rem 5rem;
+    padding: 4rem 5rem 2rem 5rem;
+}
+.home .reserves .field .title {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--second-color);
+    color: var(--third-color);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    transition: all 1s ease;
+}
+.home .reserves .field .title.full {
+    height: calc(100% - 1px);
+    transition: all 1s ease;
+}
+.home .reserves .field:hover > .title.full {
+    /* opacity: 0; */
+    height: 2.5rem;
+}
+.home .reserves .field .title .full-title {
+    opacity: 0;
+    transition: opacity 1.7s ease-in-out;
+}
+.home .reserves .field .title.full .full-title {
+    opacity: 1;
 }
 .home .reserves .field .row {
     border-bottom: 1px solid var(--first-color);
@@ -58,7 +126,7 @@
     animation-iteration-count: infinite;
 }
 
-/* --------------------- TOOLTIP ------------------------------- */
+/* --------------------------- TOOLTIP ------------------------------- */
 .home .mytooltip {
     display: none;
     position: relative;
@@ -118,13 +186,11 @@
 @media(max-width: 1100px){
     .home .reserves .field {
         width: 300px;
-        padding: 2rem 4rem;
     }
 }
 @media(max-width: 990px){
     .home .reserves .field {
         width: 250px;
-        padding: 2rem 3rem;
     }
 }
 @media(max-width: 768px){
@@ -133,16 +199,18 @@
     }
     .home .reserves .field {
         width: 300px;
-        padding: 2rem 3rem;
     }
 }
 @media(max-width: 540px){
+    .clocks .clock.show .time {
+        margin-left: 0;
+    }
+
     .home .reserves {
         min-height: 85vh;
     }
     .home .reserves .field {
         width: 400px;
-        padding: 2rem 4rem;
     }
 }
 

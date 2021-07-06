@@ -15,18 +15,20 @@ export default function Section(props) {
                 <Home data={props.data.home} />
             </Route>
             <Route path='/page/instalaciones'>
-                <Facilities data={props.data.facilities} />
+                <Facilities data={{...props.data.facilities, section: 'facilities'}} />
             </Route>
             <Route path='/page/cumpleaños'>
                 <Birthday data={{
                     birthdaysImage: props.data.birthdaysImage,
-                    birthdays: props.data.birthdays
+                    birthdays: props.data.birthdays,
+                    section: 'birthdays'
                 }} />
             </Route>
             <Route path='/page/escuelita'>
                 <School data={{
                     schoolImage: props.data.schoolImage,
-                    school: props.data.school
+                    school: props.data.school,
+                    section: 'school'
                 }} />
             </Route>
             <Route path='/page/promociones'>
