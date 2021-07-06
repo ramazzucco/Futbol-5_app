@@ -48,6 +48,7 @@ export default function Login(props) {
 
             response.user.time = `${hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}`: seconds}`;
 
+            localStorage.setItem("admin", JSON.stringify(response.user));
             localStorage.setItem("init", JSON.stringify(response.user));
 
             props.setAdmin(response.user);
