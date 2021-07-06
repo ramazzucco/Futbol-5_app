@@ -28,7 +28,7 @@ export default function Clock(props) {
     useEffect(() => {
         const getsavedclock = JSON.parse(localStorage.getItem(`clock${number}`));
         const date = new Date();
-        const currenthours = date.getUTCHours();
+        const currenthours = date.getHours();
 
         if(getsavedclock && getsavedclock.minutes !== null && getsavedclock.minutes !== 0){
             if(Number(getsavedclock.hours) === currenthours){
@@ -44,7 +44,7 @@ export default function Clock(props) {
     useEffect(() => {
         if(props.reserves){
             const date = new Date();
-            const currenthours = date.getUTCHours();
+            const currenthours = date.getHours();
 
             props.reserves.forEach( reserve => {
                 const reservedhours = Number(reserve.shedule.slice(0,2));

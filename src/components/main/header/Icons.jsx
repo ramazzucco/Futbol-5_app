@@ -6,6 +6,7 @@ export default function Icons(props) {
     const [ hours, setHours ] = useState(0)
     const [ minutes, setMinutes ] = useState(0)
     const [ seconds, setSeconds ] = useState(0)
+    const [ init, setInit ] = useState({})
 
     window.ononline = () => {
         setOnline("green");
@@ -15,12 +16,22 @@ export default function Icons(props) {
     };
 
     useEffect(() => {
+        if(!init.time){
+            const getinit = JSON.parse(localStorage.getItem('init'));
+
+            getinit
+                ? setInit(getinit)
+                : setInit({ time: 'Yesterday!' });
+        }
+    },[init])
+
+    useEffect(() => {
         if(hours === 0){
             setInterval(() => {
                 const date = new Date();
-                const gethours = date.getUTCHours();
-                const getminutes = date.getUTCMinutes();
-                const getseconds = date.getUTCSeconds();
+                const gethours = date.getHours();
+                const getminutes = date.getMinutes();
+                const getseconds = date.getSeconds();
 
                 setHours(gethours > 9 ? gethours : `0${gethours}`);
                 setMinutes(getminutes > 9 ? getminutes : `0${getminutes}`);
@@ -48,7 +59,7 @@ export default function Icons(props) {
                     </div>
                     <div className="data mt-3">
                         <p className='text-rgba3 font-weight-light'>
-                            session started at {props.admin.time ? props.admin.time : 'Yesterday!'}
+                            session started at {init.time}
                         </p>
                         <p className='text-rgba3 font-weight-light'>
                             no messages!

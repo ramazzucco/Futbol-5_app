@@ -44,8 +44,8 @@ export default function Configuration(props) {
                     props.reserves && props.reserves.length
                         ? (
                             <React.Fragment>
-                                <Shedules reserves={props.reserves} active={active} admin={props.admin} />
-                                <Fields reserves={props.reserves} active={active} admin={props.admin} />
+                                <Shedules reserves={props.reserves} active={active} admin={props.admin} setReserves={props.setReserves} />
+                                <Fields reserves={props.reserves} active={active} admin={props.admin} setReserves={props.setReserves} />
                             </React.Fragment>
                         )
                         : <Loadingdata />

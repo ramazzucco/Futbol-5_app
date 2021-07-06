@@ -26,7 +26,7 @@ export default function Shedules(props) {
             ? setHoursondb(hoursondb.filter( shedule => shedule !== e.target.attributes.data.value))
             : setHoursondb([...hoursondb, e.target.attributes.data.value]);
 
-        hoursondb.includes(e.target.attributes.data.value)
+        shedules.shedules.includes(e.target.attributes.data.value)
             ? setShedules({shedules: shedules.shedules.filter( shedule => shedule !== e.target.attributes.data.value)})
             : setShedules({shedules: [...shedules.shedules, e.target.attributes.data.value]});
     };
@@ -49,6 +49,7 @@ export default function Shedules(props) {
             console.log(response);
 
             if (response && !response.error) {
+                props.setReserves(response.data);
                 setHoursondb(response.data[0].options.map((option) => option.shedule));
                 setShedules({ shedules: [] });
                 modal("successful", "Enhorabuena !", response.message);

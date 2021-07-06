@@ -42,13 +42,13 @@ export default function Login(props) {
             });
         } else {
             const date = new Date();
-            const hours = date.getUTCHours();
-            const minutes = date.getUTCMinutes();
-            const seconds = date.getUTCSeconds();
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const seconds = date.getSeconds();
 
             response.user.time = `${hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}`: seconds}`;
 
-            localStorage.setItem("admin", JSON.stringify(response.user));
+            localStorage.setItem("init", JSON.stringify(response.user));
 
             props.setAdmin(response.user);
         }

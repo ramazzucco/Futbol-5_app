@@ -181,6 +181,7 @@ export default function Main(props) {
                admin={props.admin}
                setAdmin={props.setAdmin}
                reserves={reserves}
+               setReserves={setReserves}
             />
          </Route>
          <Route path="/app/admins">
